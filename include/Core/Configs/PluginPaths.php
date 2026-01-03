@@ -1,8 +1,8 @@
 <?php
 
-namespace AstraToolbox\Inc\Core\Configs;
+namespace PluginTemplate\Inc\Core\Configs;
 
-use AstraToolbox\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 
 /**
  * Klasa helper do pobierania ścieżek i URL wtyczki

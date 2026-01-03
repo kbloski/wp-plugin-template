@@ -1,8 +1,8 @@
 <?php 
 
-namespace AstraToolbox\Inc\Core;
+namespace PluginTemplate\Inc\Core;
 
-use AstraToolbox\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 
 class Core extends AbstractSingleton
 {

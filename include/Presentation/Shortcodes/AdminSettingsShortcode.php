@@ -1,18 +1,14 @@
 <?php
 
-namespace AstraToolbox\Inc\Templates\Shortcodes;
+namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
-use AstraToolbox\Inc\Abstracts\AbstractShortcode;
-use AstraToolbox\Inc\Services\SettingsService;
-use AstraToolbox\Inc\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
+use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
 
 class AdminSettingsShortcode extends AbstractShortcode
 {
-    private SettingsService $settingsService;
-
     protected function __construct()
     {
-        $this->settingsService = SettingsService::getInstance();
     }
 
     public function getShortcodeName(): string 

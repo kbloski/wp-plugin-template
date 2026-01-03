@@ -1,8 +1,8 @@
 <?php 
 
-namespace AstraToolbox\Inc\Infrastructure;
+namespace PluginTemplate\Inc\Infrastructure;
 
-use AstraToolbox\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 
 class Infrastructure extends AbstractSingleton
 {

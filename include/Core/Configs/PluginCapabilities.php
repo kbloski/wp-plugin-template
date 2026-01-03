@@ -1,8 +1,8 @@
 <?php 
 
-namespace AstraToolbox\Inc\Core\Configs;
+namespace PluginTemplate\Inc\Core\Configs;
 
-use AstraToolbox\Inc\Core\Enums\PluginCapabilitiesEnum;
+use PluginTemplate\Inc\Core\Enums\PluginCapabilitiesEnum;
 
 class PluginCapabilities 
 {

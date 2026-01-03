@@ -1,6 +1,6 @@
 <?php 
 
-namespace AstraToolbox\Inc\Core\Logger;
+namespace PluginTemplate\Inc\Core\Logger;
 
 class Logger
 {

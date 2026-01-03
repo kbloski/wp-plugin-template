@@ -3,10 +3,10 @@
 namespace WooLoyalty\Inc\Database\Tables;
 
 use Exception;
-use AstraToolbox\Inc\Config\Config;
-use AstraToolbox\Inc\Enums\TableNamesEnum;
-use AstraToolbox\Inc\Utils\DbHelper;
-use AstraToolbox\Inc\Utils\LoggerX;
+use PluginTemplate\Inc\Config\Config;
+use PluginTemplate\Inc\Enums\TableNamesEnum;
+use PluginTemplate\Inc\Utils\DbHelper;
+use PluginTemplate\Inc\Utils\LoggerX;
 
 class PageUrlMetaTable
 {

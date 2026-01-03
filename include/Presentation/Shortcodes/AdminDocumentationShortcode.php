@@ -1,10 +1,10 @@
 <?php
 
-namespace AstraToolbox\Inc\Templates\Shortcodes;
+namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
-use AstraToolbox\Inc\Abstracts\AbstractShortcode;
-use AstraToolbox\Inc\Enums\ShortcodesNamesEnum;
-use AstraToolbox\Inc\Templates\ShortcodesManager;
+use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
+use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Presentation\Shortcodes;
 
 class AdminDocumentationShortcode extends AbstractShortcode
 {
@@ -28,7 +28,7 @@ class AdminDocumentationShortcode extends AbstractShortcode
             <section>
                 <h2>Shortcody</h2>
                 <ul>
-                    <?php foreach (ShortcodesManager::getInstance()->getShortcodesDocumentation() as $shortcode => $details): ?>
+                    <?php foreach (Shortcodes::getInstance()->getShortcodesDocumentation() as $shortcode => $details): ?>
                         <li>
                             <div>[<?= esc_html($shortcode) ?>]</div>
                             <div>

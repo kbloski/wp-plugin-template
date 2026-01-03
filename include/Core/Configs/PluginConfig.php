@@ -1,10 +1,10 @@
 <?php
 
-namespace AstraToolbox\Inc\Core\Configs;
+namespace PluginTemplate\Inc\Core\Configs;
 
 class PluginConfig 
 {
-    public const PLUGIN_NAME = 'AstraToolbox';
-    public const PLUGIN_PREFIX = 'astratoolbox-';
-    public const PLUGIN_SLUG = "astratoolbox_";
+    public const PLUGIN_NAME = 'PluginTemplate';
+    public const PLUGIN_PREFIX = 'plugintemplate-';
+    public const PLUGIN_SLUG = "plugintemplate_";
 }

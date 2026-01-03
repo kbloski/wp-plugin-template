@@ -1,6 +1,6 @@
 <?php
 
-namespace AstraToolbox\Inc\Core;
+namespace PluginTemplate\Inc\Core;
 
 class DbHelper
 {

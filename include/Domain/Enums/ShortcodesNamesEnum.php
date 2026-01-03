@@ -1,35 +1,25 @@
 <?php
 
-namespace AstraToolbox\Inc\Enums;
+namespace PluginTemplate\Inc\Domain\Enums;
 
-use AstraToolbox\Inc\Config\Config;
+use PluginTemplate\Inc\Core\Abstracts\AbstractEnum;
+use PluginTemplate\Inc\Config\Config;
+use PluginTemplate\Inc\Core\Naming\NameBuilder;
 
-final class ShortcodesNamesEnum
+final class ShortcodesNamesEnum extends AbstractEnum
 {
-    private function __construct() {}
-
-    private static function createName(string $name): string
-    {
-        return Config::PLUGIN_PREFIX . $name;
-    }
-
     public static function DEV_TEST(): string
     {
-        return self::createName('dev-test');
+        return NameBuilder::applyPrefix('dev-test');
+    }
+    
+    public static function ADMIN_SETTINGS(): string
+    {
+        return NameBuilder::applyPrefix('admin-settings');
     }
 
     public static function ADMIN_DOCUMENTATION(): string
     {
-        return self::createName('documentation');
-    }
-
-    public static function ADMIN_SETTINGS(): string
-    {
-        return self::createName('setting');
-    }
-
-    public static function ADMIN_SETTINGS_PAGES_STYLES() : string 
-    {
-        return self::createName('admin-settings-pages-styles');
+        return NameBuilder::applyPrefix('admin-documentation');
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace AstraToolbox\Inc\Enums;
+namespace PluginTemplate\Inc\Enums;
 
-use AstraToolbox\Inc\Config\Config;
+use PluginTemplate\Inc\Config\Config;
 
 class TableNamesEnum
 {

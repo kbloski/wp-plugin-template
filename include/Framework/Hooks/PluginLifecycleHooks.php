@@ -1,8 +1,8 @@
 <?php
 
-namespace AstraToolbox\Inc\Framework\Hooks;
+namespace PluginTemplate\Inc\Framework\Hooks;
 
-use AstraToolbox\Inc\Core\Configs\PluginCapabilities;
+use PluginTemplate\Inc\Core\Configs\PluginCapabilities;
 use LogicException;
 
 final class PluginLifecycleHooks 

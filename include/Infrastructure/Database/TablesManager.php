@@ -1,9 +1,9 @@
 <?php
 
-namespace AstraToolbox\Inc\Database;
+namespace PluginTemplate\Inc\Database;
 
-use AstraToolbox\Inc\Abstracts\AbstractSingleton;
-use AstraToolbox\Inc\Database\Tables\PageUrlsTable;
+use PluginTemplate\Inc\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Database\Tables\PageUrlsTable;
 use WooLoyalty\Inc\Database\Tables\PageUrlMetaTable;
 use WPForms\SmartTags\SmartTag\PageUrl;
 

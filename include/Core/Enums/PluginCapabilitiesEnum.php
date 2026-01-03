@@ -1,9 +1,9 @@
 <?php
 
-namespace AstraToolbox\Inc\Core\Enums;
+namespace PluginTemplate\Inc\Core\Enums;
 
-use AstraToolbox\Inc\Core\Abstracts\AbstractEnum;
-use AstraToolbox\Inc\Core\Configs\PluginConfig;
+use PluginTemplate\Inc\Core\Abstracts\AbstractEnum;
+use PluginTemplate\Inc\Core\Configs\PluginConfig;
 
 class PluginCapabilitiesEnum extends AbstractEnum
 {

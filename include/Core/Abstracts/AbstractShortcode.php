@@ -1,6 +1,6 @@
 <?php 
 
-namespace AstraToolbox\Inc\Core\Abstracts;
+namespace PluginTemplate\Inc\Core\Abstracts;
 
 use RuntimeException;
 

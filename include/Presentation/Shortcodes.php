@@ -1,13 +1,12 @@
 <?php 
-namespace AstraToolbox\Inc\Templates;
+namespace PluginTemplate\Inc\Presentation;
 
-use AstraToolbox\Inc\Abstracts\AbstractSingleton;
-use AstraToolbox\Inc\Templates\Shortcodes\AdminDocumentationShortcode;
-use AstraToolbox\Inc\Templates\Shortcodes\AdminSettingsPageStylesShortcodes;
-use AstraToolbox\Inc\Templates\Shortcodes\AdminSettingsShortcode;
-use AstraToolbox\Inc\Templates\Shortcodes\DevTestShortcode;
+use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Presentation\Shortcodes\AdminDocumentationShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\AdminSettingsShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
 
-class ShortcodesManager extends AbstractSingleton
+class Shortcodes extends AbstractSingleton
 {
     /** @var string[] */
     private  array $shortcodesNames = [];
@@ -15,7 +14,6 @@ class ShortcodesManager extends AbstractSingleton
     public  function init()
     {
         // Admin shortcodes
-        AdminSettingsPageStylesShortcodes::getInstance()->register();
         AdminSettingsShortcode::getInstance()->register();
         AdminDocumentationShortcode::getInstance()->register();
 

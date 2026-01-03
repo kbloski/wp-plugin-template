@@ -1,9 +1,9 @@
 <?php 
 
-namespace AstraToolbox\Inc\Framework;
+namespace PluginTemplate\Inc\Framework;
 
-use AstraToolbox\Inc\Abstracts\AbstractSingleton;
-use AstraToolbox\Inc\Core\Abstracts\AbstractSingleton as AbstractsAbstractSingleton;
+use PluginTemplate\Inc\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton as AbstractsAbstractSingleton;
 
 class Framework extends AbstractsAbstractSingleton
 {

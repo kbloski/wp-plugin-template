@@ -1,13 +1,11 @@
 <?php
 
-namespace AstraToolbox\Inc\Templates\Shortcodes;
+namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
-use AstraToolbox\Inc\Abstracts\AbstractShortcode;
-use AstraToolbox\Inc\Enums\ShortcodesNamesEnum;
-use WC_Product;
-use AstraToolbox\Inc\Utils\AssetsLoader;
+use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode as AbstractsAbstractShortcode;
+use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
 
-class DevTestShortcode extends AbstractShortcode
+class DevTestShortcode extends AbstractsAbstractShortcode
 {
     protected array $atts = [];
 

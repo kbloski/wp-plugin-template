@@ -1,19 +1,15 @@
 <?php 
 
-namespace AstraToolbox\Inc\Templates\Admin;
+namespace PluginTemplate\Inc\Presentation\Admin;
 
-use AstraToolbox\Inc\Abstracts\AbstractSingleton;
-use AstraToolbox\Inc\Config\Config;
-use AstraToolbox\Inc\Enums\CapabilityEnum;
-use AstraToolbox\Inc\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Core\Configs\PluginConfig;
+use PluginTemplate\Inc\Core\Enums\PluginCapabilitiesEnum;
+use PluginTemplate\Inc\Core\Naming\NameBuilder;
+use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
 
-class AdminTemplate extends AbstractSingleton
+class AdminPages extends AbstractSingleton
 {
-    private function createSlug( string $slug )
-    {
-        return Config::PLUGIN_PREFIX.$slug;
-    }
-
     public function init()
     {
         // add_action('admin_menu', function() {
@@ -29,16 +25,14 @@ class AdminTemplate extends AbstractSingleton
         //     );
         // });
 
-            
-
         add_action('admin_menu', function () 
         {
-            $mainPageSlug = $this->createSlug('home');
+            $mainPageSlug = NameBuilder::applySlug('home');
 
             add_menu_page(
-                Config::PLUGIN_NAME,       
-                Config::PLUGIN_NAME,       
-                CapabilityEnum::PLUGIN_ACCESS(),
+                PluginConfig::PLUGIN_NAME,       
+                PluginConfig::PLUGIN_NAME,       
+                PluginCapabilitiesEnum::PLUGIN_ACCESS(),
                 $mainPageSlug,        
                 function(){
 
@@ -47,25 +41,12 @@ class AdminTemplate extends AbstractSingleton
                 66                        
             );
 
-
-            add_submenu_page(
-                $mainPageSlug,
-                'Ustawienia stylów stron',
-                'Ustawienia stylów stron',
-                CapabilityEnum::PLUGIN_ACCESS(),            
-                $this->createSlug("settings-pages-styles"),                //  Slug page
-                function()
-                {
-                    echo do_shortcode('['.ShortcodesNamesEnum::ADMIN_SETTINGS_PAGES_STYLES().']');
-                }
-            );
-
             add_submenu_page(
                 $mainPageSlug,
                 'Ustawienia',
                 'Ustawienia',
-                CapabilityEnum::PLUGIN_ACCESS(),            
-                $this->createSlug("settings"),                //  Slug page
+                PluginCapabilitiesEnum::PLUGIN_ACCESS(),            
+                NameBuilder::applySlug("settings"),                //  Slug page
                 function()
                 {
                     echo do_shortcode('['.ShortcodesNamesEnum::ADMIN_SETTINGS().']');
@@ -77,8 +58,8 @@ class AdminTemplate extends AbstractSingleton
                 $mainPageSlug,
                 'Dokumentacja',
                 'Dokumentacja',
-                CapabilityEnum::PLUGIN_ACCESS(),            
-                $this->createSlug("documentation"),                //  Slug page
+                PluginCapabilitiesEnum::PLUGIN_ACCESS(),            
+                NameBuilder::applySlug("documentation"),                //  Slug page
                function()
                {
                     echo do_shortcode('['.ShortcodesNamesEnum::ADMIN_DOCUMENTATION().']'); 
