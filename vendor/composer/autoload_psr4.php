@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Inc\\' => array($baseDir . '/include'),
+    'PluginTemplate\\Inc\\' => array($baseDir . '/include'),
 );

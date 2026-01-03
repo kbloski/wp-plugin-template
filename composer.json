@@ -1,6 +1,6 @@
 {
-    "name": "wp-plug-starter/blonski",
-    "description": "A WordPress plugin template that simplifies the plugin development process.",
+    "name": "wpplugintemplate/kblonski",
+    "description": "A WordPress plugin template.",
     "type": "wordpress-plugin",
     "license": "GPL-3.0",
     "authors": [
@@ -9,11 +9,10 @@
             "email": "kblonski02@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {},
     "autoload": {
         "psr-4": {
-            "Inc\\": "include/"
+            "PluginTemplate\\Inc\\": "include/"
         }
     }
 }

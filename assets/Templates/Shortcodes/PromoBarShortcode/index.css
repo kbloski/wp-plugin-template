@@ -1,0 +1,26 @@
+.wpspbn-promobar-wrapper {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #E11D48;
+    height: 40px;
+}
+
+.wpspbn-promobar {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: scroll-left 18s linear infinite;
+    color: white;
+    font-weight: bold;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

@@ -1,0 +1,49 @@
+.ast-icon-account 
+{
+    cursor: pointer;
+}
+
+.ast-header-account { position: relative; }
+    .ast-header-account .ast-header-account-modal 
+    {
+        border: 1px solid var(--ast-border-color);
+        display: none;
+        opacity: 0;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--ast-global-color-primary);
+        min-width: 230px;
+        max-width: 440px;
+        transform: translateY(10px);
+        transition: all 0.2s ease-in-out;
+        z-index: 9999999;
+    }
+    .ast-header-account .ast-header-account-modal.is-open {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .ast-header-account-modal__header { 
+        display: flex; justify-content: space-between; align-items: center; 
+        padding: 1.34em; line-height: 1; border-bottom: 1px solid var(--ast-border-color); 
+    }
+    .ast-header-account-modal__header > .ast-icon.icon-close { cursor: pointer; }
+    .ast-header-account-modal__body { padding: 0 1.34em; }
+    .ast-header-account-modal__footer { padding: 1.34em; }
+    body.admin-bar .ast-header-account .ast-header-account-modal { padding-top: 46px; }
+    @media (min-width: 768px) {
+        body.admin-bar .ast-header-account .ast-header-account-modal { padding-top: 32px; }
+    }
+    @media (min-width: 921px) {
+        body.admin-bar .ast-header-account .ast-header-account-modal { padding-top: unset; }
+        .ast-header-account-modal__header { display: none; }
+        .ast-header-account-modal__body { padding: 1.34em 1.34em 0 1.34em; }
+        .ast-header-account .ast-header-account-modal { position: absolute; top: 100%; right: 0; height: unset; width: unset; transform: translateY(10px); }
+        .ast-header-account .ast-header-account-modal::before {
+            content: ""; position: absolute; right: .5rem; top: 0; width: 10px; height: 10px; transform: translate(0, -50%) rotate(45deg);
+            background: var(--ast-global-color-primary);
+        }
+    }
