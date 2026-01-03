@@ -3,7 +3,7 @@
 namespace PluginTemplate\Inc\Infrastructure;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
-use PluginTemplate\Infrastructure\Tables;
+use PluginTemplate\Inc\Infrastructure\Tables;
 
 class Infrastructure extends AbstractSingleton
 {

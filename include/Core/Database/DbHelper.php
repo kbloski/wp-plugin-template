@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginTemplate\Inc\Core;
+namespace PluginTemplate\Inc\Core\Database;
 
 class DbHelper
 {

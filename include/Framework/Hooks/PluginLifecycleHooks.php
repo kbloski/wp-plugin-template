@@ -15,6 +15,7 @@ final class PluginLifecycleHooks
 
     public static function onActivate(): void
     {
+        
         PluginCapabilities::onAcivatePlugin();
         Infrastructure::getInstance()->onActivatePlugin();
     }

@@ -3,24 +3,25 @@
 namespace PluginTemplate\Inc\Infrastructure\Tables;
 
 use Exception;
-use PluginTemplate\Inc\Core\DbHelper;
+use PluginTemplate\Inc\Core\Database\DbHelper;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Domain\Abstracts\AbstractTable;
 use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
 use Throwable;
 
-class ExampleTable extends AbstractTable
+class ExampleTable  extends AbstractTable
 {
     protected string $tableName;
 
     protected function __construct()
     {
-        $this->tableName = TableNamesEnum::Example();
+        $this->tableName = TableNamesEnum::EXAMPLE();
     }
 
     public function create(): void
     {
         try {
+
             // Schemat tabeli
             $schema = [
                 'id'         => 'BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT',

@@ -9,7 +9,12 @@ abstract class AbstractTable extends AbstractSingleton implements TableInterface
 {
     protected string $tableName;
 
-    abstract protected function __construct();
+    /**
+     * Chroniony konstruktor — uniemożliwia tworzenie instancji z zewnątrz
+     */
+    protected function __construct()
+    {
+    }
 
     abstract public function create(): void;
     abstract public function drop(): void;

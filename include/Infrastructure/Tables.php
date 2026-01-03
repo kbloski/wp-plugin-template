@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginTemplate\Infrastructure;
+namespace PluginTemplate\Inc\Infrastructure;
 
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Infrastructure\Tables\ExampleTable;
@@ -16,6 +16,7 @@ class Tables
     public static function createTables() 
     {
         try {
+            
             ExampleTable::getInstance()->create();
 
 
@@ -40,7 +41,7 @@ class Tables
 
 
 
-            
+
         } catch (Throwable $e)
         {
             Logger::error($e->getMessage());
