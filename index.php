@@ -21,7 +21,9 @@ require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
 
 PluginPaths::getInstance()->init(__FILE__);
 
+// Activate plugin
 register_activation_hook(__FILE__, 'PluginTemplate\Inc\Framework\Hooks\PluginLifecycleHooks::onActivate');
+// Deactivate plugin
 register_deactivation_hook(__FILE__, 'PluginTemplate\Inc\Framework\Hooks\PluginLifecycleHooks::onDeactivate');
 
 Core::getInstance()->init();

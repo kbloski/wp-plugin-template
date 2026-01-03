@@ -4,6 +4,7 @@ namespace PluginTemplate\Inc\Framework\Hooks;
 
 use PluginTemplate\Inc\Core\Configs\PluginCapabilities;
 use LogicException;
+use PluginTemplate\Inc\Infrastructure\Infrastructure;
 
 final class PluginLifecycleHooks 
 {
@@ -15,6 +16,7 @@ final class PluginLifecycleHooks
     public static function onActivate(): void
     {
         PluginCapabilities::onAcivatePlugin();
+        Infrastructure::getInstance()->onActivatePlugin();
     }
 
     public static function onDeactivate(): void

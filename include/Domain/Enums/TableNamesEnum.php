@@ -1,21 +1,16 @@
 <?php
 
-namespace PluginTemplate\Inc\Enums;
+namespace PluginTemplate\Inc\Domain\Enums;
 
-use PluginTemplate\Inc\Config\Config;
+use PluginTemplate\Inc\Core\Abstracts\AbstractEnum;
+use PluginTemplate\Inc\Core\Naming\NameBuilder;
 
-class TableNamesEnum
+class TableNamesEnum extends AbstractEnum
 {
-    public static function PAGE_URLS(): string
+    private static function createName(string $name): string
     {
         global $wpdb;
-        return $wpdb->prefix . Config::PLUGIN_SLUG . 'page_urls';
-    }
-
-    public static function PAGE_URL_META(): string
-    {
-        global $wpdb;
-        return $wpdb->prefix . Config::PLUGIN_SLUG . 'page_url_meta';
+        return $wpdb->prefix . NameBuilder::applySlug($name);
     }
 
     public static function WP_USERS(): string
@@ -28,5 +23,10 @@ class TableNamesEnum
     {
         global $wpdb;
         return $wpdb->usermeta;
+    }
+
+    public static function EXAMPLE(): string 
+    {
+       return self::createName('example');
     }
 }
