@@ -29,7 +29,7 @@ register_deactivation_hook(__FILE__, 'PluginTemplate\Inc\Framework\Hooks\PluginL
 Core::getInstance()->init();
 Infrastructure::getInstance()->init();
 Application::getInstance()->init();
-Framework::getInstance()->init();
 Presentation::getInstance()->init();
+Framework::getInstance()->init();
 
 
