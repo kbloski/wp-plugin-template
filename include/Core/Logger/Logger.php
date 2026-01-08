@@ -21,7 +21,7 @@ class Logger
         return self::$log_file;
     }
 
-    final public static function log(string $level, string $message, array $context = [], bool $db = false): void
+   final public static function log(string $level, string $message, array $context = [], bool $db = false): void
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
         $caller = $trace[1] ?? [];
@@ -34,12 +34,14 @@ class Logger
         $contextStr = $context ? json_encode($context) : '';
         $contextStr .= " #Context: $class::$function #FILE: $file #LINE: $line";
 
-        $errorMessage = sprintf("[%s] %s %s\n", strtoupper($level), $message ?: '[brak wiadomości]', $contextStr);
+        $timestamp = date('Y-m-d H:i:s');
+        $errorMessage = sprintf("[%s] [%s] %s %s\n", strtoupper($level), $timestamp, $message ?: '[brak wiadomości]', $contextStr);
 
         // Log do pliku
         error_log($errorMessage, 3, self::get_log_file());
         error_log($errorMessage);
     }
+
 
     final public static function error(string $message, array $context = [], bool $db = false): void
     {
