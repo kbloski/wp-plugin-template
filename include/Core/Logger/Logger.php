@@ -38,10 +38,12 @@ class Logger
         $line = $caller['line'] ?? 0;
 
         $contextStr = $context ? json_encode($context) : '';
-        $contextStr .= "$class::$function #FILE: $file #LINE: $line";
+        $contextStr .= "$class::$function";
 
         $timestamp = date('Y-m-d H:i:s');
-        $errorMessage = sprintf("\n[%s] \n    [%s] \n    [CONTEXT] %s \n    [MESSAGE] %s \n", strtoupper($level), $timestamp, $contextStr, $message ?: '[brak wiadomości]');
+        $errorMessage = sprintf("\n[%s] \n    [%s] \n    [FILE] %s \n    [LINE] %s \n    [CONTEXT] %s \n    [MESSAGE] %s \n", 
+            strtoupper($level), $timestamp, $file, $line, $contextStr, $message ?: '[brak wiadomości]'
+        );
 
         // Log do pliku
         error_log($errorMessage, 3, self::get_log_file());
