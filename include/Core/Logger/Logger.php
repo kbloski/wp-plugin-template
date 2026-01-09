@@ -5,6 +5,7 @@ namespace PluxeeRewards\Inc\Core\Logger;
 use PluxeeRewards\Inc\Core\Configs\PluginConfig;
 use wpdb;
 
+
 class Logger
 {
     private static ?string $log_file = null;
@@ -12,16 +13,21 @@ class Logger
     private static function get_log_file(): string
     {
         if (self::$log_file === null) {
-            $dir = WP_CONTENT_DIR . '/logs';
+            $dir = WP_CONTENT_DIR . '/logs/' . PluginConfig::PLUGIN_PREFIX."logs";
             if (!is_dir($dir)) {
                 wp_mkdir_p($dir);
             }
-            self::$log_file = $dir . '/'.PluginConfig::PLUGIN_PREFIX.'logs.log';
+
+            // Nazwa pliku według daty: YYYY-MM-DD.log
+            $date = date('Y-m-d'); // np. 2026-01-08
+            self::$log_file = $dir . '/' . $date . '.log';
         }
+
         return self::$log_file;
     }
 
-   final public static function log(string $level, string $message, array $context = [], bool $db = false): void
+
+    final private static function log(string $level, string $message, array $context = [], bool $db = false): void
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
         $caller = $trace[1] ?? [];
@@ -32,16 +38,15 @@ class Logger
         $line = $caller['line'] ?? 0;
 
         $contextStr = $context ? json_encode($context) : '';
-        $contextStr .= " #Context: $class::$function #FILE: $file #LINE: $line";
+        $contextStr .= "#Context: $class::$function #FILE: $file #LINE: $line";
 
         $timestamp = date('Y-m-d H:i:s');
-        $errorMessage = sprintf("[%s] [%s] %s %s\n", strtoupper($level), $timestamp, $message ?: '[brak wiadomości]', $contextStr);
+        $errorMessage = sprintf("[%s] \n    [%s] \n    %s \n    %s \n\n", strtoupper($level), $timestamp, $contextStr, $message ?: '[brak wiadomości]');
 
         // Log do pliku
         error_log($errorMessage, 3, self::get_log_file());
         error_log($errorMessage);
     }
-
 
     final public static function error(string $message, array $context = [], bool $db = false): void
     {
