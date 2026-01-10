@@ -1,8 +1,8 @@
 <?php 
 
-namespace PluxeeRewards\Inc\Core\Logger;
+namespace PluginTemplate\Inc\Core\Logger;
 
-use PluxeeRewards\Inc\Core\Configs\PluginConfig;
+use PluginTemplate\Inc\Core\Configs\PluginConfig;
 use wpdb;
 
 
