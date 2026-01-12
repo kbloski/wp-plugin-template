@@ -47,14 +47,14 @@ class PluginOptions
             $optionName
         );
 
-        if ($stored !== false) {
-            return $stored;
+        if (!empty($stored))  return $stored;
+        
+        if (isset(self::$defaults[$option])) 
+        {
+            return self::$defaults[$option];
         }
-        else if ($default !== null) {
-            return $default;
-        } else {
-            return null;
-        }
+        
+        return $default;
     }
 
     /**
