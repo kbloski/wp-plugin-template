@@ -3,6 +3,7 @@
 namespace PluginTemplate\Inc\Core\Configs;
 
 use PluginTemplate\Inc\Core\Enums\PluginOptionsEnum;
+use PluginTemplate\Inc\Core\Naming\NameBuilder;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -31,7 +32,7 @@ class PluginOptions
             </svg>'
     ];
 
-    /**
+        /**
      * Pobiera wartość opcji
      *
      * @param string $option Const z OptionsEnum
@@ -40,17 +41,20 @@ class PluginOptions
      */
     public static function get(string $option, $default = null)
     {
-        $stored = get_option($option);
+        $optionName = NameBuilder::applySlug($option);
+
+        $stored = get_option(
+            $optionName
+        );
 
         if ($stored !== false) {
             return $stored;
         }
-
-        if ($default !== null) {
+        else if ($default !== null) {
             return $default;
+        } else {
+            return null;
         }
-
-        return self::$defaults[$option] ?? null;
     }
 
     /**
@@ -62,7 +66,8 @@ class PluginOptions
      */
     public static function set(string $option, $value): void
     {
-        update_option($option, $value);
+        $optionName = NameBuilder::applySlug($option);
+        update_option($optionName, $value);
     }
 
     /**
@@ -73,6 +78,7 @@ class PluginOptions
      */
     public static function delete(string $option): void
     {
-        delete_option($option);
+        $optionName = NameBuilder::applySlug($option);
+        delete_option($optionName);
     }
 }
