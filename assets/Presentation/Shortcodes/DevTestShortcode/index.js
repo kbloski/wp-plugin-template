@@ -1,8 +1,10 @@
-const { createElement, createRoot, useState } = wp.element;
+const { createElement, createRoot, useState, useEffect } = wp.element;
 
 function Counter({ startCounter = 0 }) // Props
 {
   const [count, setCount] = useState(0);
+
+  useEffect(() => console.log(count), [count]);
 
   return createElement(
     'div',
