@@ -3,7 +3,7 @@
         'name' => 'wpplugintemplate/kblonski',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '0a48140e0a205734eacf709554f29bbd597c6875',
+        'reference' => '506efef65cdc56943486325e234ee881baea23c0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -217,7 +217,7 @@
         'wpplugintemplate/kblonski' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '0a48140e0a205734eacf709554f29bbd597c6875',
+            'reference' => '506efef65cdc56943486325e234ee881baea23c0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
