@@ -25,21 +25,12 @@ class DevTestShortcode extends AbstractsAbstractShortcode
     public function render_shortcode(array $atts = []): string
     {
         // 1️⃣ Tworzymy nową encję
-        $example = new ExampleEntity();
-        $example->setCounter(5);
-
-        // 2️⃣ Pobieramy EntityManager
-        $em = Doctrine::em();
-
-        // 3️⃣ Persist + flush do bazy
-        try {
+        if (false)
+        {
+            $example = new ExampleEntity();
+            $example->counter = 10;
             $em->persist($example);
             $em->flush();
-        } catch (\Exception $e) {
-            // Obsługa błędów – np. log do debug.log WordPress
-            Logger::error('_');
-            error_log('Błąd zapisu encji: ' . $e->getMessage());
-            Logger::error('_');
         }
 
         // 4️⃣ Wyświetlamy HTML shortcode
@@ -48,7 +39,7 @@ class DevTestShortcode extends AbstractsAbstractShortcode
         <div>
             Developerski component testowy
             <br>
-            Encja zapisana z ID: <?php echo $example->getId(); ?>
+            <?= var_dump(Doctrine::em()->find(ExampleEntity::class, 1)) ?>
         </div>
         <?php
         return ob_get_clean();
