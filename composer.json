@@ -9,7 +9,9 @@
             "email": "kblonski02@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "doctrine/orm": "^3.6"
+    },
     "autoload": {
         "psr-4": {
             "PluginTemplate\\Inc\\": "include/"
