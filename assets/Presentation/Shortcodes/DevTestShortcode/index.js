@@ -2,7 +2,7 @@ const { createElement, createRoot, useState, useEffect } = wp.element;
 
 function Counter({ startCounter = 0 }) // Props
 {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(startCounter);
 
   useEffect(() => console.log(count), [count]);
 
@@ -12,8 +12,13 @@ function Counter({ startCounter = 0 }) // Props
     createElement(
       'p',
       null,
-      `Count: ${startCounter + count}`,
+      `Count: ${count}`,
       createElement('div', null, 'Testowy')
+    ),
+    createElement(
+        'button',
+        { onClick: () => setCount(prev => prev - 1) },
+        "Decrement"
     ),
     createElement(
       'button',
