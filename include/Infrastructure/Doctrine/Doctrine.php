@@ -34,7 +34,7 @@ class Doctrine
                 'password' => $wpdb->dbpassword,
                 'host'     => $wpdb->dbhost,
                 'driver'   => MysqliDriver::class,
-                'charset'  => 'utf8mb4',
+                // 'charset'  => 'utf8mb4',
             ];
 
             // Tworzymy połączenie
