@@ -22,6 +22,8 @@ class DevTestShortcode extends AbstractsAbstractShortcode
         $js = PluginPaths::getInstance()->getUrl('assets/Presentation/Shortcodes/DevTestShortcode/index.js');
         $js_path = PluginPaths::getInstance()->getPath('assets/Presentation/Shortcodes/DevTestShortcode/index.js');
 
+        // Zrobic ladowanie po modulach
+
         if (file_exists($js_path)) 
         {
             wp_enqueue_script($handle, $js, ['wp-element'], filemtime($js_path), true);

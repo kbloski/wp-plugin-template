@@ -1,6 +1,7 @@
 const { createElement, createRoot, useState } = wp.element;
 
-function Counter({ startCounter = 0 }) {
+function Counter({ startCounter = 0 }) // Props
+{
   const [count, setCount] = useState(0);
 
   return createElement(
@@ -26,6 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!container) return;
 
   createRoot(container).render(
-    createElement(Counter)
+    createElement(Counter, { startCounter: 5}) // use Props
   );
 });
