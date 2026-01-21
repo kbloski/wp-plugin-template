@@ -32,7 +32,8 @@ class ReactLoader extends AbstractSingleton
 
                 document.addEventListener('DOMContentLoaded', () => {
                     const componentsRegistry = {
-                        'hello_react' : ComponentsModule. // 
+                        // KEY : wp.element.createRoot()
+                        'hello_react' : ComponentsModule.HelloReactShortcode 
                     };
 
                     // renderowanie komponentów
