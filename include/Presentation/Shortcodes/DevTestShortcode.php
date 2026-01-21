@@ -2,11 +2,13 @@
 
 namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
+use Exception;
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode as AbstractsAbstractShortcode;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Domain\Entities\ExampleEntity;
 use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
 use PluginTemplate\Inc\Infrastructure\Doctrine\Doctrine;
+use Throwable;
 
 class DevTestShortcode extends AbstractsAbstractShortcode
 {
@@ -24,24 +26,32 @@ class DevTestShortcode extends AbstractsAbstractShortcode
 
     public function render_shortcode(array $atts = []): string
     {
-        // 1️⃣ Tworzymy nową encję
-        if (false)
-        {
-            $example = new ExampleEntity();
-            $example->counter = 10;
-            $em->persist($example);
-            $em->flush();
-        }
+        try {
+            throw new Exception("test");
 
-        // 4️⃣ Wyświetlamy HTML shortcode
-        ob_start();
-        ?>
-        <div>
-            Developerski component testowy
-            <br>
-            <?= var_dump(Doctrine::em()->find(ExampleEntity::class, 1)) ?>
-        </div>
-        <?php
-        return ob_get_clean();
+            // 1️⃣ Tworzymy nową encję
+            // if (false)
+            // {
+            //     $example = new ExampleEntity();
+            //     $example->counter = 10;
+            //     $em->persist($example);
+            //     $em->flush();
+            // }
+    
+            // 4️⃣ Wyświetlamy HTML shortcode
+            ob_start();
+            ?>
+            <div>
+                Developerski component testowy
+                <br>
+                <!--  var_dump(Doctrine::em()->find(ExampleEntity::class, 1)) ?> -->
+            </div>
+            <?php
+            return ob_get_clean();
+        } catch (Throwable $e)
+        {
+            Logger::error($e);
+            throw $e;
+        }
     }
 }
