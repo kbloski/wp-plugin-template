@@ -6,7 +6,10 @@ export default function Button({
 }) {
     return createElement(
         'button', 
-        { onClick, style: { cursor: 'pointer' } },
+        { 
+            className : 'button',
+            onClick, 
+        },
         label
     );
 }
