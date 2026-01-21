@@ -9,7 +9,11 @@
             "email": "kblonski02@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "doctrine/orm": "^3.6",
+        "doctrine/dbal": "^4.4",
+        "symfony/cache": "^7.4"
+    },
     "autoload": {
         "psr-4": {
             "PluginTemplate\\Inc\\": "include/"
