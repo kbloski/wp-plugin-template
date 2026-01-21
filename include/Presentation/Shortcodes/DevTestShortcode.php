@@ -8,11 +8,18 @@ use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Domain\Entities\ExampleEntity;
 use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
 use PluginTemplate\Inc\Infrastructure\Doctrine\Doctrine;
+use PluginTemplate\Inc\Infrastructure\Repositories\ExampleRepository;
 use Throwable;
 
 class DevTestShortcode extends AbstractsAbstractShortcode
 {
+    private ExampleRepository $exampleRepository;
     protected array $atts = [];
+
+    protected function __construct()
+    {
+        $this->exampleRepository = ExampleRepository::getInstance();
+    }
 
     public function getShortcodeName(): string
     {
@@ -27,24 +34,18 @@ class DevTestShortcode extends AbstractsAbstractShortcode
     public function render_shortcode(array $atts = []): string
     {
         try {
-            throw new Exception("test");
-
-            // 1️⃣ Tworzymy nową encję
-            // if (false)
-            // {
-            //     $example = new ExampleEntity();
-            //     $example->counter = 10;
-            //     $em->persist($example);
-            //     $em->flush();
-            // }
+            $e = new ExampleEntity(301);
+            $e->id = 1;
+            $this->exampleRepository->upsertMany([$e]);
     
-            // 4️⃣ Wyświetlamy HTML shortcode
             ob_start();
             ?>
             <div>
                 Developerski component testowy
                 <br>
-                <!--  var_dump(Doctrine::em()->find(ExampleEntity::class, 1)) ?> -->
+                <pre>
+                    <?= json_encode($this->exampleRepository->getAll(), JSON_PRETTY_PRINT) ?>
+                </pre>
             </div>
             <?php
             return ob_get_clean();
