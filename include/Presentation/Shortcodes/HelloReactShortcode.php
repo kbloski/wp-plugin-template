@@ -19,7 +19,9 @@ class HelloReactShortcode extends AbstractsAbstractShortcode
     {
         ob_start();
         ?>
-            <div data-react-root="hello-react"></div>
+            <div data-react-root="hello-react">
+                <?= $this->getShortcodeName() ?>
+            </div>
         <?php
         return ob_get_clean();
     }

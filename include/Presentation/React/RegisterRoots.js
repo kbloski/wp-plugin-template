@@ -1,9 +1,9 @@
-const { createElement, createRoot, useState, useEffect } = wp.element;
+const { createElement, createRoot } = wp.element;
 
-import { HelloReactShortcode } from "./Shortcodes/index.js";
+import { HelloReactShortcode } from "../../../assets/React/index.js";
 
 const componentsRegistry = {
-    'hello-react' : HelloReactShortcode
+    ['hello-react'] : HelloReactShortcode
 }
 
 document.addEventListener('DOMContentLoaded', () => {
