@@ -4,11 +4,16 @@ import { Button } from '../../Components/index.js';
 
 export default function HelloReactShortcode({ startCounter = 0 }) {
   const [count, setCount] = useState(startCounter);
+  const [input, setInput] = useState("");
 
   return createElement(
     'div',
     null,
     createElement("h1", null, "Hello from React wp.elements ❤️😁"),
+    createElement('div', null, 
+      createElement('input', {onChange: p => setInput(p.target.value) }),
+      'Input value: ' + input,
+    ),
     createElement('div', null, 
       Button({
         label: '−',
