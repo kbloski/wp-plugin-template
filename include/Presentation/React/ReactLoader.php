@@ -18,6 +18,40 @@ class ReactLoader extends AbstractSingleton
         $this->scriptHandle = NameBuilder::applyPrefix('assets-react-register_roots');
     }
 
+    
+    /**
+     */
+    public function inlineJs(array $componentsMap) : string 
+    {
+        $indexReactUrl = PluginPaths::getInstance()->getUrl('/assets/React/index.js')
+
+        ob_start();
+        ?>
+            <script type="module">
+                import * as ComponentsModule from '<?= $indexReactUrl ?>';
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    const componentsRegistry = {
+                        'hello_react' : ComponentsModule. // 
+                    };
+
+                    // renderowanie komponentów
+                    Object.entries(componentsRegistry).forEach(([key, Component]) => {
+                        document.querySelectorAll(`[data-react-root="${key}"]`).forEach(el => {
+                            wp.element.createRoot(el).render(
+                                wp.element.createElement(Component, { instance: el.dataset.instance })
+                            );
+                        });
+                    });
+                });
+            </script>
+        <?php
+        return ob_get_clean();
+    }
+
+
+
+
     public function enqueueScripts() : void
     {
         $script_url = plugins_url('assets/React/index.js', PLUGIN_FILE);
@@ -41,39 +75,4 @@ class ReactLoader extends AbstractSingleton
         return $tag;
     }
 
-    /**
-     * Generuje inline JS do renderowania React
-     * $componentsMap to tablica w formacie:
-     * [
-     *    'klucz_dom' => 'NazwaKomponentuWModule',
-     *    'hero' => 'HeroComponent',
-     *    'banner' => 'BannerComponent'
-     * ]
-     */
-    public function inlineJs(array $componentsMap) : string 
-    {
-        $mapJson = json_encode($componentsMap);
-        ob_start();
-        ?>
-<script type="module">
-    import * as ComponentsModule from '<?= plugins_url('assets/React/index.js', PLUGIN_FILE) ?>';
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const componentsRegistry = {
-            'hello_react' : ComponentsModule. // 
-        };
-
-        // renderowanie komponentów
-        Object.entries(componentsRegistry).forEach(([key, Component]) => {
-            document.querySelectorAll(`[data-react-root="${key}"]`).forEach(el => {
-                wp.element.createRoot(el).render(
-                    wp.element.createElement(Component, { instance: el.dataset.instance })
-                );
-            });
-        });
-    });
-</script>
-        <?php
-        return ob_get_clean();
-    }
 }
