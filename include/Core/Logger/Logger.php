@@ -3,6 +3,7 @@
 namespace PluginTemplate\Inc\Core\Logger;
 
 use PluginTemplate\Inc\Core\Configs\PluginConfig;
+use Throwable;
 use wpdb;
 
 
@@ -50,10 +51,38 @@ class Logger
         error_log($errorMessage);
     }
 
-    final public static function error(string $message, array $context = [], bool $db = false): void
+    final public static function error(string|Throwable $error, bool $db = false, int $traceLimit = 5): void
     {
-        self::log('error', $message, $context, $db);
+        if ($error instanceof \Throwable) {
+            $traceLines = explode("\n", $error->getTraceAsString());
+            $shortTrace = implode("\n", array_slice($traceLines, 0, $traceLimit));
+
+            if (count($traceLines) > $traceLimit) {
+                $shortTrace .= "\n... (" . (count($traceLines) - $traceLimit) . " more lines)";
+            }
+
+            $errorMessage = sprintf(
+                "ERROR DETAILS:\n".
+                "Type: %s\n".
+                "Message: %s\n".
+                "File: %s\n".
+                "Line: %d\n".
+                "Trace: (top %d lines):\n%s",
+                get_class($error),
+                $error->getMessage(),
+                $error->getFile(),
+                $error->getLine(),
+                $traceLimit,
+                $shortTrace
+            );
+        } else {
+            $errorMessage = $error;
+        }
+
+        self::log('error', $errorMessage, [], $db);
     }
+
+
 
     // final public static function warning(string $message, array $context = [], bool $db = false): void
     // {

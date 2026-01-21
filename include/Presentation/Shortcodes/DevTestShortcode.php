@@ -2,13 +2,24 @@
 
 namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
+use Exception;
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode as AbstractsAbstractShortcode;
-use PluginTemplate\Inc\Core\Configs\PluginPaths;
+use PluginTemplate\Inc\Core\Logger\Logger;
+use PluginTemplate\Inc\Domain\Entities\ExampleEntity;
 use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Infrastructure\Doctrine\Doctrine;
+use PluginTemplate\Inc\Infrastructure\Repositories\ExampleRepository;
+use Throwable;
 
 class DevTestShortcode extends AbstractsAbstractShortcode
 {
+    private ExampleRepository $exampleRepository;
     protected array $atts = [];
+
+    protected function __construct()
+    {
+        $this->exampleRepository = ExampleRepository::getInstance();
+    }
 
     public function getShortcodeName(): string
     {
@@ -17,35 +28,7 @@ class DevTestShortcode extends AbstractsAbstractShortcode
 
     public function enqueue_assets(): void
     {
-        $handle = $this->getShortcodeName();
-
-        $js = PluginPaths::getInstance()->getUrl('assets/Presentation/Shortcodes/DevTestShortcode/index.js');
-        $js_path = PluginPaths::getInstance()->getPath('assets/Presentation/Shortcodes/DevTestShortcode/index.js');
-
-        // Zrobic ladowanie po modulach
-
-        if (file_exists($js_path)) 
-        {
-            wp_enqueue_script($handle, $js, ['wp-element'], filemtime($js_path), true);
-        }
-
-        add_filter('script_loader_tag', function ($tag, $handle_in_tag) use ($handle) {
-            if ($handle_in_tag === $handle) {
-                // Zamień <script src="..."> na <script type="module" src="...">
-                $tag = str_replace('<script ', '<script type="module" ', $tag);
-            }
-            return $tag;
-        }, 10, 2);
-
-        // $css = PluginPaths::getInstance()->getUrl('assets/Templates/Shortcodes/RegisterClientShortcode/index.css');
-        // $css_path = PluginPaths::getInstance()->getPath('assets/Templates/Shortcodes/RegisterClientShortcode/index.css');
-
-        // if (file_exists($css_path)) {
-        //     wp_enqueue_style($handle . '-style', $css, [], filemtime($css_path));
-        // }
-
     }
-
 
     public function render_shortcode(array $atts = []): string
     {
@@ -62,5 +45,4 @@ class DevTestShortcode extends AbstractsAbstractShortcode
         <?php
         return ob_get_clean();
     }
-
 }
