@@ -33,6 +33,8 @@ class ReactLoader extends AbstractSingleton
                 true
             );
         }
+
+        
     }
 
 
