@@ -7,16 +7,17 @@ export default function HelloReactShortcode({ startCounter = 0 }) {
   return createElement(
     'div',
     null,
-    createElement('p', null, `Count: ${count}`),
-
-    Button({
-      label: '−',
-      onClick: () => setCount(count - 1),
-    }),
-
-    Button({
-      label: '+',
-      onClick: () => setCount(count + 1),
-    })
+    createElement("h1", null, "Hello from React wp.elements ❤️😁"),
+    createElement('div', null, 
+      Button({
+        label: '−',
+        onClick: () => setCount(count - 1),
+      }),
+      Button({
+        label: '+',
+        onClick: () => setCount(count + 1),
+      }),
+      createElement("p", null, `Counter: ${count}`)
+    ),
   );
 }

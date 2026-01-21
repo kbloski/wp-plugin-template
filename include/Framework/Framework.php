@@ -3,12 +3,12 @@
 namespace PluginTemplate\Inc\Framework;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
-use PluginTemplate\Inc\Presentation\React\ReactLoader;
+use PluginTemplate\Inc\Presentation\React\ReactRootRegistry;
 
 class Framework extends AbstractSingleton
 {
     public function init()
     {
-        ReactLoader::getInstance()->register();
+        ReactRootRegistry::getInstance()->register();
     }
 }

@@ -4,7 +4,9 @@ namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode as AbstractsAbstractShortcode;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
+use PluginTemplate\Inc\Domain\Enums\ReactRootsEnum;
 use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Presentation\React\ReactRootRenderer;
 
 class HelloReactShortcode extends AbstractsAbstractShortcode
 {
@@ -17,13 +19,7 @@ class HelloReactShortcode extends AbstractsAbstractShortcode
 
     public function render_shortcode(array $atts = []): string
     {
-        ob_start();
-        ?>
-            <div data-react-root="hello-react">
-                <?= $this->getShortcodeName() ?>
-            </div>
-        <?php
-        return ob_get_clean();
+        return ReactRootRenderer::renderRoot(ReactRootsEnum::HELLO_REACT());
     }
 
 }
