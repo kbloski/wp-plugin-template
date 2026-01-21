@@ -7,7 +7,7 @@ use LogicException;
 /**
  * Abstrakcyjna klasa dla shortcode'ów
  */
-abstract class AbstractEnum extends AbstractSingleton
+abstract class AbstractEnum
 {
     /**
      * Konstruktor zablokowany, bo klasa jest abstrakcyjna
