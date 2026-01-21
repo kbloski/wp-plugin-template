@@ -7,9 +7,9 @@ export default function Button({
     return createElement(
         'button', 
         { 
-            className : 'button',
-            onClick, 
+            className : 'button',  
+            onClick,              
         },
-        label
+        label                     
     );
 }

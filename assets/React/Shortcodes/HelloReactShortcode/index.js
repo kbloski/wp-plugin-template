@@ -1,5 +1,6 @@
 const { createElement, useState } = wp.element;
-import Button from '../../Components/Button/index.js';
+import { Button } from '../../Components/index.js';
+
 
 export default function HelloReactShortcode({ startCounter = 0 }) {
   const [count, setCount] = useState(startCounter);
