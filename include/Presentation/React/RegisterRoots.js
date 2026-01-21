@@ -6,6 +6,14 @@ const componentsRegistry = {
     ['hello-react'] : HelloReactShortcode
 }
 
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     Object.entries(componentsRegistry)
         .forEach(([key, Component]) => {
