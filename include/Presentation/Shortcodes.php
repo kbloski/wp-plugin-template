@@ -5,6 +5,7 @@ use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Presentation\Shortcodes\AdminDocumentationShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\AdminSettingsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\HelloReactShortcode;
 
 class Shortcodes extends AbstractSingleton
 {
@@ -20,6 +21,7 @@ class Shortcodes extends AbstractSingleton
         
         // Public shortcodes with documentation
         $this->registerShortcode(DevTestShortcode::getInstance());
+        $this->registerShortcode(HelloReactShortcode::getInstance());
     }
 
     

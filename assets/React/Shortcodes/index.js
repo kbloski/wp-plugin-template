@@ -1,0 +1,1 @@
+export {default as HelloReactShortcode} from "./HelloReactShortcode/index.js";

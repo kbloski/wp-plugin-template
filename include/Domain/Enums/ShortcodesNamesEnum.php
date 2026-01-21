@@ -12,6 +12,11 @@ final class ShortcodesNamesEnum extends AbstractEnum
     {
         return NameBuilder::applyPrefix('dev-test');
     }
+
+    public static function HELLO_REACT() : string 
+    {
+        return NameBuilder::applyPrefix('hello-react');
+    }
     
     public static function ADMIN_SETTINGS(): string
     {

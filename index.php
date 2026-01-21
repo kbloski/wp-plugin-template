@@ -12,6 +12,7 @@ Author URI: -
 use PluginTemplate\Inc\Application\Application;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Core;
+use PluginTemplate\Inc\Core\Naming\NameBuilder;
 use PluginTemplate\Inc\Framework\Framework;
 use PluginTemplate\Inc\Infrastructure\Infrastructure;
 use PluginTemplate\Inc\Presentation\Presentation;
@@ -31,5 +32,3 @@ Infrastructure::getInstance()->init();
 Application::getInstance()->init();
 Presentation::getInstance()->init();
 Framework::getInstance()->init();
-
-

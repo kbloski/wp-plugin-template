@@ -29,6 +29,14 @@ class DevTestShortcode extends AbstractsAbstractShortcode
             wp_enqueue_script($handle, $js, ['wp-element'], filemtime($js_path), true);
         }
 
+        add_filter('script_loader_tag', function ($tag, $handle_in_tag) use ($handle) {
+            if ($handle_in_tag === $handle) {
+                // Zamień <script src="..."> na <script type="module" src="...">
+                $tag = str_replace('<script ', '<script type="module" ', $tag);
+            }
+            return $tag;
+        }, 10, 2);
+
         // $css = PluginPaths::getInstance()->getUrl('assets/Templates/Shortcodes/RegisterClientShortcode/index.css');
         // $css_path = PluginPaths::getInstance()->getPath('assets/Templates/Shortcodes/RegisterClientShortcode/index.css');
 
