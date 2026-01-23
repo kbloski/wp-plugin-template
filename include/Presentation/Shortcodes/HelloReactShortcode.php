@@ -19,7 +19,7 @@ class HelloReactShortcode extends AbstractsAbstractShortcode
 
     public function render_shortcode(array $atts = []): string
     {
-        return ReactRootRenderer::renderRoot(ReactRootsEnum::HELLO_REACT());
+        return ReactRootRenderer::renderRoot(ReactRootsEnum::HELLO_REACT(), ['start-counter' => 33]);
     }
 
 }

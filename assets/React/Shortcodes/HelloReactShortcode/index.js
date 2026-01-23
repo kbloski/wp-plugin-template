@@ -6,7 +6,7 @@ export default function HelloReactShortcode( props = {}) {
 
   console.log(props.root.dataset);
 
-  const [count, setCount] = useState( 0);
+  const [count, setCount] = useState( parseInt( props.root.dataset?.startCounter) ?? 0);
   const [input, setInput] = useState("");
 
   return createElement(
