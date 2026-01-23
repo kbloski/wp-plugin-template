@@ -5,15 +5,38 @@ namespace PluginTemplate\Inc\Presentation\React;
 class ReactRootRenderer
 {
     /**
-     * Renderuje div do podpięcia React rootu
-     * @param string $rootName Nazwa rootu Reacta (np. 'hello_react')
-     * @return string
+     * Renderuje kontener HTML dla React rootu.
+     *
+     * `$data` zostaje zamienione na atrybuty `data-*`,
+     * które są dostępne w JS/React przez `el.dataset`.
+     *
+     * Przykład:
+     * renderRoot('company_panel', [
+     *   'user-id' => 42,
+     *   'start-counter' => 0,
+     * ]);
+     *
+     * JS:
+     * el.dataset.userId        // "42"
+     * el.dataset.startCounter // "0"
+     *
+     * @param string $rootName Nazwa React rootu
+     * @param array<string, scalar> $data Dane przekazywane jako data-*
+     * @return string HTML kontenera React
      */
-    public static function renderRoot(string $rootName): string
+    public static function renderRoot(string $rootName, array $data = []): string
     {
         ob_start() 
         ?>
-            <div data-react-root="<?=$rootName ?>">
+            <div 
+                data-react-root="<?=$rootName ?>"
+                <?php
+                    foreach($data as $key => $value)
+                    {
+                        echo "data-".$key."='".$value."'";   
+                    }
+                ?>
+            >
                 React
             </div>
         <?php

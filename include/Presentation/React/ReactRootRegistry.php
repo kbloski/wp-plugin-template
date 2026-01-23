@@ -52,8 +52,10 @@ class ReactRootRegistry extends AbstractSingleton
                     const elements = document.querySelectorAll(selector);
 
                     elements.forEach(el => {
+                        const props = { el }
+
                         createRoot(el).render(
-                            createElement(Component, {})
+                            createElement(Component, {root: el})
                         );
                     });
                 });
