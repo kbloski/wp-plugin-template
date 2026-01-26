@@ -18,13 +18,15 @@ class ReactRootRegistry extends AbstractSingleton
             wp_enqueue_script('wp-element');
         });
 
-        add_action('wp_head', [$this, 'initReactRoots']);
+        add_action('wp_head', function(){
+            $this->initReactRoots();
+        });
     }
 
     /**
      * Bootstrap React root registry (inline ES module)
      */
-    public function initReactRoots(): void
+    private function initReactRoots(): void
     {
         $indexReactUrl = PluginPaths::getInstance()->getUrl('/assets/React/index.js');
 
