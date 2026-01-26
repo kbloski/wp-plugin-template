@@ -2,11 +2,9 @@ const { createElement, useState } = wp.element;
 import { Button } from '../../Components/index.js';
 
 
-export default function HelloReactShortcode( props = {}) {
+export default function HelloReactShortcode( {root}) {
 
-  console.log(props.root.dataset);
-
-  const [count, setCount] = useState( parseInt( props.root.dataset?.startCounter) ?? 0);
+  const [count, setCount] = useState( parseInt( root?.dataset?.startCounter) ?? 0);
   const [input, setInput] = useState("");
 
   return createElement(

@@ -32,7 +32,8 @@ class ReactRootRegistry extends AbstractSingleton
      */
     private function initReactRoots(): void
     {
-        $indexReactUrl = PluginPaths::getInstance()->getUrl('/assets/React/index.js');
+        $indexReactUrl = $indexReactUrl = PluginPaths::getInstance()->getUrl('/assets/React/index.js') . '?v=' . filemtime( PluginPaths::getInstance()->getPath('/assets/React/index.js') );
+
 
         ob_start();
         ?>
