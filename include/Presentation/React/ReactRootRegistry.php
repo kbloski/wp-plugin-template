@@ -18,7 +18,11 @@ class ReactRootRegistry extends AbstractSingleton
             wp_enqueue_script('wp-element');
         });
 
+        //
         add_action('wp_head', function(){
+            $this->initReactRoots();
+        });
+        add_action('admin_head', function(){
             $this->initReactRoots();
         });
     }
