@@ -4,6 +4,7 @@ namespace PluginTemplate\Inc\Presentation\React;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
+use PluginTemplate\Inc\Core\Naming\NameBuilder;
 use PluginTemplate\Inc\Domain\Enums\ReactRootsEnum;
 
 class ReactRootRegistry extends AbstractSingleton
@@ -18,13 +19,27 @@ class ReactRootRegistry extends AbstractSingleton
             wp_enqueue_script('wp-element');
         });
 
-        //
         add_action('wp_head', function(){
             $this->initReactRoots();
+            $this->initReactCss();
         });
+        
         add_action('admin_head', function(){
             $this->initReactRoots();
+            $this->initReactCss();
         });
+    }
+
+    private function initReactCss(): void 
+    {
+        $pluginPaths = PluginPaths::getInstance();
+        $cssPath = '/assets/React/index.css';
+        $cssUrl  = $pluginPaths->getUrl($cssPath);
+        $cssVer  = filemtime($pluginPaths->getPath($cssPath));
+
+        wp_enqueue_style(
+            NameBuilder::applyPrefix("react-index-css"), $cssUrl,  [],   $cssVer 
+        );
     }
 
     /**
