@@ -1,11 +1,13 @@
 <?php 
 namespace PluginTemplate\Inc\Presentation;
 
+use PluginTemplate\Inc\Presentation\Shortcodes\EndpointsDocsShortcode;
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Presentation\Shortcodes\AdminDocumentationShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\AdminSettingsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\HelloReactShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\ShortcodesDocsShortcode;
 
 class Shortcodes extends AbstractSingleton
 {
@@ -18,6 +20,9 @@ class Shortcodes extends AbstractSingleton
         AdminSettingsShortcode::getInstance()->register();
         AdminDocumentationShortcode::getInstance()->register();
 
+        // Private 
+        ShortcodesDocsShortcode::getInstance()->register();
+        EndpointsDocsShortcode::getInstance()->register();
         
         // Public shortcodes with documentation
         $this->registerShortcode(DevTestShortcode::getInstance());

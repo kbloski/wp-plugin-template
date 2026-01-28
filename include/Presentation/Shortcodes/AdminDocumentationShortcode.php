@@ -19,25 +19,11 @@ class AdminDocumentationShortcode extends AbstractShortcode
         ob_start();
         ?>
         <div>
-            <section>
-                <h2>Endpoints</h2>
-            </section>
-
+            <section>Endpoints</section>
+            <?= do_shortcode("[".ShortcodesNamesEnum::ENDPOINTS_DOCS()."]") ?>
             <hr>
-
-            <section>
-                <h2>Shortcody</h2>
-                <ul>
-                    <?php foreach (Shortcodes::getInstance()->getShortcodesDocumentation() as $shortcode => $details): ?>
-                        <li>
-                            <div>[<?= esc_html($shortcode) ?>]</div>
-                            <div>
-                                <pre><?= esc_html(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) ?></pre>
-                            </div>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </section>
+            <section>Shortcody</section>
+            <?= do_shortcode("[".ShortcodesNamesEnum::SHORTCODES_DOCS()."]") ?>
         </div>
         <?php
         return ob_get_clean();
