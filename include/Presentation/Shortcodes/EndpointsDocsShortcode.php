@@ -42,7 +42,7 @@ class EndpointsDocsShortcode extends AbstractShortcode
                         <ul>
                         <?php foreach ($financeRoutes as $route => $handlers): ?>
                             <li>
-                                <strong>Path:</strong> <?php echo esc_html($route); ?><br>
+                                <strong>Path:</strong> <?php echo esc_html(rest_url($route)); ?><br>
                                 <strong>Methods:</strong> 
                                 <?php 
                                     $methods = array_map(fn($h) => implode(', ', array_keys($h['methods'])), $handlers);
