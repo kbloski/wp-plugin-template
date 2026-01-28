@@ -17,6 +17,7 @@ class ReactRootRegistry extends AbstractSingleton
     {
         add_action('wp_enqueue_scripts', function () {
             wp_enqueue_script('wp-element');
+            wp_enqueue_script('wp-api-fetch');
         });
 
         add_action('wp_head', function(){
