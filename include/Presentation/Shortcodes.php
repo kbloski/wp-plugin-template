@@ -1,13 +1,13 @@
 <?php 
 namespace PluginTemplate\Inc\Presentation;
 
-use PluginTemplate\Inc\Presentation\Shortcodes\EndpointsDocsShortcode;
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
-use PluginTemplate\Inc\Presentation\Shortcodes\AdminDocumentationShortcode;
-use PluginTemplate\Inc\Presentation\Shortcodes\AdminSettingsShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\Admin\EndpointsDocsShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminDocumentationShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminSettingsShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\Admin\ShortcodesDocsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\HelloReactShortcode;
-use PluginTemplate\Inc\Presentation\Shortcodes\ShortcodesDocsShortcode;
+use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 
 class Shortcodes extends AbstractSingleton
 {

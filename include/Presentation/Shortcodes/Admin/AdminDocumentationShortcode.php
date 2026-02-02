@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginTemplate\Inc\Presentation\Shortcodes;
+namespace PluginTemplate\Inc\Presentation\Shortcodes\Admin;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
 use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
