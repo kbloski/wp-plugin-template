@@ -9,6 +9,5 @@ class Framework extends AbstractSingleton
 {
     public function init()
     {
-        ReactRootRegistry::getInstance()->register();
     }
 }
