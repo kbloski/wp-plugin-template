@@ -34,12 +34,12 @@ class HelloReactShortcode extends AbstractsAbstractShortcode
         ?>
             <div data-react-id="<?= $elementId ?>"></div>
             <script type="module">
+                const { createRoot, createElement, useState } = wp.element;
                 addEventListener('load', () => mount(document.querySelector("[data-react-id='<?= $elementId ?>']")) )
 
                 // React
                 function mount(rootEl) 
                 {
-                    const { createRoot, createElement } = wp.element;
 
                     // Root
                     createRoot(rootEl).render(
@@ -53,8 +53,6 @@ class HelloReactShortcode extends AbstractsAbstractShortcode
 
                 function component()
                 {
-                    const {useState, createElement} = wp.element;
-
                     const [counter, setCounter] = useState(0)
 
                     return createElement("div", {}, 
