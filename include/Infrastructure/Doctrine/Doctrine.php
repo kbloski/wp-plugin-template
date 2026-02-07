@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginTemplate\Inc\Infrastructure\Doctrine;
+namespace LiveCard\Inc\Infrastructure\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
@@ -18,29 +18,27 @@ class Doctrine
         {
             global $wpdb;
 
-            // Ścieżka do encji
             $paths = [__DIR__ . '/../Domain/Entities'];
             $isDevMode = defined('WP_DEBUG') && WP_DEBUG;
 
+            // Tworzymy konfigurację ORM bez cache
             $config = ORMSetup::createAttributeMetadataConfiguration(
                 $paths,
-                $isDevMode
+                $isDevMode,
+                null, // proxy dir
+                null  // brak cache
             );
 
-            // Parametry połączenia DBAL używając mysqli
             $connectionParams = [
                 'dbname'   => $wpdb->dbname,
                 'user'     => $wpdb->dbuser,
                 'password' => $wpdb->dbpassword,
                 'host'     => $wpdb->dbhost,
                 'driver'   => MysqliDriver::class,
-                // 'charset'  => 'utf8mb4',
             ];
 
-            // Tworzymy połączenie
             $connection = new Connection($connectionParams, new MysqliDriver(), new Configuration());
 
-            // Tworzymy EntityManager
             self::$em = new EntityManager($connection, $config);
         }
 
