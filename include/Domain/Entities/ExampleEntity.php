@@ -3,11 +3,10 @@
 namespace PluginTemplate\Inc\Domain\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
 
+// Tablename is getting from .../Infrastructure/Doctrine/TableNameSubscriber
 
 #[ORM\Entity]
-#[ORM\Table(name: 'wp_plugintemplate_example' /* TableNamesEnum::EXAMPLE() */)]
 class ExampleEntity
 {
     #[ORM\Id]
@@ -24,7 +23,6 @@ class ExampleEntity
     #[ORM\Column(type: 'datetime')]
     public \DateTime $updated_at;
 
-    // Konstruktor
     public function __construct(int $counter = 0)
     {
         $this->counter = $counter;

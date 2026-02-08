@@ -1,11 +1,14 @@
 <?php
 
-namespace LiveCard\Inc\Infrastructure\Doctrine;
+namespace PluginTemplate\Inc\Infrastructure\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 use Doctrine\DBAL\DriverManager;
-use Symfony\Component\Cache\Adapter\ArrayAdapter; // cache w pamięci
+use Doctrine\Common\EventManager;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+
+use PluginTemplate\Inc\Infrastructure\Doctrine\TableNameSubscriber;
 
 class Doctrine
 {
@@ -20,32 +23,33 @@ class Doctrine
             $paths = [__DIR__ . '/../Domain/Entities'];
             $isDevMode = defined('WP_DEBUG') && WP_DEBUG;
 
-            // Prosty cache w pamięci
             $cache = new ArrayAdapter();
 
-            // Konfiguracja ORM bez 2nd-level cache
             $config = ORMSetup::createAttributeMetadataConfiguration(
                 paths: $paths,
                 isDevMode: $isDevMode,
                 proxyDir: null,
                 cache: $cache
             );
+
             $config->setSecondLevelCacheEnabled(false);
 
-            // Parametry połączenia - podajemy tylko 'driver' jako string
             $connectionParams = [
                 'dbname'   => $wpdb->dbname,
                 'user'     => $wpdb->dbuser,
                 'password' => $wpdb->dbpassword,
                 'host'     => $wpdb->dbhost,
-                'driver'   => 'mysqli', // <- tutaj zmiana
+                'driver'   => 'mysqli',
             ];
 
-            // Tworzymy połączenie
             $connection = DriverManager::getConnection($connectionParams);
 
-            // Tworzymy EntityManager
-            self::$em = new EntityManager($connection, $config);
+            // ⬇️ TO JEST KLUCZOWE
+            $eventManager = new EventManager();
+            $eventManager->addEventSubscriber(new TableNameSubscriber());
+
+            // ⬇️ PRZEKAZUJEMY EventManager
+            self::$em = new EntityManager($connection, $config, $eventManager);
         }
 
         return self::$em;
