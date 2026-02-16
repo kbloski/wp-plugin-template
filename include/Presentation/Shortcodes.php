@@ -8,6 +8,7 @@ use PluginTemplate\Inc\Presentation\Shortcodes\Admin\ShortcodesDocsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\HelloReactShortcode;
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminHomeShortcode;
 
 class Shortcodes extends AbstractSingleton
 {
@@ -17,6 +18,7 @@ class Shortcodes extends AbstractSingleton
     public  function init()
     {
         // Admin shortcodes
+        AdminHomeShortcode::getInstance()->register();
         AdminSettingsShortcode::getInstance()->register();
         AdminDocumentationShortcode::getInstance()->register();
 

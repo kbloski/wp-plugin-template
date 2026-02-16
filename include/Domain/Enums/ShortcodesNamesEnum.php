@@ -8,6 +8,11 @@ use PluginTemplate\Inc\Core\Naming\NameBuilder;
 
 final class ShortcodesNamesEnum extends AbstractEnum
 {
+    public static function ADMIN_HOME(): string
+    {
+        return NameBuilder::applyPrefix('admin-home');
+    }
+    
     public static function ADMIN_SETTINGS(): string
     {
         return NameBuilder::applyPrefix('admin-settings');
