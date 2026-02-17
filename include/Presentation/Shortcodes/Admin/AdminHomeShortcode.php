@@ -17,8 +17,6 @@ class AdminHomeShortcode extends AbstractShortcode
         ob_start();
         ?>
             <?= do_shortcode("[" . ShortcodesNamesEnum::HELLO_REACT() . "]" ); ?>
-            <?= do_shortcode("[" . ShortcodesNamesEnum::HELLO_REACT() . "]" ); ?>
-
         <?php
         return ob_get_clean();
     }
