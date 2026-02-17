@@ -2,33 +2,34 @@ const { useState, useEffect, createElement } = wp.element;
 const { useSelect, useDispatch } = wp.data;
 import { getStore } from "../Store/store.js";
 
-export default function GlobalStore() {
-    const {select, dispatch} = getStore();
-    const counter = useSelect(() => select().getCounter(), [] );
+export default function GlobalStore() 
+{
+    const { select, dispatch } = getStore();
+    const counter = useSelect(() =>  select().getCounter(), [select] );
+    function onIncrement()
+    {
+        dispatch().increment();
+    }
 
-    // useEffect(() => {
-    //     import(`../Store/store.js?v=${Date.now()}`)
-    //         .then((module) => setStoreApi(module.getStore()));
-    // }, []);
-    // if (!storeApi) {
-    //     return createElement("div", null, "Loading...");
-    // }
-    
+    function onDecrement() 
+    {
+        dispatch().decrement();
+    }
 
     return createElement(
         "div",
         null,
-        createElement("div", null, `Global Counter: (${select().getCounter()})`),
+        createElement("div", null, `Global Counter: (${counter })`),
         createElement("div", null, 
             createElement(
                 "button",
-                { onClick: () => dispatch().increment() },
-                "Increment"
+                { onClick: onDecrement },
+                "Decrement"
             ),
             createElement(
                 "button",
-                { onClick: () => dispatch().decrement() },
-                "Decrement"
+                { onClick: onIncrement },
+                "Increment"
             ),
         )
     );

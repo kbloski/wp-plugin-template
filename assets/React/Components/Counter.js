@@ -7,8 +7,8 @@ export default function Counter()
     return createElement("div", null, 
         createElement("div", null, `Counterr: (${counter})`),
         createElement("div", null, 
+            createElement("button", { onClick: () => setCounter(p => --p)}, "Decrement"),
             createElement("button", { onClick: () => setCounter(p => ++p)}, "Increment"),
-            createElement("button", { onClick: () => setCounter(p => --p)}, "Decrement")
         )
     );
 }
