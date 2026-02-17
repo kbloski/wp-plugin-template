@@ -29,40 +29,39 @@ class HelloReactShortcode extends AbstractsAbstractShortcode
     public function render_shortcode(array $atts = []): string
     {
         $elementId = uniqid();
+        $reactUrl = PluginPaths::getInstance()
+            ->getUrl("assets/React");
 
         ob_start()
         ?>
-            <div data-react-id="<?= $elementId ?>"></div>
+            <div data-react-id="<?= $elementId ?>">Hello React Root</div>
+
             <script type="module">
                 const { createRoot, createElement, useState } = wp.element;
-                addEventListener('load', () => mount(document.querySelector("[data-react-id='<?= $elementId ?>']")) )
+                import Counter from "<?= $reactUrl ?>/Components/Counter.js?v=<?= time() ?>";
+                import GlobalStore from "<?= $reactUrl ?>/Components/GlobalStore.js?v=<?= time() ?>";
+                
+                // console.log("<?= $reactUrl ?>/Components/Counter.js")
+
+                addEventListener('load', () => { 
+                    const element = document.querySelector("[data-react-id='<?= $elementId ?>']");
+                    mount(element); 
+                });
 
                 // React
                 function mount(rootEl) 
                 {
-
                     // Root
-                    createRoot(rootEl).render(
-                        createElement(
-                            'div', null,
-                            '❤️ Hello from REACT ❤️',
-                            createElement(component, {})
-                        ),
-                    );
-                }
-
-                function component()
-                {
-                    const [counter, setCounter] = useState(0)
-
-                    return createElement("div", {}, 
-                        createElement("div", {}, `Counter: ${counter}` ),
-
-                        createElement("div", {}, 
-                            createElement("button", { onClick: () => setCounter(p => ++p)}, "Increment"),
-                            createElement("button", { onClick: () => setCounter(p => --p)}, "Decrement"),
-                        )
-                    )
+                    createRoot(rootEl)
+                        .render(
+                            createElement(
+                                'div', null,
+                                createElement("div", null,'❤️ Hello from REACT ❤️'),
+                                createElement(Counter, {}),
+                                createElement("div", null, "Global store usage"),
+                                createElement(GlobalStore, {})
+                            ),
+                        );
                 }
             </script>
         <?php

@@ -34,7 +34,8 @@ class AdminPages extends AbstractSingleton
                 PluginConfig::PLUGIN_NAME,       
                 PluginCapabilitiesEnum::PLUGIN_ACCESS(),
                 $mainPageSlug,        
-                function(){
+                function()
+                {
                     echo do_shortcode('['.ShortcodesNamesEnum::ADMIN_HOME().']');
                 },
                 'dashicons-art',           
