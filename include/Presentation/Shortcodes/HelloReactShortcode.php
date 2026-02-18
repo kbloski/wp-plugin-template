@@ -20,10 +20,10 @@ class HelloReactShortcode extends AbstractsAbstractShortcode
 
     public function enqueue_assets(): void
     {
-        add_action('wp_enqueue_scripts', function () {
-            wp_enqueue_script('wp-element');
-            wp_enqueue_script('wp-api-fetch');
-        });
+        // add_action('wp_enqueue_scripts', function () {
+        //     wp_enqueue_script('wp-element');
+        //     wp_enqueue_script('wp-api-fetch');
+        // });
     }
 
     public function render_shortcode(array $atts = []): string
