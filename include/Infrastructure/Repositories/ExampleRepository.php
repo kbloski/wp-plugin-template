@@ -4,69 +4,96 @@ namespace PluginTemplate\Inc\Infrastructure\Repositories;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Logger\Logger;
-use PluginTemplate\Inc\Domain\Entities\ExampleEntity;
-use PluginTemplate\Inc\Infrastructure\Doctrine\Doctrine;
+use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
+use PluginTemplate\Inc\Domain\Models\Example;
 use Throwable;
 
 class ExampleRepository extends AbstractSingleton
 {
+    private $tableName;
+
+    protected function __construct()
+    {
+        $this->tableName = TableNamesEnum::EXAMPLE();
+    }
+
     /**
-     * Upsert (insert lub update) wielu encji ExampleEntity.
+     * Upsert (insert lub update) wielu encji Example.
      *
-     * @param ExampleEntity[] $entities Tablica encji do wstawienia/aktualizacji
-     * @return ExampleEntity[] Tablica zaktualizowanych lub nowo utworzonych encji
+     * @param Example[] $entities Tablica encji do wstawienia/aktualizacji
+     * @return Example[] Tablica zaktualizowanych lub nowo utworzonych encji
      * @throws \Throwable
      */
     public function upsertMany(array $entities): array
     {
-        /** @var ExampleEntity[] $updatedEntities */
-        $updatedEntities = [];
+        global $wpdb;
 
+        /** @var Example[] $entities */
+        $upsertedEntities = [];
         try {
-            $em = Doctrine::em();
 
             foreach ($entities as $entity) {
-                $existingEntity = $em->find(ExampleEntity::class, $entity->id);
+                $sql = "
+                    INSERT INTO {$this->tableName} (id, counter)
+                    VALUES (%d, %d)
+                    ON DUPLICATE KEY UPDATE
+                        counter = VALUES(counter)
+                ";
 
-                if ($existingEntity) {
-                    $existingEntity->counter = $entity->counter;
-                    $e = $existingEntity;
-                } else {
-                    $e = $entity;
-                }
+                $prepared = $wpdb->prepare(
+                    $sql,
+                    $entity->id ?? 0,
+                    $entity->counter,
+                );
 
-                $em->persist($e);
-                $updatedEntities[] = $e;
+                $wpdb->query($prepared);
+
+                if ($entity->id === null)  $entity->id = (int) $wpdb->insert_id;
+                $upsertedEntities[] = $entity;
             }
-
-            $em->flush();
 
         } catch (\Throwable $e) {
             Logger::error($e);
             throw $e;
         }
 
-        return $updatedEntities;
+        return $upsertedEntities;
     }
 
 
-    public function getAll() : array 
+    /**
+     * Pobiera wszystkie rekordy z tabeli i zamienia je na Example
+     * @return Example[]
+     */
+    public function getAll(): array
     {
+        global $wpdb;
         try {
-            return Doctrine::em()->getRepository(ExampleEntity::class)->findAll();
-        } catch (Throwable $e)
-        {
+            $rows = $wpdb->get_results("SELECT * FROM {$this->tableName}", ARRAY_A);
+            return array_map(fn($d) => Example::fromArray($d), $rows);
+        } catch (Throwable $e) {
             Logger::error($e);
             throw $e;
         }
     }
 
-    public function getById( int $id) : ?ExampleEntity
+    /**
+     * Pobiera pojedynczy rekord po ID i zamienia na ExampleEntity.
+     *
+     * @param int $id
+     * @return Example|null
+     */
+    public function getById(int $id): ?Example
     {
+        global $wpdb;
+
         try {
-            return Doctrine::em()->getRepository(ExampleEntity::class)->getById($id);
-        } catch (Throwable $e)
-        {
+            $row = $wpdb->get_row(
+                $wpdb->prepare("SELECT * FROM {$this->tableName} WHERE id = %d", $id),
+                ARRAY_A
+            );
+            return empty($row) ? null : Example::fromArray($row);
+        } catch (Throwable $e) {
             Logger::error($e);
             throw $e;
         }
