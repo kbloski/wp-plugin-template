@@ -12,5 +12,12 @@ class ReactDependenciesLoader extends AbstractSingleton
             wp_enqueue_script('wp-element');
             wp_enqueue_script('wp-api-fetch');
         });
+
+        
+        // Admin
+        add_action('admin_enqueue_scripts', function () {
+            wp_enqueue_script('wp-element');
+            wp_enqueue_script('wp-api-fetch');
+        });
     }
 }
