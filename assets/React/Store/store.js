@@ -1,42 +1,39 @@
-const { registerStore, select, dispatch, useSelect, useDispatch } = wp.data;
+document.addEventListener('DOMContentLoaded', () => register(storeNamespace))
 
-// Stała nazwa store, singleton dla całej strony
-const storeNamespace = `store-${Math.random().toString(36).substr(2, 9)}`;
+function register( storeNamespace )
+{
+    sleep(2);
 
-registerStore(
-    storeNamespace, 
-    {
-        reducer: (state = { counter: 2 }, action) => {
-            switch (action.type) {
-                case 'INCREMENT':
-                    return { ...state, counter: state.counter + 1 }; // ✅ immutable
-                case "DECREMENT":
-                    return { ...state, counter: state.counter - 1};
-                default:
-                    return state;
-            }
-        },
-        actions: {
-            increment() {
-                return { type: 'INCREMENT' };
+    wp.data.registerStore(
+        storeNamespace, 
+        {
+            reducer: (state = { counter: 2 }, action) => {
+                switch (action.type) {
+                    case 'INCREMENT':
+                        return { ...state, counter: state.counter + 1 }; // ✅ immutable
+                    case "DECREMENT":
+                        return { ...state, counter: state.counter - 1};
+                    default:
+                        return state;
+                }
             },
-            decrement() {
-                return { type: "DECREMENT"}
-            }
-        },
-        selectors: {
-            getCounter(state) {
-                return state.counter;
+            actions: {
+                increment() {
+                    return { type: 'INCREMENT' };
+                },
+                decrement() {
+                    return { type: "DECREMENT"}
+                }
+            },
+            selectors: {
+                getCounter(state) {
+                    return state.counter;
+                }
             }
         }
-    }
-);
+    );
+}
 
-export function getStore() 
-{
-    return {
-        namespace: storeNamespace,
-        select: () => select(storeNamespace),
-        dispatch: () => dispatch(storeNamespace),
-    }
+export default {
+    namespace: storeNamespace
 }
