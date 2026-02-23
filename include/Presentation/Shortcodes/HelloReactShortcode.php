@@ -28,7 +28,6 @@ class HelloReactShortcode extends AbstractShortcode
             <script type="module">
                 import Component from "<?= $componentUrl ?>?v=<?= time() ?>";
                 const { createRoot, createElement, useState } = wp.element;
-
                 addEventListener('load', () => { 
                     const element = document.querySelector("[data-react-id='<?= $elementId ?>']");
                     createRoot(element).render(createElement(Component, {}));

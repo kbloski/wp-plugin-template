@@ -8,12 +8,12 @@ export default function GlobalStore()
     const counter = useSelect(() =>  select().getCounter(), [select] );
     function onIncrement()
     {
-        dispatch().increment();
+        dispatch()?.increment();
     }
 
     function onDecrement() 
     {
-        dispatch().decrement();
+        dispatch()?.decrement();
     }
 
     return createElement(
