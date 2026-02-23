@@ -1,6 +1,6 @@
 
 import Counter from "../Components/Counter.js";
-// import GlobalStore from "../Components/GlobalStore.js";
+import GlobalStore from "../Components/GlobalStore.js";
 const { createElement, useEffect } = wp.element;
 
 
@@ -34,6 +34,6 @@ export default function HelloReactShortcode()
         createElement("div", null,'❤️ Hello from REACT ❤️'),
         createElement(Counter, {}),
         createElement("div", null, "Global store usage"),
-        // createElement(GlobalStore, {})
+        createElement(GlobalStore, {})
     );
 }
