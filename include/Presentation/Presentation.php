@@ -2,7 +2,6 @@
 
 namespace PluginTemplate\Inc\Presentation;
 
-use Finance\Inc\Presentation\Loaders\ReactDependenciesLoader;
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Presentation\Admin\AdminPages;
 

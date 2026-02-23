@@ -4,17 +4,18 @@ import { namespace } from "../Store/store.js";
 
 export default function GlobalStore() 
 {
-    const counter = useSelect(() =>  select(namespace).getCounter(), [select] );
-    const {increment, decrement} = useDispatch(namespace);
+    const counter = 3;
+    // const counter = useSelect(() =>  select(namespace).getCounter(), [select] );
+    // const {increment, decrement} = useDispatch(namespace);
 
     function onIncrement()
     {
-        dispatch()?.increment();
+        // dispatch()?.increment();
     }
 
     function onDecrement() 
     {
-        dispatch()?.decrement();
+        // dispatch()?.decrement();
     }
 
     return createElement(

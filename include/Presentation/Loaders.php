@@ -9,6 +9,6 @@ class Loaders extends AbstractSingleton
 {
     public function init()
     {
-        ReactDependenciesLoader::getInstance();
+        ReactDependenciesLoader::getInstance()->register();
     }
 }
