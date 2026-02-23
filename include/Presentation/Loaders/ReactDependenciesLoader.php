@@ -8,22 +8,18 @@ class ReactDependenciesLoader extends AbstractSingleton
 {
     public function register()
     {
-        // Frontend
-        add_action('wp_enqueue_scripts', function () {
-
-            // Wbudowane skrypty WordPressa
-            wp_enqueue_script('wp-element');     // React
-            wp_enqueue_script('wp-api-fetch');   // REST API
-            wp_enqueue_script('wp-data');        // wp.data store
+        add_action('wp_enqueue_scripts', function () 
+        {
+            wp_enqueue_script('wp-data');
+            wp_enqueue_script('wp-element');
+            wp_enqueue_script('wp-api-fetch');
         });
 
-        // Admin
-        add_action('admin_enqueue_scripts', function () {
-
-            // Wbudowane skrypty WordPressa
-            wp_enqueue_script('wp-element');     
-            wp_enqueue_script('wp-api-fetch');   
-            wp_enqueue_script('wp-data');        
+        add_action('admin_enqueue_scripts', function () 
+        {
+            wp_enqueue_script('wp-data');
+            wp_enqueue_script('wp-element');
+            wp_enqueue_script('wp-api-fetch');
         });
     }
 }
