@@ -1,12 +1,11 @@
 
 import Counter from "../Components/Counter.js";
 import GlobalStore from "../Components/GlobalStore.js";
+import { injectStyleOnce } from "../Helpers/injectStyleOnce.js";
 const { createElement, useEffect } = wp.element;
 
 
-const stylesId = 'plugintemplate-cards-list-styles';
 const styles = `
-
 .plugintemplate-hello-react {
     border-radius: 4px;
     box-shadow: 0 0 4px black;
@@ -21,12 +20,7 @@ export default function HelloReactShortcode()
 {
     // Styles Loading 
     useEffect(() => {
-        // if (!document.getElementById(stylesId)) {
-        //     const style = document.createElement('style');
-        //     style.id = stylesId;
-        //     style.innerHTML = styles;
-        //     document.head.appendChild(style); 
-        // }
+        injectStyleOnce('plugintemplate-hello-react', styles)
     }, []);
 
     return createElement(
