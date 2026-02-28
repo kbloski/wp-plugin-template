@@ -1,5 +1,6 @@
 const { createElement, useEffect, lazy} = wp.element;
-const Counter = lazy(() => import(`../../Components/Counter.js?v=${Date.now()}`))
+import { injectStyleOnce } from "../../Utils/injectStyleOnce.js";
+const Counter = lazy(() => import(`../../Components/Counter.js`))
 
 const styles = `
     .plugintemplate-hello-react {
@@ -14,8 +15,7 @@ export default function HelloReactShortcode()
 {
     // Styles Loading Busting
     useEffect(() => {
-        import(`../../Utils/injectStyleOnce.js?v=${Date.now()}`)
-        .then( m => m.injectStyleOnce("plugintemplate-hello-react", styles))
+        injectStyleOnce("plugintemplate-hello-react", styles)
     }, []);
 
     return createElement(

@@ -12,27 +12,29 @@ class ReactDependenciesLoader extends AbstractSingleton
 {
     public function register()
     {
-        add_action('wp_enqueue_scripts', function () 
-        {
+        // Wczytanie podstawowych skryptów WordPress (React/REST)
+        add_action('wp_enqueue_scripts', function () {
             wp_enqueue_script('wp-data');
             wp_enqueue_script('wp-element');
             wp_enqueue_script('wp-api-fetch');
         });
 
-        add_action('admin_enqueue_scripts', function () 
-        {
+        add_action('admin_enqueue_scripts', function () {
             wp_enqueue_script('wp-data');
             wp_enqueue_script('wp-element');
             wp_enqueue_script('wp-api-fetch');
         });
 
-        $this->enqueueReactScripts();
+        // Dodanie własnych modułów React w stopce front-endu
+        add_action('wp_footer', [$this, 'enqueueReactScripts']);
+
+        // Dodanie własnych modułów React w stopce panelu admina
+        add_action('admin_footer', [$this, 'enqueueReactScripts']);
     }
 
-    private function enqueueReactScripts() : void 
+    public function enqueueReactScripts(): void
     {
-        try 
-        {
+        try {
             $pluginDirUrl = PluginPaths::getInstance()->getPluginUrl();
             $pluginDirPath = PluginPaths::getInstance()->getPluginPath();
 
@@ -40,21 +42,16 @@ class ReactDependenciesLoader extends AbstractSingleton
             $files = glob($assetsReactFolder . '**/*.js', GLOB_BRACE);
 
             foreach ($files as $filePath) {
-                $fileUrl =  $pluginDirUrl. str_replace($pluginDirUrl, '', $filePath);
+                $relativePath = str_replace($pluginDirPath, '', $filePath);
+                $fileUrl = $pluginDirUrl . str_replace('\\', '/', $relativePath);
                 $ver = filemtime($filePath);
-                $handle = str_replace([$pluginDirPath, '/', '.'], ['', '-', '-'], $filePath);
+                $urlWithVer = "{$fileUrl}?v={$ver}";
 
-                wp_enqueue_script(
-                    $handle,
-                    $fileUrl,
-                    ['wp-element', 'wp-data'], 
-                    $ver,
-                    true
-                );
+                // Wygenerowanie <script> w stopce
+                Logger::error(json_encode($urlWithVer));
+                echo '<script src="' . esc_url($urlWithVer) . '" type="module"></script>' . PHP_EOL;
             }
-        }
-        catch (Throwable $e)
-        {
+        } catch (Throwable $e) {
             Logger::error($e);
             throw $e;
         }

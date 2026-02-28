@@ -1,5 +1,5 @@
 const { createElement, useEffect, lazy} = wp.element;
-const GlobalStore = lazy(() => import(`../../Components/GlobalStore.js?v=${Date.now()}`))
+const GlobalStore = lazy(() => import(`../../Components/GlobalStore.js`))
 
 export default function HelloReactShortcode()
 {
