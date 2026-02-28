@@ -1,21 +1,30 @@
 const { useState, useEffect, createElement } = wp.element;
 const { useSelect, useDispatch } = wp.data;
-import Store from "../Store/store.js";
 
 export default function GlobalStore() 
 {
-    const {namespace} = Store;
-    const counter = useSelect(select =>  select(namespace).getCounter(), [] );
-    const {increment, decrement} = useDispatch(namespace);
+    // Loaidng required modules with cache busting 
+    useEffect(() => {
+        import(`../Store/store.js?v=${Date.now()}`).then( m => setStore(m.default))
+    }, []);
+
+    const [store, setStore] = useState(null) 
+
+    const dispatch = useDispatch(store?.namespace);
+    const counter = useSelect(
+        (select) => store ? select(store.namespace).getCounter() : 0,
+        [store]
+    );
+
 
     function onIncrement()
     {
-       increment?.();
+        dispatch?.increment?.();
     }
 
     function onDecrement() 
     {
-        decrement?.();
+        dispatch?.decrement?.();
     }
 
     return createElement(

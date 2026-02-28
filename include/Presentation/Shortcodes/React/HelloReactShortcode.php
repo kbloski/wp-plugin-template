@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginTemplate\Inc\Presentation\Shortcodes;
+namespace PluginTemplate\Inc\Presentation\Shortcodes\React;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
@@ -19,19 +19,15 @@ class HelloReactShortcode extends AbstractShortcode
     public function render_shortcode(array $atts = []): string
     {
         $elementId = uniqid();
-        $componentUrl = PluginPaths::getInstance()->getUrl("assets/React/Shortcodes/HelloReactShortcode.js");
+        $componentUrl = PluginPaths::getInstance()->getUrl("assets/React/Shortcodes/HelloReactShortcode/HelloReactShortcode.js");
 
         ob_start()
         ?>
             <div data-react-id="<?= $elementId ?>">Hello React Root</div>
-
             <script type="module">
+                const { createRoot, createElement} = wp.element;
                 import Component from "<?= $componentUrl ?>?v=<?= time() ?>";
-                const { createRoot, createElement, useState } = wp.element;
-                addEventListener('load', () => { 
-                    const element = document.querySelector("[data-react-id='<?= $elementId ?>']");
-                    createRoot(element).render(createElement(Component, {}));
-                });
+                addEventListener('load', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(Component, {})));
             </script>
         <?php
         return ob_get_clean();

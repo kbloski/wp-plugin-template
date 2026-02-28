@@ -42,5 +42,10 @@ final class ShortcodesNamesEnum extends AbstractEnum
     {
         return NameBuilder::applyPrefix('hello-react');
     }
+
+    public static function GLOBAL_REACT_STORE() : string 
+    {
+        return NameBuilder::applyPrefix('global-react-store');
+    }
     
 }
