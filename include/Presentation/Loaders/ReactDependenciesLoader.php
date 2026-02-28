@@ -26,10 +26,10 @@ class ReactDependenciesLoader extends AbstractSingleton
         });
 
         // Dodanie własnych modułów React w stopce front-endu
-        add_action('wp_footer', [$this, 'enqueueReactScripts']);
+        add_action('wp_head', [$this, 'enqueueReactScripts']);
 
         // Dodanie własnych modułów React w stopce panelu admina
-        add_action('admin_footer', [$this, 'enqueueReactScripts']);
+        add_action('admin_head', [$this, 'enqueueReactScripts']);
     }
 
     public function enqueueReactScripts(): void
