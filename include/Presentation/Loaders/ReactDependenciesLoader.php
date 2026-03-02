@@ -48,7 +48,6 @@ class ReactDependenciesLoader extends AbstractSingleton
                 $urlWithVer = "{$fileUrl}?v={$ver}";
 
                 // Wygenerowanie <script> w stopce
-                Logger::error(json_encode($urlWithVer));
                 echo '<script src="' . esc_url($urlWithVer) . '" type="module"></script>' . PHP_EOL;
             }
         } catch (Throwable $e) {
