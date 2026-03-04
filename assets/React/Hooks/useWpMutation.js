@@ -63,6 +63,7 @@ export function useWpMutation(defaultOptions = {}) {
             } finally {
                 setLoading(false);
             }
+
         },
         [defaultOptions]
     );

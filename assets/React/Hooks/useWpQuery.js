@@ -10,7 +10,7 @@ export function useWpQuery(defaultOptions = {}) {
     const memoOptions = useMemo(() => defaultOptions, [JSON.stringify(defaultOptions)]);
 
     const fetchData = useCallback(
-        (overrideOptions = {}) => {
+        async (overrideOptions = {}) => {
             const options = { ...memoOptions, ...overrideOptions };
 
             if (!options.path && !options.url) return;
@@ -19,13 +19,24 @@ export function useWpQuery(defaultOptions = {}) {
             setError(null);
             setIsSuccess(false);
 
-            wp.apiFetch(options)
-                .then((result) => {
-                    setData(result);
-                    setIsSuccess(true);
-                })
-                .catch((err) => setError(err))
-                .finally(() => setIsLoading(false));
+            try {
+                const result = await wp.apiFetch({
+                    ...options,
+                });
+
+                setData(result);
+                setIsSuccess(true);
+                return result;
+            } catch (err) 
+            {
+                const data = await err.json();
+                setData(data);
+                setError(err?.statusText);
+                setIsSuccess(false);
+                throw err;
+            } finally {
+                setIsLoading(false);
+            }
         },
         [memoOptions]
     );
