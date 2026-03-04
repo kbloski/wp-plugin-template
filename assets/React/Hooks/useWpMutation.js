@@ -55,8 +55,9 @@ export function useWpMutation(defaultOptions = {}) {
                 return result;
             } catch (err) 
             {
-                setData(await err.json());
-                setError(err);
+                const data = await err.json();
+                setData(data);
+                setError(err?.statusText);
                 setSuccess(false);
                 throw err;
             } finally {
