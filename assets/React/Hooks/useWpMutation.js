@@ -22,10 +22,21 @@ export function useWpMutation(defaultOptions = {}) {
             setError(null);
             setSuccess(false);
 
-            if (options.body instanceof FormData) 
-            {
-                options.headers = { ...(options.headers || {}) };
-                if (options.headers['Content-Type']) delete options.headers['Content-Type'];
+            // Detect FormData reliably (different execution contexts may make instanceof fail)
+            const isFormData = (typeof FormData !== 'undefined' && options.body instanceof FormData) || (
+                options.body && typeof options.body.append === 'function' && typeof options.body.get === 'function'
+            );
+
+            if (isFormData) {
+                if (options.headers) {
+                    const headersCopy = { ...options.headers };
+                    for (const key of Object.keys(headersCopy)) {
+                        if (key.toLowerCase() === 'content-type') delete headersCopy[key];
+                    }
+                    options.headers = Object.keys(headersCopy).length ? headersCopy : undefined;
+                } else {
+                    options.headers = undefined;
+                }
             } else if (options.body && typeof options.body === 'object') {
                 options.headers = {
                     'Content-Type': 'application/json',
