@@ -64,5 +64,5 @@ export function useWpMutation(defaultOptions = {}) {
         [defaultOptions]
     );
 
-    return { isSuccess: success, isLoading: loading, error, mutate };
+    return { isSuccess: success, data, isLoading: loading, error, mutate };
 }
