@@ -20,24 +20,20 @@ export function useWpQuery(defaultOptions = {}) {
             setIsSuccess(false);
 
             try {
-                const result = await wp.apiFetch({
-                    ...options,
-                });
-
+                const result = await wp.apiFetch({ ...options });
                 setData(result);
                 setIsSuccess(true);
                 return result;
-            } catch (err) 
-            {
-                let data = null;
-                if (err instanceof Response) data = await err.json();
-                setData(data);
-                setError(err?.statusText);
+            } catch (err) {
+                // err już jest obiektem JSON
+                setData(err?.data || null);
+                setError(err?.message || 'Unknown error');
                 setIsSuccess(false);
                 throw err;
             } finally {
                 setIsLoading(false);
             }
+
         },
         [memoOptions]
     );
