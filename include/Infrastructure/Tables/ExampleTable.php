@@ -9,7 +9,7 @@ use PluginTemplate\Inc\Domain\Abstracts\AbstractTable;
 use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
 use Throwable;
 
-class ExampleTable  extends AbstractTable
+class ExampleTable
 {
     protected string $tableName;
 

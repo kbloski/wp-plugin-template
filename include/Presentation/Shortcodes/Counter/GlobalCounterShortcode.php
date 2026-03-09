@@ -23,7 +23,7 @@ class GlobalCounterShortcode extends AbstractShortcode
 
         ob_start()
         ?>
-            <div data-react-id="<?= $elementId ?>">Counter</div>
+            <div data-react-id="<?= $elementId ?>">Global Counter</div>
             <script type="module">
                 const { createRoot, createElement} = wp.element;
                 import { GlobalCounter } from "<?= $reactUrl ?>?v=<?= time() ?>";
