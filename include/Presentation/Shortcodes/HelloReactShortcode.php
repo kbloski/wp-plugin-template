@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginTemplate\Inc\Presentation\Shortcodes\React;
+namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;

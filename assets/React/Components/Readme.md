@@ -1,0 +1,1 @@
+Komponenty UI i inne globalne 

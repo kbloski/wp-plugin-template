@@ -19,7 +19,9 @@ class AdminHomeShortcode extends AbstractShortcode
             <div>
                 <h2>Home</h2>
                 <?= do_shortcode("[" . ShortcodesNamesEnum::HELLO_REACT() . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodesNamesEnum::HELLO_REACT() . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodesNamesEnum::COUNTER() . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodesNamesEnum::GLOBAL_COUNTER() . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodesNamesEnum::GLOBAL_COUNTER() . "]" ); ?>
             </div>
         <?php
         return ob_get_clean();

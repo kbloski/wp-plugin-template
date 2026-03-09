@@ -1,28 +1,28 @@
+const ver = Math.floor(Date.now());
 const { createElement, useEffect, lazy} = wp.element;
-import { injectStyleOnce } from "../../Utils/injectStyleOnce.js";
-const Counter = lazy(() => import(`../../Components/Counter.js`))
+const { injectStyleOnce } = await import(`../../../../Utils/injectStyleOnce.js?v=${ver}`);
 
 const styles = `
-    .plugintemplate-hello-react {
+    .plugintemplate-hello-react 
+    {
         border-radius: 4px;
-        box-shadow: 0 0 4px black;
+        box-shadow: 0 0 4px rgba(0,0,0,0.12);
+        text-align: center;
         background: white;
         padding: 1rem;
     }
 `;
 
-export default function HelloReactShortcode()
+export default function HelloReact()
 {
-    // Styles Loading Busting
+    // Styles Loading
     useEffect(() => {
         injectStyleOnce("plugintemplate-hello-react", styles)
     }, []);
 
-    console.log('test')
 
     return createElement(
         'div', { className: 'plugintemplate-hello-react'},
         createElement("div", null,'❤️ Hello from REACT ❤️'),
-        createElement(Counter, {}),
     );
 }

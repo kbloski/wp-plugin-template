@@ -1,25 +1,15 @@
+const ver = Math.floor(Date.now() / 1000);
 const { useState, useEffect, createElement } = wp.element;
-import store from "../Store/store.js"
 const { useSelect, useDispatch } = wp.data;
+const store = (await import(`../../../../Store/store.js?v=${ver}`)).default;
 
-export default function GlobalStore() 
+export default function GlobalCounter() 
 {
-    // Loaidng required modules with cache busting 
-    const dispatch = useDispatch(store?.namespace);
-    const counter = useSelect(
-        (select) => store ? select(store.namespace).getCounter() : 0,
-        [store]
-    );
+    const dispatch = useDispatch(store.namespace);
+    const counter = useSelect( (select) => select(store.namespace).getCounter() , [store] );
 
-    function onIncrement()
-    {
-        dispatch?.increment?.();
-    }
-
-    function onDecrement() 
-    {
-        dispatch?.decrement?.();
-    }
+    const onIncrement = () => dispatch.increment();
+    const onDecrement = () => dispatch.decrement();
 
     return createElement(
         "div",

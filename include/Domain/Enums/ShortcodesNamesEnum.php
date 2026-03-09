@@ -38,14 +38,21 @@ final class ShortcodesNamesEnum extends AbstractEnum
         return NameBuilder::applyPrefix('dev-test');
     }
 
+
+
     public static function HELLO_REACT() : string 
     {
         return NameBuilder::applyPrefix('hello-react');
     }
 
-    public static function GLOBAL_REACT_STORE() : string 
+    public static function COUNTER() : string 
     {
-        return NameBuilder::applyPrefix('global-react-store');
+        return NameBuilder::applyPrefix('counter');
+    }
+
+    public static function GLOBAL_COUNTER() : string 
+    {
+        return NameBuilder::applyPrefix('global-counter');
     }
     
 }

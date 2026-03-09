@@ -5,7 +5,7 @@ export default function Counter()
     const [counter, setCounter] = useState(2)
 
     return createElement("div", null, 
-        createElement("div", null, `Counterr: (${counter})`),
+        createElement("div", null, `Counter: (${counter})`),
         createElement("div", null, 
             createElement("button", { onClick: () => setCounter(p => --p)}, "Decrement"),
             createElement("button", { onClick: () => setCounter(p => ++p)}, "Increment"),
