@@ -18,6 +18,8 @@ export default function HelloReactShortcode()
         injectStyleOnce("plugintemplate-hello-react", styles)
     }, []);
 
+    console.log('test')
+
     return createElement(
         'div', { className: 'plugintemplate-hello-react'},
         createElement("div", null,'❤️ Hello from REACT ❤️'),

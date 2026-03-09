@@ -19,15 +19,15 @@ class HelloReactShortcode extends AbstractShortcode
     public function render_shortcode(array $atts = []): string
     {
         $elementId = uniqid();
-        $componentUrl = PluginPaths::getInstance()->getUrl("assets/React/Shortcodes/HelloReactShortcode/HelloReactShortcode.js");
+        $reactUrl = PluginPaths::getInstance()->getUrl("assets/React/React.js?v=". floor( time() / 1000));
 
         ob_start()
         ?>
-            <div data-react-id="<?= $elementId ?>">Hello React Root</div>
+            <div data-react-id="<?= $elementId ?>">Hello React</div>
             <script type="module">
                 const { createRoot, createElement} = wp.element;
-                import Component from "<?= $componentUrl ?>?v=<?= time() ?>";
-                addEventListener('load', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(Component, {})));
+                import { HelloReact } from "<?= $reactUrl ?>?v=<?= time() ?>";
+                addEventListener('load', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(HelloReact, {})));
             </script>
         <?php
         return ob_get_clean();
