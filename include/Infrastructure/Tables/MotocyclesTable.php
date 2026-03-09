@@ -9,7 +9,7 @@ use PluginTemplate\Inc\Domain\Abstracts\AbstractTable;
 use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
 use Throwable;
 
-class ExampleTable
+class MotocyclesTable
 {
     protected string $tableName;
 
@@ -22,35 +22,32 @@ class ExampleTable
     {
         try {
 
-            global $wpdb;
-            $charset_collate = $wpdb->get_charset_collate();
-            $users_table = $wpdb->prefix . 'users'; // domyślna tabela WordPress
-
-            // Schemat tabeli z FOREIGN KEY
+            // Schemat tabeli
             $schema = [
                 'id'         => 'BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT',
-                'user_id'    => "BIGINT(20) UNSIGNED NOT NULL",
-                'message'    => 'TEXT NOT NULL',
+                'license_plate'    => 'INT(12) NOT NULL',
+                'brand' => 'VARCHAR(32) NOT NULL',
+                'color' => 'VARCHAR(64)',
                 'created_at' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
                 'updated_at' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             ];
 
             DbHelper::clearError();
 
+            global $wpdb;
+            $charset_collate = $wpdb->get_charset_collate();
+
             $columns = [];
             foreach ($schema as $column => $definition) {
                 $columns[] = "$column $definition";
             }
-
-            // Dodajemy klucz obcy do wp_users
-            $columns[] = "FOREIGN KEY (user_id) REFERENCES $users_table(ID) ON DELETE CASCADE";
 
             $columns_sql = implode(",\n", $columns);
 
             $sql = "CREATE TABLE IF NOT EXISTS $this->tableName (
                 $columns_sql,
                 PRIMARY KEY (id)
-            ) $charset_collate ENGINE=InnoDB;"; // InnoDB wymagany dla FK
+            ) $charset_collate;";
 
             require_once(ABSPATH . "wp-admin/includes/upgrade.php");
             dbDelta($sql);

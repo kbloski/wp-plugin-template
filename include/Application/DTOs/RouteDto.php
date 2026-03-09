@@ -2,7 +2,7 @@
 
 namespace PluginTemplate\Inc\Application\DTOs;
 
-use Loyalty\Inc\Core\Configs\PluginConfig;
+use PluginTemplate\Inc\Core\Configs\PluginConfig;
 
 class RouteDto
 {
