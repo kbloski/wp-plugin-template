@@ -1,16 +1,13 @@
 <?php 
 
-namespace Finance\Inc\Application\Rest\Transactions\Callbacks;
+namespace PluginTemplate\Inc\Application\Rest\Counter\Callbacks;
 
-use Finance\Inc\Application\Services\BudgetUsersService;
-use Finance\Inc\Core\Logger\Logger;
-use Finance\Inc\Domain\DTOs\BudgetDto;
-use Finance\Inc\Infrastructure\Repositories\TransactionsRepository;
+use PluginTemplate\Inc\Core\Logger\Logger;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
 
-class GetAllBudgetTransactionsCallback 
+class GetCounterCallback 
 {
     protected function __construct() {}
 
@@ -18,12 +15,9 @@ class GetAllBudgetTransactionsCallback
     {
         try 
         {   
-            $budgetId = (int) $request->get_param('budgetId');
-
-            $transactions = TransactionsRepository::getInstance()->getByBudgetId($budgetId);
 
             return new \WP_REST_Response([
-                'transactions' => $transactions
+                'counter' => 0
             ], 200);
         } catch (\Throwable $e) 
         {

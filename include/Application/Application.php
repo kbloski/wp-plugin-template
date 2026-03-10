@@ -10,6 +10,5 @@ class Application extends AbstractSingleton
     public function init()
     {
         RestRoutes::getInstance()->register();
-
     }
 }
