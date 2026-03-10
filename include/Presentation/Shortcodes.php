@@ -7,10 +7,10 @@ use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminDocumentationShortcode
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminSettingsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\ShortcodesDocsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminHomeShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\Counter\ApiCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\CounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\GlobalCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
-use PluginTemplate\Inc\Presentation\Shortcodes\React\GlobalReactStoreShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\HelloReactShortcode;
 
 class Shortcodes extends AbstractSingleton
@@ -34,7 +34,9 @@ class Shortcodes extends AbstractSingleton
         $this->registerShortcode( HelloReactShortcode::getInstance() );
         $this->registerShortcode( CounterShortcode::getInstance() );
         $this->registerShortcode( GlobalCounterShortcode::getInstance() );
+        $this->registerShortcode( ApiCounterShortcode::getInstance() );
     }
+
 
     
     public  function getShortcodesDocumentation()

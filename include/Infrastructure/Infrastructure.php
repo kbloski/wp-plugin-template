@@ -9,7 +9,8 @@ class Infrastructure extends AbstractSingleton
 {
     public function init()
     {
-
+        // Tables::dropTables();
+        // Tables::createTables();
     }
 
     public function onActivatePlugin() : void

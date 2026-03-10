@@ -45,6 +45,11 @@ final class ShortcodesNamesEnum extends AbstractEnum
         return NameBuilder::applyPrefix('hello-react');
     }
 
+    public static function API_COUNTER() : string 
+    {
+        return NameBuilder::applyPrefix('api-counter');
+    }
+
     public static function COUNTER() : string 
     {
         return NameBuilder::applyPrefix('counter');
