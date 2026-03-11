@@ -23,7 +23,7 @@ class GetCounterCallback
             ) ?? 0;
 
             return new \WP_REST_Response([
-                'counter' => $counter
+                'counter' => $counter 
             ], 200);
         } catch (\Throwable $e) 
         {

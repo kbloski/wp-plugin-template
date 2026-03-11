@@ -72,7 +72,13 @@ class CounterRoutes
                         return is_user_logged_in();
                     },
                     args: [
-                        // 'counter' => 
+                        'counter' => [
+                            'required' => true,
+                            'validate_callback' => function($param, $request, $key) {
+                                return is_numeric($param);
+                            },
+                            'sanitize_callback' => 'absint',
+                        ],
                     ],
                 ),
 

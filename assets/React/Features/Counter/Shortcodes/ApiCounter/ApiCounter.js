@@ -1,33 +1,24 @@
+const ver = Math.floor(Date.now() / 1000);
+const { createElement, useEffect, useState } = wp.element; 
+const { useGetCounter, useEditCounter } = await import(`../../Hooks/useCounter.js?v=${ver}`);
 
-const ver = Math.floor( Date.now() / 1000);
-const { createElement, useEffect,useState} = wp.element; 
-const {useGetCounter, useEditCounter} = await import(`../../Hooks/useCounter.js?v=${ver}`)
+export default function ApiCounter() {
+    const counterRes = useGetCounter();
+    const { mutate: editCounter, isLoading: editIsLoading } = useEditCounter();
+    const isLoading = counterRes.isLoading || editIsLoading;
 
-export default function ApiCounter()
-{
-    const [isLoading, setIsLoading] = useState(false);
-    const counter = useGetCounter();
-    const { mutate : editCounter, isLoading : editIsLoading } = useEditCounter();
-
-    useState(() => {
-        setIsLoading( !!counter.isLoading || !!editIsLoading)
-    }, [ counter.isLoading, editIsLoading]);
-
-    function onIncrement()
-    {
+    function onIncrement() {
         if (isLoading) return;
-        editCounter(1);
+
+        const newVal = counterRes.data?.counter + 1;
+        editCounter({ counter: newVal });   
     }
 
     return createElement('div', {},
-        createElement('pre', {}, JSON.stringify(counter, null, 4)),
+        createElement('pre', {}, JSON.stringify(counterRes, null, 4)),
 
         createElement('button', {
             onClick: onIncrement
-        }, isLoading ? "Loading..." : "Increment") 
-        
-
-
+        }, isLoading ? "Loading..." : "Increment")
     );
 }
-

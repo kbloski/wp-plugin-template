@@ -16,11 +16,10 @@ class EditCounterCallback
     {
         try 
         {   
+            $userId = get_current_user_id();
             $counter = (int) $request->get_param('counter');
 
-            
-
-
+            update_user_meta($userId, UserMetaEnum::COUNTER(), $counter);
 
             return new \WP_REST_Response(200);
         } catch (\Throwable $e) 
