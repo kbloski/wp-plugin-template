@@ -1,15 +1,14 @@
 const { useState, useEffect, useCallback, useMemo } = wp.element;
 
-export function useWpQuery(defaultOptions = {}) {
+export function useWpQueryLazy(defaultOptions = {}) {
     const [data, setData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    // Memoizujemy domyślne opcje, żeby referencja się nie zmieniała
-    const memoOptions = useMemo(() => defaultOptions, [JSON.stringify(defaultOptions)]);
+    const memoOptions = useMemo(() => defaultOptions, [defaultOptions]);
 
-    const fetchData = useCallback(
+    const fetch = useCallback(
         async (overrideOptions = {}) => {
             const options = { ...memoOptions, ...overrideOptions };
 
@@ -20,28 +19,20 @@ export function useWpQuery(defaultOptions = {}) {
             setIsSuccess(false);
 
             try {
-                const result = await wp.apiFetch({ ...options });
+                const result = await wp.apiFetch(options);
                 setData(result);
                 setIsSuccess(true);
                 return result;
             } catch (err) {
-                // err już jest obiektem JSON
-                setData(err?.data || null);
                 setError(err?.message || 'Unknown error');
                 setIsSuccess(false);
                 throw err;
             } finally {
                 setIsLoading(false);
             }
-
         },
         [memoOptions]
     );
 
-    // fetch przy mount
-    useEffect(() => {
-        fetchData();
-    }, [fetchData]);
-
-    return { data, isLoading, error, isSuccess, refetch: fetchData };
+    return [fetch, { data, isLoading, error, isSuccess }];
 }
