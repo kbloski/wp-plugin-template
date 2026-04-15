@@ -2,10 +2,9 @@
 
 namespace PluginTemplate\Inc\Domain\Enums;
 
-use PluginTemplate\Inc\Core\Abstracts\AbstractEnum;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 
-class TableNamesEnum extends AbstractEnum
+class TableNamesEnum
 {
     private static function createName(string $name): string
     {

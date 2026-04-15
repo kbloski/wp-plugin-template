@@ -2,10 +2,9 @@
 
 namespace PluginTemplate\Inc\Core\Enums;
 
-use PluginTemplate\Inc\Core\Abstracts\AbstractEnum;
 use PluginTemplate\Inc\Core\Configs\PluginConfig;
 
-class PluginCapabilitiesEnum extends AbstractEnum
+class PluginCapabilitiesEnum
 {
     public static function PLUGIN_ACCESS() : string 
     {

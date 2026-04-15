@@ -2,11 +2,10 @@
 
 namespace PluginTemplate\Inc\Domain\Enums;
 
-use PluginTemplate\Inc\Core\Abstracts\AbstractEnum;
 use PluginTemplate\Inc\Config\Config;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 
-final class ShortcodesNamesEnum extends AbstractEnum
+final class ShortcodesNamesEnum
 {
     public static function ADMIN_HOME(): string
     {
