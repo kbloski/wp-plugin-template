@@ -2,7 +2,7 @@
 
 namespace PluginTemplate\Inc\Presentation\Loaders;
 
-use Finance\Inc\Core\Naming\NameBuilder;
+use PluginTemplate\Inc\Core\Naming\NameBuilder;
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Logger\Logger;
