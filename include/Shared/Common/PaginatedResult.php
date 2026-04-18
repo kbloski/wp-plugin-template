@@ -23,17 +23,4 @@ class PaginatedResult
     {
         return new self($items, $totalCount, $page, $pageSize);
     }
-
-    public function toArray(): array
-    {
-        return [
-            'data' => $this->items,
-            'meta' => [
-                'totalCount' => $this->totalCount,
-                'page' => $this->page,
-                'pageSize' => $this->pageSize,
-                'totalPages' => $this->totalPages,
-            ],
-        ];
-    }
 }
