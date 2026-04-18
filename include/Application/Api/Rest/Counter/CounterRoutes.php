@@ -1,10 +1,10 @@
 <?php 
 
-namespace PluginTemplate\Inc\Application\Rest\Counter;
+namespace PluginTemplate\Inc\Application\Api\Rest\Counter;
 
 use PluginTemplate\Inc\Application\DTOs\RouteDto;
-use PluginTemplate\Inc\Application\Rest\Counter\Callbacks\GetCounterCallback;
-use PluginTemplate\Inc\Application\Rest\Counter\Callbacks\EditCounterCallback;
+use PluginTemplate\Inc\Application\Api\Rest\Counter\Callbacks\GetCounterCallback;
+use PluginTemplate\Inc\Application\Api\Rest\Counter\Callbacks\EditCounterCallback;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use Throwable;
 use WP_REST_Request;

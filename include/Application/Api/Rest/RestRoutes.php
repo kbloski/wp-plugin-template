@@ -1,8 +1,8 @@
 <?php 
 
-namespace PluginTemplate\Inc\Application\Rest;
+namespace PluginTemplate\Inc\Application\Api\Rest;
 
-use PluginTemplate\Inc\Application\Rest\Counter\CounterRoutes;
+use PluginTemplate\Inc\Application\Api\Rest\Counter\CounterRoutes;
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 
 class RestRoutes extends AbstractSingleton

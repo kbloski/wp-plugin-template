@@ -1,6 +1,6 @@
 <?php 
 
-namespace PluginTemplate\Inc\Application\Rest\Counter\Callbacks;
+namespace PluginTemplate\Inc\Application\Api\Rest\Counter\Callbacks;
 
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Domain\Enums\UserMetaEnum;
@@ -8,7 +8,7 @@ use Throwable;
 use WP_Error;
 use WP_REST_Response;
 
-class GetCounterCallback 
+class EditCounterCallback 
 {
     protected function __construct() {}
 
@@ -16,15 +16,12 @@ class GetCounterCallback
     {
         try 
         {   
-            $counter = (int) get_user_meta(
-                user_id: get_current_user_id(), 
-                key: UserMetaEnum::COUNTER(),
-                single: true 
-            ) ?? 0;
+            $userId = get_current_user_id();
+            $counter = (int) $request->get_param('counter');
 
-            return new \WP_REST_Response([
-                'counter' => $counter 
-            ], 200);
+            update_user_meta($userId, UserMetaEnum::COUNTER(), $counter);
+
+            return new \WP_REST_Response(200);
         } catch (\Throwable $e) 
         {
             Logger::error($e);
