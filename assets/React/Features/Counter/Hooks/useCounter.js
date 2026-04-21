@@ -1,4 +1,6 @@
 const ver = Math.floor( Date.now() / 1000);
+const { useState, useCallback, useRef, useEffect } = wp.element;
+
 const { useWpQueryLazy } = await import(`../../../Hooks/useWpQueryLazy.js?v=${ver}`);
 const { useWpMutation } = await import(`../../../Hooks/useWpMutation.js?v=${ver}`);
 const {
@@ -12,15 +14,23 @@ const queryTags = Object.freeze({
 
 export function useLazyGetCounterQuery()
 {
-    const request = {
-        path: 'plugintemplate/v1/counter',
-        method: 'GET'
-    };
-    const query = useWpQueryLazy( request );
+    const [fetch, data] = useWpQueryLazy();
 
-    provideTag(queryTags.editCounter, () => query[0](request));
+    function getCounter()
+    {
+        const request = {
+            path: 'plugintemplate/v1/counter',
+            method: 'GET'
+        };
+
+        fetch(request);
+    }
     
-    return query;
+    useEffect(() => {
+        provideTag(queryTags.editCounter, () => getCounter());
+    });
+    
+    return [getCounter, data];
 }
 
 export function useEditCounter()

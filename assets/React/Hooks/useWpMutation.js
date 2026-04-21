@@ -1,76 +1,81 @@
-const { useState, useCallback, useMemo } = wp.element;
+const { useState, useCallback, useRef } = wp.element;
 
-export function useWpMutation(defaultOptions = {}) {
-    const [success, setSuccess] = useState(false);
+export function useWpMutation() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const memoOptions = useMemo(() => defaultOptions, []);
+    const abortRef = useRef(null);
 
-    const mutate = useCallback(
-        async (overrideOptions = {}) => {
-            const options = { ...memoOptions, ...overrideOptions };
+    const mutate = useCallback(async (options = {}) => {
+        if (!options.path && !options.url) {
+            throw new Error('Missing `path` or `url` for API request');
+        }
 
-            if (!options.path && !options.url) {
-                throw new Error('Missing `path` or `url` for API request');
-            }
+        if (abortRef.current) {
+            abortRef.current.abort();
+        }
 
-            setLoading(true);
-            setError(null);
-            setSuccess(false);
-            setData(null);
+        const controller = new AbortController();
+        abortRef.current = controller;
 
-            const isFormData =
-                typeof FormData !== 'undefined' &&
-                options.body instanceof FormData;
+        setLoading(true);
+        setError(null);
+        setData(null);
 
-            if (isFormData) {
-                if (options.headers) {
-                    const headersCopy = { ...options.headers };
+        const isFormData =
+            typeof FormData !== 'undefined' &&
+            options.body instanceof FormData;
 
-                    for (const key of Object.keys(headersCopy)) {
-                        if (key.toLowerCase() === 'content-type') {
-                            delete headersCopy[key];
-                        }
+        const opts = {
+            ...options,
+            signal: controller.signal,
+        };
+
+        if (isFormData) {
+            if (opts.headers) {
+                const headersCopy = { ...opts.headers };
+
+                for (const key of Object.keys(headersCopy)) {
+                    if (key.toLowerCase() === 'content-type') {
+                        delete headersCopy[key];
                     }
-
-                    options.headers = Object.keys(headersCopy).length
-                        ? headersCopy
-                        : undefined;
                 }
-            } else if (options.body && typeof options.body === 'object') {
-                options.headers = {
-                    'Content-Type': 'application/json',
-                    ...(options.headers || {}),
-                };
 
-                options.body = JSON.stringify(options.body);
+                opts.headers = Object.keys(headersCopy).length
+                    ? headersCopy
+                    : undefined;
             }
+        } else if (opts.body && typeof opts.body === 'object') {
+            opts.headers = {
+                'Content-Type': 'application/json',
+                ...(opts.headers || {}),
+            };
 
-            try {
-                const result = await wp.apiFetch(options);
-                setData(result);
-                setSuccess(true);
-                return result;
-            } catch (err) {
+            opts.body = JSON.stringify(opts.body);
+        }
+
+        try {
+            const result = await wp.apiFetch(opts);
+            setData(result);
+            return result;
+        } catch (err) {
+            if (err.name !== 'AbortError') {
                 setError(err?.message || 'Unknown error');
-                setSuccess(false);
                 throw err;
-            } finally {
-                setLoading(false);
             }
-        },
-        [memoOptions]
-    );
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     return [
         mutate,
         {
-            isSuccess: success,
             data,
             isLoading: loading,
             error,
+            isSuccess: !!data && !error,
         },
     ];
 }
