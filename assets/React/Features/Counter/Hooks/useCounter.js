@@ -27,27 +27,32 @@ export function useLazyGetCounterQuery()
     }
     
     useEffect(() => {
-        provideTag(queryTags.editCounter, () => getCounter());
-    });
+        const unsubscribe = provideTag(queryTags.editCounter, () => getCounter());
+        return unsubscribe;
+    }, []);
     
     return [getCounter, data];
 }
 
 export function useEditCounter()
 {
-    const method = "PATCH";
-    let path = 'plugintemplate/v1/counter';
-    const [mutate, data] = useWpMutation({ path, method });
+    const [mutate, data] = useWpMutation();
     
     function editCounter({ counter })
     {
-        mutate({
-            path, method,
+        const request = {
+            method: "PATCH",
+            path: 'plugintemplate/v1/counter',
             body: { counter }
-        })
-        invalidateTag(queryTags.editCounter);
+        }
 
+        mutate(request)
     }
+
+    useEffect(() => {
+        if (!data?.isSuccess) return
+        invalidateTag(queryTags.editCounter);
+    }, [data?.isSuccess])
 
     return [editCounter, data];
 }
