@@ -8,10 +8,6 @@ const {
     invalidateTags
 } = await import(`../../../Events/QueryTagsEvent.js?v=${ver}`);
 
-const queryTags = Object.freeze({
-    editCounter: "edit-counter"
-});
-
 export function useLazyGetCounterQuery()
 {
     const [fetch, data] = useWpQueryLazy();
@@ -27,7 +23,7 @@ export function useLazyGetCounterQuery()
     }
     
     useEffect(() => {
-        const unsubscribe = provideTags(queryTags.editCounter, () => getCounter());
+        const unsubscribe = provideTags([ "counter" ], () => getCounter());
         return unsubscribe;
     }, []);
     
@@ -51,7 +47,7 @@ export function useEditCounter()
 
     useEffect(() => {
         if (!data?.isSuccess) return
-        invalidateTags(queryTags.editCounter);
+        invalidateTags([ "counter" ]);
     }, [data?.isSuccess])
 
     return [editCounter, data];
