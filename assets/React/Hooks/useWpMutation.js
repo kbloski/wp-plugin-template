@@ -1,6 +1,7 @@
 const { useState, useCallback, useRef } = wp.element;
 
 export function useWpMutation() {
+    const [isSuccess, setIsSuccess] = useState(false);
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -12,6 +13,7 @@ export function useWpMutation() {
             throw new Error('Missing `path` or `url` for API request');
         }
 
+        // abort previous request
         if (abortRef.current) {
             abortRef.current.abort();
         }
@@ -19,9 +21,11 @@ export function useWpMutation() {
         const controller = new AbortController();
         abortRef.current = controller;
 
+        // RESET STATE FOR NEW REQUEST
         setLoading(true);
         setError(null);
         setData(null);
+        setIsSuccess(false);
 
         const isFormData =
             typeof FormData !== 'undefined' &&
@@ -57,11 +61,15 @@ export function useWpMutation() {
 
         try {
             const result = await wp.apiFetch(opts);
+
             setData(result);
+            setIsSuccess(true);
+
             return result;
         } catch (err) {
             if (err.name !== 'AbortError') {
                 setError(err?.message || 'Unknown error');
+                setIsSuccess(false);
                 throw err;
             }
         } finally {
@@ -75,7 +83,7 @@ export function useWpMutation() {
             data,
             isLoading: loading,
             error,
-            isSuccess: !!data && !error,
+            isSuccess,
         },
     ];
 }
