@@ -1,47 +1,72 @@
 // QueryTagsStore.js
 
-// Singleton (jeden globalny system tagów)
 const tagListeners = new Map();
 
-/**
- * Rejestruje callback dla tagu.
- * Zwraca unsubscribe (ważne w React).
- */
-function provideTag(tag, callback) {
-    if (!tagListeners.has(tag)) {
-        tagListeners.set(tag, new Set());
-    }
 
-    const listeners = tagListeners.get(tag);
-    listeners.add(callback);
+// =========================
+// SUBSCRIPTION
+// =========================
 
-    // unsubscribe
-    return () => {
-        listeners.delete(callback);
+function provideTags(tags, callback) {
+    const tagList = Array.isArray(tags) ? tags : [tags];
 
-        if (listeners.size === 0) {
-            tagListeners.delete(tag);
+    tagList.forEach(tag => {
+        if (!tagListeners.has(tag)) {
+            tagListeners.set(tag, new Set());
         }
+
+        tagListeners.get(tag).add(callback);
+    });
+
+    return () => {
+        tagList.forEach(tag => {
+            const listeners = tagListeners.get(tag);
+            if (!listeners) return;
+
+            listeners.delete(callback);
+
+            if (listeners.size === 0) {
+                tagListeners.delete(tag);
+            }
+        });
     };
 }
 
-/**
- * Unieważnia tag – wywołuje wszystkie callbacki
- */
-function invalidateTag(tag) {
-    const listeners = tagListeners.get(tag);
-    if (!listeners) return;
 
-    listeners.forEach(cb => {
-        try {
-            cb();
-        } catch (e) {
-            console.error(`Error in tag "${tag}" callback:`, e);
-        }
+// =========================
+// INVALIDATION (MULTI)
+// =========================
+
+function invalidateTags(tags) {
+    const tagList = Array.isArray(tags) ? tags : [tags];
+
+    const firedCallbacks = new Set();
+
+    tagList.forEach(tag => {
+        const listeners = tagListeners.get(tag);
+        if (!listeners) return;
+
+        listeners.forEach(cb => {
+            // 🔥 dedupe - ten sam callback nie odpali 2x
+            if (firedCallbacks.has(cb)) return;
+
+            firedCallbacks.add(cb);
+
+            try {
+                cb();
+            } catch (e) {
+                console.error(`Error in tag "${tag}" callback:`, e);
+            }
+        });
     });
 }
 
+
+// =========================
+// EXPORT
+// =========================
+
 export {
-    provideTag,
-    invalidateTag
+    provideTags,
+    invalidateTags
 };

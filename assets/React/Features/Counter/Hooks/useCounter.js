@@ -4,8 +4,8 @@ const { useState, useCallback, useRef, useEffect } = wp.element;
 const { useWpQueryLazy } = await import(`../../../Hooks/useWpQueryLazy.js?v=${ver}`);
 const { useWpMutation } = await import(`../../../Hooks/useWpMutation.js?v=${ver}`);
 const {
-    provideTag,
-    invalidateTag
+    provideTags,
+    invalidateTags
 } = await import(`../../../Events/QueryTagsEvent.js?v=${ver}`);
 
 const queryTags = Object.freeze({
@@ -27,7 +27,7 @@ export function useLazyGetCounterQuery()
     }
     
     useEffect(() => {
-        const unsubscribe = provideTag(queryTags.editCounter, () => getCounter());
+        const unsubscribe = provideTags(queryTags.editCounter, () => getCounter());
         return unsubscribe;
     }, []);
     
@@ -51,7 +51,7 @@ export function useEditCounter()
 
     useEffect(() => {
         if (!data?.isSuccess) return
-        invalidateTag(queryTags.editCounter);
+        invalidateTags(queryTags.editCounter);
     }, [data?.isSuccess])
 
     return [editCounter, data];
