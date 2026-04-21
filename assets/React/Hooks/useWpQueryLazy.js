@@ -1,38 +1,31 @@
-const { useState, useEffect, useCallback, useMemo } = wp.element;
+const { useState, useCallback } = wp.element;
 
-export function useWpQueryLazy(defaultOptions = {}) {
+export function useWpQueryLazy() {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    const memoOptions = useMemo(() => defaultOptions, [defaultOptions]);
+    const runQuery = useCallback(async (options) => {
+        if (!options?.path && !options?.url) return;
 
-    const fetch = useCallback(
-        async (overrideOptions = {}) => {
-            const options = { ...memoOptions, ...overrideOptions };
+        setIsLoading(true);
+        setError(null);
+        setIsSuccess(false);
 
-            if (!options.path && !options.url) return;
-
-            setIsLoading(true);
-            setError(null);
+        try {
+            const result = await wp.apiFetch(options);
+            setData(result);
+            setIsSuccess(true);
+            return result;
+        } catch (err) {
+            setError(err?.message || 'Unknown error');
             setIsSuccess(false);
+            throw err;
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
 
-            try {
-                const result = await wp.apiFetch(options);
-                setData(result);
-                setIsSuccess(true);
-                return result;
-            } catch (err) {
-                setError(err?.message || 'Unknown error');
-                setIsSuccess(false);
-                throw err;
-            } finally {
-                setIsLoading(false);
-            }
-        },
-        [memoOptions]
-    );
-
-    return [fetch, { data, isLoading, error, isSuccess }];
+    return [runQuery, { data, isLoading, error, isSuccess }];
 }
