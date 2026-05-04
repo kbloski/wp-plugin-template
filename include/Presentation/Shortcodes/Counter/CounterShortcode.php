@@ -27,7 +27,7 @@ class CounterShortcode extends AbstractShortcode
             <script type="module">
                 const { createRoot, createElement} = wp.element;
                 import { Counter } from "<?= $reactUrl ?>?v=<?= time() ?>";
-                addEventListener('load', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(Counter, {})));
+                addEventListener('DOMContentLoaded', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(Counter, {})));
             </script>
         <?php
         return ob_get_clean();

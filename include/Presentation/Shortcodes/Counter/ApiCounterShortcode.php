@@ -27,7 +27,7 @@ class ApiCounterShortcode  extends AbstractShortcode
             <script type="module">
                 const { createRoot, createElement} = wp.element;
                 import { ApiCounter } from "<?= $reactUrl ?>?v=<?= time() ?>";
-                addEventListener('load', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(ApiCounter, {})));
+                addEventListener('DOMContentLoaded', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(ApiCounter, {})));
             </script>
         <?php
         return ob_get_clean();

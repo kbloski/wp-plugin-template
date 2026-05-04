@@ -27,7 +27,7 @@ class GlobalCounterShortcode extends AbstractShortcode
             <script type="module">
                 const { createRoot, createElement} = wp.element;
                 import { GlobalCounter } from "<?= $reactUrl ?>?v=<?= time() ?>";
-                addEventListener('load', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(GlobalCounter, {})));
+                addEventListener('DOMContentLoaded', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(GlobalCounter, {})));
             </script>
         <?php
         return ob_get_clean();
