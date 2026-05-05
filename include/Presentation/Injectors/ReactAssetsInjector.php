@@ -1,6 +1,6 @@
 <?php 
 
-namespace PluginTemplate\Inc\Presentation\Loaders;
+namespace PluginTemplate\Inc\Presentation\Injectors;
 
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
@@ -8,7 +8,7 @@ use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use Throwable;
 
-class ReactDependenciesLoader extends AbstractSingleton
+class ReactAssetsInjector extends AbstractSingleton
 {
     public function register()
     {

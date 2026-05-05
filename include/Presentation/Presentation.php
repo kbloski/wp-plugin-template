@@ -9,7 +9,7 @@ class Presentation extends AbstractSingleton
 {
     public function init() : void 
     {
-        Loaders::getInstance()->init();        
+        Injectors::getInstance()->init();        
         AdminPages::getInstance()->init();
         Shortcodes::getInstance()->init();
     }
