@@ -3,8 +3,10 @@
 namespace PluginTemplate\Inc\Presentation\Injectors;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
+use PluginTemplate\Inc\Domain\I18n\TranslationsProvider;
 use Throwable;
 
 class TranslationsInjector extends AbstractSingleton
@@ -36,28 +38,15 @@ class TranslationsInjector extends AbstractSingleton
         }
     }
 
-    /**
-     * Źródło tłumaczeń:
-     * - Loco Translate
-     * - gettext __()
-     * - future DB / API
-     */
     private function getTranslations(): array
     {
-        return [
-            'button.increment' => __('Increment', 'wp-plugin-template'),
-            'button.decrement' => __('Decrement', 'wp-plugin-template'),
-            'button.save'      => __('Save', 'wp-plugin-template'),
-        ];
+        return TranslationsProvider::getInstance()->get();
     }
 
-    /**
-     * Version tłumaczeń (cache invalidation)
-     * NIE opieramy tego o filemtime, bo tłumaczenia są poza plikami PHP.
-     */
     private function getVersion(): int
     {
-        $file = __FILE__;
+        $file = PluginPaths::getInstance()
+            ->getPluginPath("include/Domain/I18n/TranslationsProvider.php");
 
         return file_exists($file)
             ? filemtime($file)

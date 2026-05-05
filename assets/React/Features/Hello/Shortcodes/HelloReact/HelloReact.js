@@ -1,6 +1,7 @@
 const ver = Math.floor(Date.now());
 const { createElement, useEffect, lazy} = wp.element;
 const { injectStyleOnce } = await import(`../../../../Utils/injectStyleOnce.js?v=${ver}`);
+const { useTranslations } = await import(`../../../../Hooks/useTranslations.js?v=${ver}`)
 
 const styles = `
     .plugintemplate-hello-react 
@@ -15,6 +16,8 @@ const styles = `
 
 export default function HelloReact()
 {
+    const t = useTranslations();
+
     // Styles Loading
     useEffect(() => {
         injectStyleOnce("plugintemplate-hello-react", styles)
@@ -23,6 +26,6 @@ export default function HelloReact()
 
     return createElement(
         'div', { className: 'plugintemplate-hello-react'},
-        createElement("div", null,'❤️ Hello from REACT ❤️'),
+        createElement("div", null, t('Hello from REACT')),
     );
 }

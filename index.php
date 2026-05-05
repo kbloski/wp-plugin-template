@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: WP Plugin Template
+Plugin Name: Plugin Template
 Plugin URI:
 Description: Bazowy template pluginu
 Version: 1.0
