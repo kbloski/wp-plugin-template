@@ -11,8 +11,11 @@ use Throwable;
 
 class TranslationsInjector extends AbstractSingleton
 {
+    private TranslationsProvider $translationsProvider;
+
     public function register(): void
     {
+        $this->translationsProvider = new TranslationsProvider();
         // lepsze miejsce niż wp_head/admin_head (React + DOM safety)
         add_action('wp_footer', [$this, 'inject']);
         add_action('admin_footer', [$this, 'inject']);
@@ -40,7 +43,8 @@ class TranslationsInjector extends AbstractSingleton
 
     private function getTranslations(): array
     {
-        return TranslationsProvider::getInstance()->get();
+
+        return $this->translationsProvider->get();
     }
 
     private function getVersion(): int

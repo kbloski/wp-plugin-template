@@ -4,7 +4,7 @@ namespace PluginTemplate\Inc\Domain\I18n;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 
-class TranslationsProvider extends AbstractSingleton
+class TranslationsProvider
 {
     public function get() : array 
     {
