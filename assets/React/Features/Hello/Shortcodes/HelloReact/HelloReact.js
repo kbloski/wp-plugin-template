@@ -26,6 +26,6 @@ export default function HelloReact()
 
     return createElement(
         'div', { className: 'plugintemplate-hello-react'},
-        createElement("div", null, t('Hello from REACT')),
+        createElement("div", null, t('hello.react')),
     );
 }

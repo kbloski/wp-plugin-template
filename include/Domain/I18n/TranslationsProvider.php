@@ -9,7 +9,7 @@ class TranslationsProvider
     public function get() : array 
     {
         return [
-            'Hello from REACT' => __('❤️ Hello from REACT ❤️', 'wp-plugin-template'),
+            'hello.react' => __('❤️ Hello from REACT ❤️', 'wp-plugin-template'),
             'button.increment' => __('Increment', 'wp-plugin-template'),
             'button.decrement' => __('Decrement', 'wp-plugin-template'),
             'counter' => __("Counter", 'wp-plugin-template')
