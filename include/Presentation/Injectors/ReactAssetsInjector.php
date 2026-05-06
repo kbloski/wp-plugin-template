@@ -24,35 +24,5 @@ class ReactAssetsInjector extends AbstractSingleton
             wp_enqueue_script('wp-element');
             wp_enqueue_script('wp-api-fetch');
         });
-
-        // Dodanie własnych modułów React w stopce front-endu
-        add_action('wp_head', [$this, 'enqueueReactScripts']);
-
-        // Dodanie własnych modułów React w stopce panelu admina
-        add_action('admin_head', [$this, 'enqueueReactScripts']);
-    }
-
-    public function enqueueReactScripts(): void
-    {
-        try {
-            $pluginDirUrl = PluginPaths::getInstance()->getPluginUrl();
-            $pluginDirPath = PluginPaths::getInstance()->getPluginPath();
-
-            $assetsReactFolder = PluginPaths::getInstance()->getPath("assets/React/");
-            $files = glob($assetsReactFolder . '**/*.js', GLOB_BRACE);
-
-            foreach ($files as $filePath) {
-                $relativePath = str_replace($pluginDirPath, '', $filePath);
-                $fileUrl = $pluginDirUrl . str_replace('\\', '/', $relativePath);
-                $ver = filemtime($filePath);
-                $urlWithVer = "{$fileUrl}?v={$ver}";
-
-                // Wygenerowanie <script> w stopce
-                echo '<script src="' . esc_url($urlWithVer) . '" type="module"></script>' . PHP_EOL;
-            }
-        } catch (Throwable $e) {
-            Logger::error($e);
-            throw $e;
-        }
     }
 }
