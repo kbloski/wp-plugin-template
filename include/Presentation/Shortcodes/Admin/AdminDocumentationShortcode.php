@@ -19,9 +19,6 @@ class AdminDocumentationShortcode extends AbstractShortcode
         ob_start();
         ?>
         <div>
-            <section>Endpoints</section>
-            <?= do_shortcode("[".ShortcodesNamesEnum::ENDPOINTS_DOCS()."]") ?>
-            <hr>
             <section>Shortcody</section>
             <?= do_shortcode("[".ShortcodesNamesEnum::SHORTCODES_DOCS()."]") ?>
         </div>

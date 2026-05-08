@@ -27,7 +27,6 @@ class Shortcodes extends AbstractSingleton
 
         // Private 
         ShortcodesDocsShortcode::getInstance()->register();
-        EndpointsDocsShortcode::getInstance()->register();
         
         // Public shortcodes with documentation
         $this->registerShortcode( DevTestShortcode::getInstance() );

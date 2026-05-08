@@ -22,11 +22,6 @@ final class ShortcodesNamesEnum
         return NameBuilder::applyPrefix('admin-documentation');
     }
 
-    public static function ENDPOINTS_DOCS(): string
-    {
-        return NameBuilder::applyPrefix('endpoints-docs');
-    }
-
     public static function SHORTCODES_DOCS(): string
     {
         return NameBuilder::applyPrefix('shortcodes-docs');
