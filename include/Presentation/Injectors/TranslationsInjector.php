@@ -16,12 +16,11 @@ class TranslationsInjector extends AbstractSingleton
     public function register(): void
     {
         $this->translationsProvider = new TranslationsProvider();
-        // lepsze miejsce niż wp_head/admin_head (React + DOM safety)
-        add_action('wp_footer', [$this, 'inject']);
-        add_action('admin_footer', [$this, 'inject']);
+        add_action('wp_footer',  fn() => $this->inject());
+        add_action('admin_footer', fn() => $this->inject());
     }
 
-    public function inject(): void
+    private function inject(): void
     {
         try {
             $translations = $this->getTranslations();

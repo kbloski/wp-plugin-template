@@ -1,10 +1,12 @@
-const ver = Math.floor(Date.now() / 1000);
+const ver = Math.floor(Date.now() / (1000 * 60));
 const { useState, useEffect, createElement } = wp.element;
 const { useSelect, useDispatch } = wp.data;
+const { useTranslations } = await import(`../../../../Hooks/useTranslations.js?v=${ver}`);
 const store = (await import(`../../../../Store/store.js?v=${ver}`)).default;
 
 export default function GlobalCounter() 
 {
+    const t = useTranslations();
     const dispatch = useDispatch(store.namespace);
     const counter = useSelect( (select) => select(store.namespace).getCounter() , [store] );
 
@@ -18,13 +20,13 @@ export default function GlobalCounter()
         createElement("div", null, 
             createElement(
                 "button",
-                { onClick: onDecrement },
-                "Decrement"
+                { onClick: onIncrement },
+                t("button.increment")
             ),
             createElement(
                 "button",
-                { onClick: onIncrement },
-                "Increment"
+                { onClick: onDecrement },
+                t("button.decrement")
             ),
         )
     );
