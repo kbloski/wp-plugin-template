@@ -4,10 +4,6 @@ namespace PluginTemplate\Inc\Infrastructure\I18n;
 
 class Translations
 {
-    public static function register() : void 
-    {
-
-    }
 
     public static function all() : array 
     {
