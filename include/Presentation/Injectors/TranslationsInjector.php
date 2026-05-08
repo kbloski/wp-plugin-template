@@ -6,7 +6,7 @@ use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
-use PluginTemplate\Inc\Domain\I18n\Translations;
+use PluginTemplate\Inc\Infrastructure\I18n\Translations;
 use Throwable;
 
 class TranslationsInjector extends AbstractSingleton
@@ -46,7 +46,7 @@ class TranslationsInjector extends AbstractSingleton
     private function getVersion(): int
     {
         $file = PluginPaths::getInstance()
-            ->getPluginPath("include/Domain/I18n/Translations.php");
+            ->getPluginPath("include/Infrastructure/I18n/Translations.php");
 
         return file_exists($file)
             ? filemtime($file)
