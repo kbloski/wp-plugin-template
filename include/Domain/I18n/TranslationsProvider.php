@@ -9,13 +9,13 @@ class TranslationsProvider
 {
     public function get() : array 
     {
-        $domain = PluginConfig::PLUGIN_DOMAIN;
+        // Domain nie może pochodzić z klasy, musi to być ciąg znaków :/ 
 
         return [
-            'hello.react' => __('❤️ Hello from REACT ❤️', $domain),
-            'button.increment' => __('Increment', $domain),
-            'button.decrement' => __('Decrement', $domain),
-            'counter' => __("Counter", $domain)
+            'hello.react' => __('❤️ Hello from REACT ❤️', "wp-plugin-template"),
+            'button.increment' => __('Increment', "wp-plugin-template"),
+            'button.decrement' => __('Decrement', "wp-plugin-template"),
+            'counter' => __("Counter", "wp-plugin-template")
         ];
     }
 }
