@@ -6,16 +6,13 @@ use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
-use PluginTemplate\Inc\Domain\I18n\TranslationsProvider;
+use PluginTemplate\Inc\Domain\I18n\Translations;
 use Throwable;
 
 class TranslationsInjector extends AbstractSingleton
 {
-    private TranslationsProvider $translationsProvider;
-
     public function register(): void
     {
-        $this->translationsProvider = new TranslationsProvider();
         add_action('wp_footer',  fn() => $this->inject());
         add_action('admin_footer', fn() => $this->inject());
     }
@@ -43,13 +40,13 @@ class TranslationsInjector extends AbstractSingleton
     private function getTranslations(): array
     {
 
-        return $this->translationsProvider->get();
+        return Translations::all();
     }
 
     private function getVersion(): int
     {
         $file = PluginPaths::getInstance()
-            ->getPluginPath("include/Domain/I18n/TranslationsProvider.php");
+            ->getPluginPath("include/Domain/I18n/Translations.php");
 
         return file_exists($file)
             ? filemtime($file)
