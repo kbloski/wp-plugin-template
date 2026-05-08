@@ -8,4 +8,5 @@ class PluginConfig
     public const PLUGIN_PREFIX = 'plugintemplate-';
     public const PLUGIN_SLUG = "plugintemplate_";
     public const NAMESPACE = "plugintemplate";
+    public const PLUGIN_DOMAIN = "wp-plugin-template";
 }

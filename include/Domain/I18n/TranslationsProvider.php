@@ -3,16 +3,19 @@
 namespace PluginTemplate\Inc\Domain\I18n;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Core\Configs\PluginConfig;
 
 class TranslationsProvider
 {
     public function get() : array 
     {
+        $domain = PluginConfig::PLUGIN_DOMAIN;
+
         return [
-            'hello.react' => __('❤️ Hello from REACT ❤️', 'wp-plugin-template'),
-            'button.increment' => __('Increment', 'wp-plugin-template'),
-            'button.decrement' => __('Decrement', 'wp-plugin-template'),
-            'counter' => __("Counter", 'wp-plugin-template')
+            'hello.react' => __('❤️ Hello from REACT ❤️', $domain),
+            'button.increment' => __('Increment', $domain),
+            'button.decrement' => __('Decrement', $domain),
+            'counter' => __("Counter", $domain)
         ];
     }
 }
