@@ -1,0 +1,53 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plugin Template\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-11 06:53+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.0; wp-6.9.4; php-8.3.30\n"
+"X-Domain: wp-plugin-template"
+
+#. Author URI of the plugin
+msgid "-"
+msgstr ""
+
+#. Description of the plugin
+msgid "Bazowy template pluginu"
+msgstr ""
+
+#: include/Infrastructure/I18n/Translations.php:16
+msgid "counter"
+msgstr ""
+
+#: include/Infrastructure/I18n/Translations.php:15
+msgid "decrement"
+msgstr ""
+
+#: include/Infrastructure/I18n/Translations.php:14
+msgid "increment"
+msgstr ""
+
+#. Author of the plugin
+msgid "Kamil Błoński"
+msgstr ""
+
+#. Name of the plugin
+msgid "Plugin Template"
+msgstr ""
+
+#: include/Infrastructure/I18n/Translations.php:17
+msgid "shortcodes"
+msgstr ""
+
+#: include/Infrastructure/I18n/Translations.php:13
+msgid "❤️ hello from REACT ❤️"
+msgstr ""
