@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Plugin Template\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-11 06:53+0000\n"
+"POT-Creation-Date: 2026-05-11 08:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -25,15 +25,15 @@ msgid "Bazowy template pluginu"
 msgstr ""
 
 #: include/Infrastructure/I18n/Translations.php:16
-msgid "counter"
+msgid "Counter"
 msgstr ""
 
 #: include/Infrastructure/I18n/Translations.php:15
-msgid "decrement"
+msgid "Decrement"
 msgstr ""
 
 #: include/Infrastructure/I18n/Translations.php:14
-msgid "increment"
+msgid "Increment"
 msgstr ""
 
 #. Author of the plugin
@@ -45,9 +45,9 @@ msgid "Plugin Template"
 msgstr ""
 
 #: include/Infrastructure/I18n/Translations.php:17
-msgid "shortcodes"
+msgid "Shortcodes"
 msgstr ""
 
 #: include/Infrastructure/I18n/Translations.php:13
-msgid "❤️ hello from REACT ❤️"
+msgid "❤️ Hello from REACT ❤️"
 msgstr ""
