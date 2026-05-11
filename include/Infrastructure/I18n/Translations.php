@@ -10,11 +10,11 @@ class Translations
         // Domain nie może pochodzić z klasy, musi to być ciąg znaków :/ 
 
         return [
-            'hello.react' => __('❤️ hello from REACT ❤️', "wp-plugin-template"),
-            'button.increment' => __('increment', "wp-plugin-template"),
-            'button.decrement' => __('decrement', "wp-plugin-template"),
-            'counter' => __("counter", "wp-plugin-template"),
-            "shortcodes" => __("shortcodes", "wp-plugin-template")
+            'hello.react' => __('❤️ Hello from REACT ❤️', "wp-plugin-template"),
+            'button.increment' => __('Increment', "wp-plugin-template"),
+            'button.decrement' => __('Decrement', "wp-plugin-template"),
+            'counter' => __("Counter", "wp-plugin-template"),
+            "shortcodes" => __("Shortcodes", "wp-plugin-template")
         ];
     }
 
