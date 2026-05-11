@@ -4,6 +4,7 @@ namespace PluginTemplate\Inc\Presentation\Shortcodes\Admin;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
 use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Infrastructure\I18n\Translations;
 
 class AdminHomeShortcode extends AbstractShortcode
 {
@@ -18,11 +19,11 @@ class AdminHomeShortcode extends AbstractShortcode
         ?>
             <div>
                 <h2>Home</h2>
-                <?= do_shortcode("[" . ShortcodesNamesEnum::HELLO_REACT() . "]" ); ?>
+                <!-- <?= do_shortcode("[" . ShortcodesNamesEnum::HELLO_REACT() . "]" ); ?>
                 <?= do_shortcode("[" . ShortcodesNamesEnum::COUNTER() . "]" ); ?>
                 <?= do_shortcode("[" . ShortcodesNamesEnum::GLOBAL_COUNTER() . "]" ); ?>
                 <?= do_shortcode("[" . ShortcodesNamesEnum::GLOBAL_COUNTER() . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodesNamesEnum::API_COUNTER() . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodesNamesEnum::API_COUNTER() . "]" ); ?> -->
 
             </div>
         <?php
