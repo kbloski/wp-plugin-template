@@ -12,7 +12,7 @@ class GetCounterCallback
 {
     protected function __construct() {}
 
-    public static function handle(\WP_REST_Request $request): WP_REST_Response|WP_Error
+    public static function execute(\WP_REST_Request $request): WP_REST_Response|WP_Error
     {
         try 
         {   

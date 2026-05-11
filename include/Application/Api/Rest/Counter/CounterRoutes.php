@@ -52,7 +52,7 @@ class CounterRoutes
                     path: "/counter", 
                     callback: function(WP_REST_Request $request) 
                     {
-                        return GetCounterCallback::handle($request);
+                        return GetCounterCallback::execute($request);
                     },
                     permissionCallback: function(WP_REST_Request $request) {
                         return is_user_logged_in();
@@ -66,7 +66,7 @@ class CounterRoutes
                     path: "/counter", 
                     callback: function(WP_REST_Request $request) 
                     {
-                        return EditCounterCallback::handle($request);
+                        return EditCounterCallback::execute($request);
                     },
                     permissionCallback: function(WP_REST_Request $request) {
                         return is_user_logged_in();
