@@ -4,6 +4,7 @@ namespace PluginTemplate\Inc\Presentation;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Presentation\Injectors\ReactAssetsInjector;
+use PluginTemplate\Inc\Presentation\Injectors\StylesInjector;
 use PluginTemplate\Inc\Presentation\Injectors\TranslationsInjector;
 
 class Injectors extends AbstractSingleton
@@ -12,5 +13,6 @@ class Injectors extends AbstractSingleton
     {
         ReactAssetsInjector::getInstance()->register();
         TranslationsInjector::getInstance()->register();
+        StylesInjector::getInstance()->register();
     }
 }
