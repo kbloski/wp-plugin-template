@@ -28,7 +28,7 @@ class Logger
     }
 
 
-    final private static function log(string $level, string $message, array $context = [], bool $db = false): void
+    private static function log(string $level, string $message, array $context = [], bool $db = false): void
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
         $caller = $trace[1] ?? [];
