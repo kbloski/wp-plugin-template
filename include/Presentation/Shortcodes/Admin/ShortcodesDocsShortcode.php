@@ -3,17 +3,15 @@
 namespace PluginTemplate\Inc\Presentation\Shortcodes\Admin;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
-use PluginTemplate\Inc\Core\Configs\PluginConfig;
-use PluginTemplate\Inc\Core\Logger\Logger;
-use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 use PluginTemplate\Inc\Presentation\Shortcodes;
 use Throwable;
 
 class ShortcodesDocsShortcode extends AbstractShortcode
 {
-    public function getShortcodeName(): string 
+    public function name(): string 
     {
-        return ShortcodesNamesEnum::SHORTCODES_DOCS();
+        return ShortcodeNamesEnum::SHORTCODES_DOCS;
     }
 
     public function render_shortcode(array $atts = []): string

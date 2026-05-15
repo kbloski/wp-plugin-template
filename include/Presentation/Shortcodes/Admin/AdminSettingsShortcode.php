@@ -3,17 +3,15 @@
 namespace PluginTemplate\Inc\Presentation\Shortcodes\Admin;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
-use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 
 class AdminSettingsShortcode extends AbstractShortcode
 {
-    protected function __construct()
-    {
-    }
 
-    public function getShortcodeName(): string 
+
+    public function name(): string 
     {
-        return ShortcodesNamesEnum::ADMIN_SETTINGS();
+        return ShortcodeNamesEnum::ADMIN_SETTINGS;
     }
 
     public function render_shortcode(array $atts = []): string

@@ -1,6 +1,7 @@
 <?php 
 namespace PluginTemplate\Inc\Presentation;
 
+use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\EndpointsDocsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminDocumentationShortcode;
@@ -10,6 +11,7 @@ use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminHomeShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\ApiCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\CounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\GlobalCounterShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\Counter\PageCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\HelloReactShortcode;
 
@@ -20,33 +22,30 @@ class Shortcodes extends AbstractSingleton
 
     public  function init()
     {
-        // Admin shortcodes
-        AdminHomeShortcode::getInstance()->register();
-        AdminSettingsShortcode::getInstance()->register();
-        AdminDocumentationShortcode::getInstance()->register();
+        (new AdminHomeShortcode())->register();
+        (new AdminSettingsShortcode())->register();
+        (new AdminDocumentationShortcode())->register();
 
         // Private 
-        ShortcodesDocsShortcode::getInstance()->register();
-        
+        (new ShortcodesDocsShortcode())->register();
+
         // Public shortcodes with documentation
-        $this->registerShortcode( DevTestShortcode::getInstance() );
-        $this->registerShortcode( HelloReactShortcode::getInstance() );
-        $this->registerShortcode( CounterShortcode::getInstance() );
-        $this->registerShortcode( GlobalCounterShortcode::getInstance() );
-        $this->registerShortcode( ApiCounterShortcode::getInstance() );
+        $this->registerShortcode((new DevTestShortcode()));
+        $this->registerShortcode((new HelloReactShortcode()));
+        $this->registerShortcode((new CounterShortcode()));
+        $this->registerShortcode((new PageCounterShortcode()));
+        $this->registerShortcode((new ApiCounterShortcode()));
     }
 
-
-    
     public  function getShortcodesDocumentation()
     {
         return $this->shortcodesNames;
     }
 
-    private function registerShortcode( $instance)
+    private function registerShortcode( AbstractShortcode $instance )
     {
         $instance->register();
-        $this->shortcodesNames[$instance->getShortcodeName()] = [
+        $this->shortcodesNames[$instance->name()] = [
             "attributes" => $instance->getAttributes()
         ];
     }

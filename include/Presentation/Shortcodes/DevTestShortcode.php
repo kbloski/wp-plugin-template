@@ -2,28 +2,22 @@
 
 namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
-use Exception;
-use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode as AbstractsAbstractShortcode;
-use PluginTemplate\Inc\Core\Logger\Logger;
-use PluginTemplate\Inc\Domain\Entities\ExampleEntity;
-use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
-use PluginTemplate\Inc\Infrastructure\Doctrine\Doctrine;
+use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
+use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 use PluginTemplate\Inc\Infrastructure\Repositories\ExampleRepository;
+use Exception;
 use Throwable;
 
-class DevTestShortcode extends AbstractsAbstractShortcode
+class DevTestShortcode extends AbstractShortcode
 {
-    private ExampleRepository $exampleRepository;
-    protected array $atts = [];
 
-    protected function __construct()
+    public function __construct()
     {
-        $this->exampleRepository = ExampleRepository::getInstance();
     }
 
-    public function getShortcodeName(): string
+    public function name(): string
     {
-        return ShortcodesNamesEnum::DEV_TEST();
+        return ShortcodeNamesEnum::DEV_TEST;
     }
 
     public function enqueue_assets(): void

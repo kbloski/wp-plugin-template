@@ -6,7 +6,9 @@ use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Configs\PluginConfig;
 use PluginTemplate\Inc\Core\Enums\PluginCapabilitiesEnum;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
+use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Domain\Security\Capabilities;
 
 class AdminPages extends AbstractSingleton
 {
@@ -32,11 +34,11 @@ class AdminPages extends AbstractSingleton
             add_menu_page(
                 PluginConfig::PLUGIN_NAME,       
                 PluginConfig::PLUGIN_NAME,       
-                PluginCapabilitiesEnum::PLUGIN_ACCESS(),
+                Capabilities::CAN_MANAGE,
                 $mainPageSlug,        
                 function()
                 {
-                    echo do_shortcode('['.ShortcodesNamesEnum::ADMIN_HOME().']');
+                    echo do_shortcode('['.ShortcodeNamesEnum::ADMIN_HOME.']');
                 },
                 'dashicons-art',           
                 66                        
@@ -46,11 +48,11 @@ class AdminPages extends AbstractSingleton
                 $mainPageSlug,
                 'Ustawienia',
                 'Ustawienia',
-                PluginCapabilitiesEnum::PLUGIN_ACCESS(),            
+                Capabilities::CAN_MANAGE,
                 NameBuilder::applySlug("settings"),                //  Slug page
                 function()
                 {
-                    echo do_shortcode('['.ShortcodesNamesEnum::ADMIN_SETTINGS().']');
+                    echo do_shortcode('['.ShortcodeNamesEnum::ADMIN_SETTINGS.']');
                 }
             );
 
@@ -59,11 +61,11 @@ class AdminPages extends AbstractSingleton
                 $mainPageSlug,
                 'Dokumentacja',
                 'Dokumentacja',
-                PluginCapabilitiesEnum::PLUGIN_ACCESS(),            
+                Capabilities::CAN_MANAGE,
                 NameBuilder::applySlug("documentation"),                //  Slug page
                function()
                {
-                    echo do_shortcode('['.ShortcodesNamesEnum::ADMIN_DOCUMENTATION().']'); 
+                    echo do_shortcode('['.ShortcodeNamesEnum::ADMIN_DOCUMENTATION.']'); 
                }
             );
     

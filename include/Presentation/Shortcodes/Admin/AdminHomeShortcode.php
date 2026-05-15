@@ -3,14 +3,14 @@
 namespace PluginTemplate\Inc\Presentation\Shortcodes\Admin;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
-use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 use PluginTemplate\Inc\Infrastructure\I18n\Translations;
 
 class AdminHomeShortcode extends AbstractShortcode
 {
-    public function getShortcodeName(): string
+    public function name(): string
     {
-        return ShortcodesNamesEnum::ADMIN_HOME();
+        return ShortcodeNamesEnum::ADMIN_HOME;
     }
 
     public function render_shortcode(array $atts = []): string
@@ -19,11 +19,11 @@ class AdminHomeShortcode extends AbstractShortcode
         ?>
             <div>
                 <h2>Home</h2>
-                <!-- <?= do_shortcode("[" . ShortcodesNamesEnum::HELLO_REACT() . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodesNamesEnum::COUNTER() . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodesNamesEnum::GLOBAL_COUNTER() . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodesNamesEnum::GLOBAL_COUNTER() . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodesNamesEnum::API_COUNTER() . "]" ); ?> -->
+                <?= do_shortcode("[" . ShortcodeNamesEnum::HELLO_REACT . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodeNamesEnum::COUNTER . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodeNamesEnum::PAGE_COUNTER . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodeNamesEnum::PAGE_COUNTER . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodeNamesEnum::API_COUNTER . "]" ); ?>
 
             </div>
         <?php

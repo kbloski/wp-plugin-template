@@ -14,7 +14,7 @@ use RuntimeException;
  *
  * @since 1.0.0
  */
-abstract class AbstractShortcode extends AbstractSingleton
+abstract class AbstractShortcode
 {
     /**
      * Domyślne atrybuty shortcode’a.
@@ -48,7 +48,7 @@ abstract class AbstractShortcode extends AbstractSingleton
      *
      * @return string
      */
-    abstract public function getShortcodeName(): string;
+    abstract public function name(): string;
 
     /**
      * Zwraca atrybuty shortcode’a.
@@ -98,12 +98,12 @@ abstract class AbstractShortcode extends AbstractSingleton
      */
     final public function register(): void
     {
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
+        add_action('wp_enqueue_scripts', fn() => $this->enqueue_assets());
+        add_action('admin_enqueue_scripts', fn() => $this->enqueue_assets());
 
         $this->boot();
-        $this->validateAttsStructure();
-        add_shortcode($this->getShortcodeName(), [$this, 'handle_shortcode']);
+        $this->validate_atts();
+        add_shortcode($this->name(), fn() => $this->handle_shortcode());
 
     }
 
@@ -117,7 +117,7 @@ abstract class AbstractShortcode extends AbstractSingleton
      *
      * @return array Lista błędów. Pusta, jeśli wszystko poprawne.
      */
-    final function validateAttsStructure()
+    final function validate_atts()
     {
         $atts = $this->atts;
         $errors = [];
@@ -178,7 +178,7 @@ abstract class AbstractShortcode extends AbstractSingleton
      * @param array $atts Atrybuty przekazane w shortcode.
      * @return array Atrybuty z uwzględnieniem defaultów
      */
-    protected function getMergedAttributes(array $atts = []): array
+    protected function get_merget_atts(array $atts = []): array
     {
         $merged = [];
 
@@ -212,7 +212,7 @@ abstract class AbstractShortcode extends AbstractSingleton
             $atts = $arguments[0] ?? [];
 
             // Scal atrybuty z domyślnymi
-            $merged = $this->getMergedAttributes($atts);
+            $merged = $this->get_merget_atts($atts);
             $this->atts = $merged;
 
             // Wywołaj faktyczne renderowanie

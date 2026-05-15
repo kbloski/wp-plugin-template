@@ -3,6 +3,7 @@
 namespace PluginTemplate\Inc\Infrastructure;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\Infrastructure\Installers\CapabilitiesInstaller;
 use PluginTemplate\Inc\Infrastructure\Tables;
 
 class Infrastructure extends AbstractSingleton
@@ -15,6 +16,7 @@ class Infrastructure extends AbstractSingleton
 
     public function onActivatePlugin() : void
     {
+        CapabilitiesInstaller::activate();
         Tables::createTables();
     }
 

@@ -4,15 +4,15 @@ namespace PluginTemplate\Inc\Presentation\Shortcodes\Counter;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
-use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 
 class CounterShortcode extends AbstractShortcode
 {
     protected array $atts = [];
 
-    public function getShortcodeName(): string
+    public function name(): string
     {
-        return ShortcodesNamesEnum::COUNTER();
+        return ShortcodeNamesEnum::COUNTER;
     }
 
 

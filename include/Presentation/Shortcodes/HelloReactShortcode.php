@@ -4,15 +4,15 @@ namespace PluginTemplate\Inc\Presentation\Shortcodes;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
-use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 
 class HelloReactShortcode extends AbstractShortcode
 {
     protected array $atts = [];
 
-    public function getShortcodeName(): string
+    public function name(): string
     {
-        return ShortcodesNamesEnum::HELLO_REACT();
+        return ShortcodeNamesEnum::HELLO_REACT;
     }
 
 

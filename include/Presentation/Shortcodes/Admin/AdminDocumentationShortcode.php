@@ -3,15 +3,14 @@
 namespace PluginTemplate\Inc\Presentation\Shortcodes\Admin;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
-use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
+use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 use PluginTemplate\Inc\Infrastructure\I18n\Translations;
-use PluginTemplate\Inc\Presentation\Shortcodes;
 
 class AdminDocumentationShortcode extends AbstractShortcode
 {
-    public function getShortcodeName(): string 
+    public function name(): string 
     {
-        return ShortcodesNamesEnum::ADMIN_DOCUMENTATION();
+        return ShortcodeNamesEnum::ADMIN_DOCUMENTATION;
     }
 
 
@@ -21,7 +20,7 @@ class AdminDocumentationShortcode extends AbstractShortcode
         ?>
         <div>
             <section><?= Translations::get('shortcodes')  ?></section>
-            <?= do_shortcode("[".ShortcodesNamesEnum::SHORTCODES_DOCS()."]") ?>
+            <?= do_shortcode("[".ShortcodeNamesEnum::SHORTCODES_DOCS."]") ?>
         </div>
         <?php
         return ob_get_clean();

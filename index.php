@@ -26,17 +26,17 @@ register_activation_hook(__FILE__, 'PluginTemplate\Inc\Framework\Hooks\PluginLif
 // Deactivate plugin
 register_deactivation_hook(__FILE__, 'PluginTemplate\Inc\Framework\Hooks\PluginLifecycleHooks::onDeactivate');
 
-Core::getInstance()->init();
+// Core::getInstance()->init();
 Infrastructure::getInstance()->init();
-Application::getInstance()->init();
+// Application::getInstance()->init();
 Presentation::getInstance()->init();
-Framework::getInstance()->init();
+// Framework::getInstance()->init();
 
 // Translations 
-add_action('plugins_loaded', function () {
-    load_plugin_textdomain(
-        "wp-plugin-template",
-        false,
-        dirname(plugin_basename(__FILE__)) . '/languages'
-    );
-});
+// add_action('plugins_loaded', function () {
+//     load_plugin_textdomain(
+//         "wp-plugin-template",
+//         false,
+//         dirname(plugin_basename(__FILE__)) . '/languages'
+//     );
+// });
