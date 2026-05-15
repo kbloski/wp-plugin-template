@@ -16,14 +16,8 @@ class GetCounterCallback
     {
         try 
         {   
-            $counter = (int) get_user_meta(
-                user_id: get_current_user_id(), 
-                key: UserMetaEnum::COUNTER(),
-                single: true 
-            ) ?? 0;
-
-            return new \WP_REST_Response([
-                'counter' => $counter 
+            return new WP_REST_Response([
+                'counter' => 2
             ], 200);
         } catch (\Throwable $e) 
         {

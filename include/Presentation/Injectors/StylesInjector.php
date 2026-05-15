@@ -2,12 +2,10 @@
 
 namespace PluginTemplate\Inc\Presentation\Injectors;
 
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
-use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 
-class StylesInjector extends AbstractSingleton
+class StylesInjector
 {
     public function register()
     {

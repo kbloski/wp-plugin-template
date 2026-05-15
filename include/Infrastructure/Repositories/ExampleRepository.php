@@ -2,17 +2,16 @@
 
 namespace PluginTemplate\Inc\Infrastructure\Repositories;
 
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
 use PluginTemplate\Inc\Domain\Models\Example;
 use Throwable;
 
-class ExampleRepository extends AbstractSingleton
+class ExampleRepository
 {
     private $tableName;
 
-    protected function __construct()
+    public function __construct()
     {
         $this->tableName = TableNamesEnum::EXAMPLE();
     }

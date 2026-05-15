@@ -16,7 +16,8 @@ final class PluginLifecycleHooks
 
     public static function onActivate(): void
     {
-        Infrastructure::getInstance()->onActivatePlugin();
+        
+       (new Infrastructure())->onActivatePlugin();
     }
 
     public static function onDeactivate(): void

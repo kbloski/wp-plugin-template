@@ -2,20 +2,17 @@
 namespace PluginTemplate\Inc\Presentation;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
-use PluginTemplate\Inc\Presentation\Shortcodes\Admin\EndpointsDocsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminDocumentationShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminSettingsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\ShortcodesDocsShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Admin\AdminHomeShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\ApiCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\CounterShortcode;
-use PluginTemplate\Inc\Presentation\Shortcodes\Counter\GlobalCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\PageCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\HelloReactShortcode;
 
-class Shortcodes extends AbstractSingleton
+class Shortcodes
 {
     /** @var string[] */
     private  array $shortcodesNames = [];

@@ -2,13 +2,7 @@
 
 namespace PluginTemplate\Inc\Presentation\Injectors;
 
-use PluginTemplate\Inc\Core\Naming\NameBuilder;
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
-use PluginTemplate\Inc\Core\Configs\PluginPaths;
-use PluginTemplate\Inc\Core\Logger\Logger;
-use Throwable;
-
-class ReactAssetsInjector extends AbstractSingleton
+class ReactAssetsInjector
 {
     public function register()
     {

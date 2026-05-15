@@ -2,15 +2,12 @@
 
 namespace PluginTemplate\Inc\Presentation\Admin;
 
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Configs\PluginConfig;
-use PluginTemplate\Inc\Core\Enums\PluginCapabilitiesEnum;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
-use PluginTemplate\Inc\Domain\Enums\ShortcodesNamesEnum;
 use PluginTemplate\Inc\Domain\Security\Capabilities;
 
-class AdminPages extends AbstractSingleton
+class AdminPages 
 {
     public function init()
     {

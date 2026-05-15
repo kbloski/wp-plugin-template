@@ -13,6 +13,6 @@ class Api
 
     public static function init()
     {
-        RestRoutes::getInstance()->register();
+        (new RestRoutes)->register();
     }
 }

@@ -2,14 +2,13 @@
 
 namespace PluginTemplate\Inc\Presentation\Injectors;
 
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 use PluginTemplate\Inc\Infrastructure\I18n\Translations;
 use Throwable;
 
-class TranslationsInjector extends AbstractSingleton
+class TranslationsInjector
 {
     public function register(): void
     {

@@ -3,13 +3,12 @@
 namespace PluginTemplate\Inc\Infrastructure\Tables;
 
 use Exception;
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Core\Database\DbHelper;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
 use Throwable;
 
-class ExampleTable extends AbstractSingleton
+class ExampleTable
 {
     protected string $tableName;
 

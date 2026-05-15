@@ -2,15 +2,14 @@
 
 namespace PluginTemplate\Inc\Presentation;
 
-use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
 use PluginTemplate\Inc\Presentation\Admin\AdminPages;
 
-class Presentation extends AbstractSingleton
+class Presentation
 {
     public function init() : void 
     {
-        Injectors::getInstance()->init();        
-        AdminPages::getInstance()->init();
-        Shortcodes::getInstance()->init();
+        (new Injectors)->init();        
+        (new AdminPages)->init();
+        (new Shortcodes)->init();
     }
 }
