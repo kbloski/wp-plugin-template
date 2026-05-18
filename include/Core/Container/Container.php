@@ -7,11 +7,17 @@ class Container
     private array $bindings = [];
     private array $instances = [];
 
+    /**
+     * @template T
+     * @param class-string<T> $id
+     * @param callable(self): T $factory
+     */
     public function set(string $id, callable $factory): void
     {
         $this->bindings[$id] = $factory;
     }
 
+    
     /**
      * @template T
      * @param class-string<T> $id
