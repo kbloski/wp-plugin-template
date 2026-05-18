@@ -1,15 +1,16 @@
 <?php 
 
-namespace PluginTemplate\Inc\Application\Api\Rest\Counter;
+namespace PluginTemplate\Inc\Application\Api\Rest\Example;
 
+use PluginTemplate\Inc\Application\Api\Rest\Counter\Callbacks\GetExamples;
+use PluginTemplate\Inc\Application\Api\Rest\Example\Callbacks\CreateExampleCallback;
+use PluginTemplate\Inc\Application\Api\Rest\Example\Callbacks\GetExamplesCallback;
 use PluginTemplate\Inc\Application\DTOs\RouteDto;
-use PluginTemplate\Inc\Application\Api\Rest\Counter\Callbacks\GetCounterCallback;
-use PluginTemplate\Inc\Application\Api\Rest\Counter\Callbacks\EditCounterCallback;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use Throwable;
 use WP_REST_Request;
 
-class CounterRoutes 
+class ExampleRoutes 
 {
     public static function register(): void
     {
@@ -49,10 +50,10 @@ class CounterRoutes
                 new RouteDto(
                     method: 'GET',
                     version: 'v1',
-                    path: "/counter", 
+                    path: "/examples", 
                     callback: function(WP_REST_Request $request) 
                     {
-                        return GetCounterCallback::execute($request);
+                        return GetExamplesCallback::execute($request);
                     },
                     permissionCallback: function(WP_REST_Request $request) {
                         return is_user_logged_in();
@@ -61,25 +62,16 @@ class CounterRoutes
                 ),
 
                 new RouteDto(
-                    method: 'PATCH',
+                    method: 'POST',
                     version: 'v1',
-                    path: "/counter", 
+                    path: "/examples", 
                     callback: function(WP_REST_Request $request) 
                     {
-                        return EditCounterCallback::execute($request);
+                        return CreateExampleCallback::execute($request);
                     },
                     permissionCallback: function(WP_REST_Request $request) {
                         return is_user_logged_in();
                     },
-                    args: [
-                        'counter' => [
-                            'required' => true,
-                            'validate_callback' => function($param, $request, $key) {
-                                return is_numeric($param);
-                            },
-                            'sanitize_callback' => 'absint',
-                        ],
-                    ],
                 ),
 
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace PluginTemplate\Inc\Presentation\Shortcodes\Counter;
+namespace PluginTemplate\Inc\Presentation\Shortcodes\Example;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractShortcode;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 
-class ApiCounterShortcode  extends AbstractShortcode
+class ExamplePanelShortcode  extends AbstractShortcode
 {
     protected array $atts = [];
 
@@ -23,11 +23,11 @@ class ApiCounterShortcode  extends AbstractShortcode
 
         ob_start()
         ?>
-            <div data-react-id="<?= $elementId ?>">Api Counter</div>
+            <div data-react-id="<?= $elementId ?>">Example Panel</div>
             <script type="module">
                 const { createRoot, createElement} = wp.element;
-                import { ApiCounter } from "<?= $reactUrl ?>?v=<?= time() ?>";
-                addEventListener('DOMContentLoaded', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(ApiCounter, {})));
+                import { ExamplePanel } from "<?= $reactUrl ?>?v=<?= time() ?>";
+                addEventListener('DOMContentLoaded', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(ExamplePanel, {})));
             </script>
         <?php
         return ob_get_clean();

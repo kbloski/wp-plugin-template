@@ -8,11 +8,11 @@ use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
 use Throwable;
 
-class ExampleTable
+class ExampleTable 
 {
-    protected string $tableName;
+    public readonly string $tableName;
 
-    protected function __construct()
+    public function __construct()
     {
         $this->tableName = TableNamesEnum::EXAMPLE();
     }

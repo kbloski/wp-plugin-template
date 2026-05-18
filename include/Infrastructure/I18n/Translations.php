@@ -11,10 +11,12 @@ class Translations
 
         return [
             'hello.react' => __('❤️ Hello from REACT ❤️', "wp-plugin-template"),
+            'counter' => __("Counter", "wp-plugin-template"),
+            "shortcodes" => __("Shortcodes", "wp-plugin-template"),
             'button.increment' => __('Increment', "wp-plugin-template"),
             'button.decrement' => __('Decrement', "wp-plugin-template"),
-            'counter' => __("Counter", "wp-plugin-template"),
-            "shortcodes" => __("Shortcodes", "wp-plugin-template")
+            "action.generate"  => __("Generate", "wp-plugin-template"),
+            "errors.unexpected_error" => __("Unexpected error occured", "wp-plugin-template")
         ];
     }
 

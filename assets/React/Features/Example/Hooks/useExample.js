@@ -8,38 +8,44 @@ const {
     invalidateTags
 } = await import(`../../../Events/QueryTagsEvent.js?v=${ver}`);
 
-export function useLazyGetCounterQuery()
+export function useLazyGetExamples()
 {
     const [fetch, data] = useWpQueryLazy();
 
     function getCounter()
     {
         const request = {
-            path: 'plugintemplate/v1/counter',
-            method: 'GET'
+            method: 'GET',
+            path: 'plugintemplate/v1/examples',
         };
 
         fetch(request);
     }
     
     useEffect(() => {
-        const unsubscribe = provideTags([ "counter" ], () => getCounter());
+        const unsubscribe = provideTags([ "examples" ], () => getCounter());
         return unsubscribe;
     }, []);
     
     return [getCounter, data];
 }
 
-export function useEditCounter()
+export function useCreateExample()
 {
     const [mutate, data] = useWpMutation();
     
-    function editCounter({ counter })
+    function editCounter({ 
+        userId, 
+        message
+    })
     {
         const request = {
-            method: "PATCH",
-            path: 'plugintemplate/v1/counter',
-            body: { counter }
+            method: "POST",
+            path: 'plugintemplate/v1/examples',
+            body: { 
+                user_id: userId,
+                message
+            }
         }
 
         mutate(request)
@@ -47,7 +53,7 @@ export function useEditCounter()
 
     useEffect(() => {
         if (!data?.isSuccess) return
-        invalidateTags([ "counter" ]);
+        invalidateTags([ "examples" ]);
     }, [data?.isSuccess])
 
     return [editCounter, data];

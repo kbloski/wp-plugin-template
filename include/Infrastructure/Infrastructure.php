@@ -9,8 +9,6 @@ class Infrastructure
 {
     public function init()
     {
-        // Tables::dropTables();
-        // Tables::createTables();
     }
 
     public function onActivatePlugin() : void

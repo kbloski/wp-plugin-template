@@ -12,6 +12,11 @@ class Container
         $this->bindings[$id] = $factory;
     }
 
+    /**
+     * @template T
+     * @param class-string<T> $id
+     * @return T
+     */
     public function get(string $id): mixed
     {
         // singleton cache (opcjonalne, ale bardzo przydatne)

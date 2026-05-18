@@ -10,6 +10,7 @@ use PluginTemplate\Inc\Presentation\Shortcodes\Counter\ApiCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\CounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\Counter\PageCounterShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\DevTestShortcode;
+use PluginTemplate\Inc\Presentation\Shortcodes\Example\ExamplePanelShortcode;
 use PluginTemplate\Inc\Presentation\Shortcodes\HelloReactShortcode;
 
 class Shortcodes
@@ -31,7 +32,7 @@ class Shortcodes
         $this->registerShortcode((new HelloReactShortcode()));
         $this->registerShortcode((new CounterShortcode()));
         $this->registerShortcode((new PageCounterShortcode()));
-        $this->registerShortcode((new ApiCounterShortcode()));
+        $this->registerShortcode((new ExamplePanelShortcode()));
     }
 
     public  function getShortcodesDocumentation()

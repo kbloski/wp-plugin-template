@@ -16,11 +16,7 @@ class Tables
     public static function createTables() 
     {
         try {
-            
-            ExampleTable::getInstance()->create();
-
-
-
+            (new ExampleTable())->create();
 
 
         } catch (Throwable $e)
@@ -33,7 +29,7 @@ class Tables
     public static function dropTables() 
     {
         try {
-            ExampleTable::getInstance()->drop();
+            (new ExampleTable())->drop();
 
 
 
