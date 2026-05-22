@@ -15,8 +15,7 @@ class PluginOptions extends PluginConfig
      * Domyślne wartości opcji powiązane z OptionsEnum
      */
     private static array $defaults = [
-        self::PLUGIN_SLUG."option" => 'Default Value',
- 
+        PluginOpitonsEnum::MIGRATIONS_VERSION => 0,
     ];
 
         /**

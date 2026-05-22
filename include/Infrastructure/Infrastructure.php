@@ -9,16 +9,15 @@ class Infrastructure
 {
     public function init()
     {
+        (new Migrations())->init();
     }
 
     public function onActivatePlugin() : void
     {
         CapabilitiesInstaller::activate();
-        Tables::createTables();
     }
 
     public function onUninstallPlugin() : void 
     {
-        Tables::dropTables();
     }
 }
