@@ -9,14 +9,18 @@ use PluginTemplate\Inc\Infrastructure\Infrastructure;
 use PluginTemplate\Inc\Infrastructure\Providers\RepositoryProvider;
 use PluginTemplate\Inc\Presentation\Presentation;
 
-(new Core())->init();
-(new Infrastructure())->init();
-(new Application())->init();
-(new Presentation())->init();
-(new Framework)->init();
+
 
 $container = new Container();
 
 (new RepositoryProvider())->register($container);
 
 AppContainer::init( $container );
+
+
+
+(new Core())->init();
+(new Infrastructure())->init();
+(new Application())->init();
+(new Presentation())->init();
+(new Framework)->init();
