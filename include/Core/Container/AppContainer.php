@@ -4,7 +4,7 @@ namespace PluginTemplate\Inc\Core\Container;
 
 use RuntimeException;
 
-class ContainerRegistry
+class AppContainer
 {
     private static ?Container $container = null;
 

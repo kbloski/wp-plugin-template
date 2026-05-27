@@ -9,13 +9,8 @@ Author: Kamil Błoński
 Author URI: -
 */
 
-use PluginTemplate\Inc\Application\Application;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
-use PluginTemplate\Inc\Core\Core;
-use PluginTemplate\Inc\Framework\Framework;
 use PluginTemplate\Inc\Framework\Hooks\PluginLifecycleHooks;
-use PluginTemplate\Inc\Infrastructure\Infrastructure;
-use PluginTemplate\Inc\Presentation\Presentation;
 
 if (!defined('ABSPATH')) exit;
 require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');

@@ -1,7 +1,7 @@
 <?php
 
 use PluginTemplate\Inc\Application\Application;
-use PluginTemplate\Inc\Core\Container\ContainerRegistry;
+use PluginTemplate\Inc\Core\Container\AppContainer;
 use PluginTemplate\Inc\Core\Core;
 use PluginTemplate\Inc\Core\Container\Container;
 use PluginTemplate\Inc\Framework\Framework;
@@ -19,4 +19,4 @@ $container = new Container();
 
 (new RepositoryProvider())->register($container);
 
-ContainerRegistry::init( $container );
+AppContainer::init( $container );
