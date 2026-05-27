@@ -9,7 +9,7 @@ class Infrastructure
 {
     public function init()
     {
-        (new Migrations())->init();
+        (new Migrations())->execute();
     }
 
     public function onActivatePlugin() : void
