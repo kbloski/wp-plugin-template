@@ -2,7 +2,7 @@
 
 namespace PluginTemplate\Inc\Application\Api\Rest\Example\Callbacks;
 
-use PluginTemplate\Inc\Core\Container\ContainerRegistry;
+use PluginTemplate\Inc\Core\Container\AppContainer;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Infrastructure\I18n\Translations;
 use PluginTemplate\Inc\Infrastructure\Repositories\ExampleRepository;
@@ -20,7 +20,7 @@ class GetExamplesCallback
     {
         try 
         {   
-            $exampleRepo = ContainerRegistry::get()->get(ExampleRepository::class);
+            $exampleRepo = AppContainer::get()->get(ExampleRepository::class);
 
             $all = $exampleRepo->getAll();
 

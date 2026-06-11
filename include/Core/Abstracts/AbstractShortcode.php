@@ -4,16 +4,6 @@ namespace PluginTemplate\Inc\Core\Abstracts;
 
 use RuntimeException;
 
-/**
- * Abstrakcyjna klasa bazowa dla shortcode’ów.
- *
- * Odpowiada za:
- * - rejestrację shortcode’a w WordPressie,
- * - automatyczne scalanie atrybutów z domyślnymi,
- * - wywoływanie właściwej metody renderującej w klasach potomnych.
- *
- * @since 1.0.0
- */
 abstract class AbstractShortcode
 {
     /**
@@ -42,59 +32,30 @@ abstract class AbstractShortcode
      */
     protected array $atts = [];
 
-
     /**
-     * Zwraca nazwę shortcode’a (np. 'my_shortcode').
-     *
-     * @return string
+     * Zwraca nazwę shortcode’a.
      */
     abstract public function name(): string;
 
     /**
-     * Zwraca atrybuty shortcode’a.
-     *
-     * @return string
+     * Zwraca definicję atrybutów.
      */
-    public function getAttributes() : array 
+    public function getAttributes(): array 
     {
         return $this->atts;
     }
 
     /**
-     * Renderuje treść shortcode’a (implementowana przez klasę potomną).
-     *
-     * @param array $atts Atrybuty shortcode’a.
-     * @return string HTML wynikowy.
+     * Render shortcode (implementacja w child class).
      */
     abstract protected function render_shortcode(array $atts = []): string;
 
-    
-    /**
-     * Metoda uruchamiana po rejestracji shortcode’a.
-     * Klasa potomna może w niej dodać swoje hooki, enqueue’y, akcje itp.
-     *
-     * @return void
-     */
-    protected function boot(): void
-    {
-        // Do nadpisania w klasie potomnej
-    }
+    protected function boot(): void {}
 
+    public function enqueue_assets(): void {}
 
     /**
-     * Rejestruje skrypty i style dla shortcode'a.
-     * Klasa potomna może nadpisać, żeby wczytać własne zasoby.
-     */
-    public function enqueue_assets(): void
-    {
-        // Domyślnie nic nie robi
-    }
-
-
-    /**
-     * Rejestruje shortcode w WordPressie.
-     *
-     * @return void
+     * Rejestracja shortcode.
      */
     final public function register(): void
     {
@@ -103,39 +64,29 @@ abstract class AbstractShortcode
 
         $this->boot();
         $this->validate_atts();
-        add_shortcode($this->name(), fn() => $this->handle_shortcode());
 
+        add_shortcode($this->name(), fn($atts = [], $content = null, $tag = null) =>
+            $this->handle_shortcode($atts, $content, $tag)
+        );
     }
 
-
     /**
-     * Waliduje strukturę atrybutów shortcode’a.
-     *
-     * Każdy atrybut powinien być tablicą z kluczami:
-     * 'default' i 'description'.  
-     * Opcjonalnie może zawierać 'example' (prosta wartość: string, int, float, bool).
-     *
-     * @return array Lista błędów. Pusta, jeśli wszystko poprawne.
+     * Walidacja definicji atts.
      */
-    final function validate_atts()
+    final function validate_atts(): void
     {
-        $atts = $this->atts;
         $errors = [];
 
-        // Sprawdzenie czy $atts jest tablicą
-        if (!is_array($atts)) {
-            $errors[] = 'Atrybuty muszą być tablicą.';
+        if (!is_array($this->atts)) {
+            throw new RuntimeException('Atrybuty muszą być tablicą.');
         }
 
-        // Iteracja po każdym atrybucie
-        foreach ($atts as $name => $attr) {
-            // Każdy atrybut musi być tablicą
+        foreach ($this->atts as $name => $attr) {
             if (!is_array($attr)) {
                 $errors[] = "Atrybut '{$name}' musi być tablicą.";
                 continue;
             }
 
-            // Sprawdzenie kluczy 'default' i 'description'
             if (!array_key_exists('default', $attr)) {
                 $errors[] = "Atrybut '{$name}' musi mieć klucz 'default'.";
             }
@@ -144,81 +95,47 @@ abstract class AbstractShortcode
                 $errors[] = "Atrybut '{$name}' musi mieć klucz 'description'.";
             }
 
-            // Sprawdzenie opcjonalnego 'example'
             if (isset($attr['example']) && !is_scalar($attr['example'])) {
-                $errors[] = "Atrybut '{$name}': 'example' powinien być wartością prostą (string, int, float, bool).";
+                $errors[] = "Atrybut '{$name}': 'example' musi być skalarem.";
             }
         }
 
-        if (!empty($errors))
-        {
+        if (!empty($errors)) {
             throw new RuntimeException(implode("; ", $errors));
         }
     }
 
-        
     /**
-     * Funkcja pośrednicząca obsługująca shortcode.
-     *
-     * @param array       $atts    Atrybuty shortcode’a.
-     * @param string|null $content Zawartość pomiędzy znacznikami shortcode’a (jeśli istnieje).
-     * @param string|null $tag     Nazwa shortcode’a.
-     * @return string
+     * Entry point shortcode.
      */
-
     final public function handle_shortcode(array $atts = [], ?string $content = null, ?string $tag = null): string
     {
-        // Jawne wywołanie __call, aby automatycznie połączyć atrybuty
-        return $this->__call('render_shortcode', [$atts]);
+        $merged = $this->merge_atts($atts);
+
+        return $this->render_shortcode($merged);
     }
 
     /**
-     * Pobiera atrybuty shortcode z uwzględnieniem wartości domyślnych.
-     *
-     * @param array $atts Atrybuty przekazane w shortcode.
-     * @return array Atrybuty z uwzględnieniem defaultów
+     * Merge default + user atts.
      */
-    protected function get_merget_atts(array $atts = []): array
+    protected function merge_atts(array $atts = []): array
     {
         $merged = [];
 
-        // 1. Pobieramy wartości domyślne
         foreach ($this->atts as $key => $attr) {
             $merged[$key] = $attr['default'] ?? null;
         }
 
-        // 2. Nadpisujemy wartościami z shortcode
-        $merged = array_merge($merged, $atts);
-
-        return $merged;
+        return array_merge($merged, $atts);
     }
 
-
-
-
     /**
-     * Magiczna metoda wywoływana, gdy metoda nie istnieje.
-     * Obsługuje automatyczne łączenie atrybutów i deleguje renderowanie.
-     *
-     * @param string $name      Nazwa wywoływanej metody.
-     * @param array  $arguments Argumenty przekazane do metody.
-     * @return string
-     *
-     * @throws \BadMethodCallException Jeśli metoda nie istnieje.
+     * Magic override (bez psucia $this->atts!)
      */
     final public function __call(string $name, array $arguments)
     {
-        if ($name === 'render_shortcode') {
-            $atts = $arguments[0] ?? [];
-
-            // Scal atrybuty z domyślnymi
-            $merged = $this->get_merget_atts($atts);
-            $this->atts = $merged;
-
-            // Wywołaj faktyczne renderowanie
-            return $this->render_shortcode($merged);
-        }
-
-        throw new \BadMethodCallException("Method {$name} does not exist in " . static::class);
+        throw new \BadMethodCallException(
+            "Method {$name} does not exist in " . static::class
+        );
     }
 }
