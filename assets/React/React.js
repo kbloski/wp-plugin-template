@@ -1,4 +1,4 @@
-const ver = Math.floor(Date.now());
+const ver = window.__plugintemplate.config.version;
 const { lazy } = wp.element;
 
 export const HelloReact = lazy(() => import(`./Features/Hello/Shortcodes/HelloReact/HelloReact.js?v=${ver}`));

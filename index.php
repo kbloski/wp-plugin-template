@@ -14,9 +14,10 @@ use PluginTemplate\Inc\Framework\Hooks\PluginLifecycleHooks;
 
 if (!defined('ABSPATH')) exit;
 require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
-require_once __DIR__ . '/bootstrap.php';
 
 PluginPaths::getInstance()->init(__FILE__);
+
+require_once __DIR__ . '/bootstrap.php';
 
 // Activate plugin
 register_activation_hook(__FILE__, fn() => PluginLifecycleHooks::onActivate() );

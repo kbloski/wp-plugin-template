@@ -1,4 +1,4 @@
-const ver = Math.floor(Date.now());
+const ver = window.__plugintemplate.config.version;
 const { createElement, useEffect, lazy} = wp.element;
 const { injectStyleOnce } = await import(`../../../../Utils/injectStyleOnce.js?v=${ver}`);
 const { useTranslations } = await import(`../../../../Hooks/useTranslations.js?v=${ver}`)

@@ -1,3 +1,4 @@
+const ver = window.__plugintemplate.config.version;
 const { registerStore, select } = wp.data;
 
 // Stała nazwa store, singleton dla całej strony

@@ -1,4 +1,4 @@
-const ver = Math.floor(Date.now() / (1000 * 60));
+const ver = window.__plugintemplate.config.version;
 const { createElement, useEffect, useState } = wp.element; 
 const { useLazyGetExamples, useCreateExample } = await import(`../../Hooks/useExample.js?v=${ver}`);
 const { useTranslations } = await import(`../../../../Hooks/useTranslations.js?v=${ver}`);

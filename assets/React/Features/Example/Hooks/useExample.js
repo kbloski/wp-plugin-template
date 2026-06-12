@@ -1,4 +1,4 @@
-const ver = Math.floor( Date.now() / 1000);
+const ver = window.__plugintemplate.config.version;
 const { useState, useCallback, useRef, useEffect } = wp.element;
 
 const { useWpQueryLazy } = await import(`../../../Hooks/useWpQueryLazy.js?v=${ver}`);
