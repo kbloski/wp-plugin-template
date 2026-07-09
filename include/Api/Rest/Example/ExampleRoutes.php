@@ -1,9 +1,9 @@
 <?php 
 
-namespace PluginTemplate\Inc\Application\Api\Rest\Example;
+namespace PluginTemplate\Inc\Api\Rest\Example;
 
-use PluginTemplate\Inc\Application\Api\Rest\Example\Callbacks\CreateExampleCallback;
-use PluginTemplate\Inc\Application\Api\Rest\Example\Callbacks\GetExamplesCallback;
+use PluginTemplate\Inc\Application\Handlers\Example\CreateExampleHandler;
+use PluginTemplate\Inc\Application\Handlers\Example\GetExamplesHandler;
 use PluginTemplate\Inc\Application\DTOs\RouteDto;
 use PluginTemplate\Inc\Core\Logger\Logger;
 use Throwable;
@@ -52,7 +52,7 @@ class ExampleRoutes
                     path: "/examples", 
                     callback: function(WP_REST_Request $request) 
                     {
-                        return GetExamplesCallback::execute($request);
+                        return GetExamplesHandler::execute($request);
                     },
                     permissionCallback: function(WP_REST_Request $request) {
                         return is_user_logged_in();
@@ -66,7 +66,7 @@ class ExampleRoutes
                     path: "/examples", 
                     callback: function(WP_REST_Request $request) 
                     {
-                        return CreateExampleCallback::execute($request);
+                        return CreateExampleHandler::execute($request);
                     },
                     permissionCallback: function(WP_REST_Request $request) {
                         return is_user_logged_in();

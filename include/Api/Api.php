@@ -1,8 +1,8 @@
 <?php 
 
-namespace PluginTemplate\Inc\Application\Api;
+namespace PluginTemplate\Inc\Api;
 
-use PluginTemplate\Inc\Application\Api\Rest\RestRoutes;
+use PluginTemplate\Inc\Api\Rest\RestRoutes;
 
 class Api 
 {

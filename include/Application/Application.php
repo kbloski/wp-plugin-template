@@ -2,7 +2,7 @@
 
 namespace PluginTemplate\Inc\Application;
 
-use PluginTemplate\Inc\Application\Api\Api;
+use PluginTemplate\Inc\Api\Api;
 
 class Application
 {

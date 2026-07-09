@@ -1,6 +1,6 @@
 <?php 
 
-namespace PluginTemplate\Inc\Application\Api\Rest\Example\Callbacks;
+namespace PluginTemplate\Inc\Application\Handlers\Example;
 
 use PluginTemplate\Inc\Core\Container\AppContainer;
 use PluginTemplate\Inc\Core\Logger\Logger;
@@ -12,7 +12,7 @@ use WP_Error;
 use WP_REST_Response;
 use WP_REST_Request;
 
-class CreateExampleCallback 
+class CreateExampleHandler
 {
     protected function __construct() {}
 
