@@ -19,15 +19,15 @@ class CounterShortcode extends AbstractShortcode
     public function render_shortcode(array $atts = []): string
     {
         $elementId = uniqid();
-        $reactUrl = PluginPaths::getInstance()->getUrl("assets/React/React.js?v=". floor( time() / 1000));
+        $reactUrl = PluginPaths::getInstance()->getUrl("assets/React/React.js") . "?v=" . time();
 
         ob_start()
         ?>
             <div data-react-id="<?= $elementId ?>">Counter</div>
             <script type="module">
                 const { createRoot, createElement} = wp.element;
-                import { Counter } from "<?= $reactUrl ?>?v=<?= time() ?>";
-                addEventListener('DOMContentLoaded', () => createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(Counter, {})));
+                import { Counter } from "<?= $reactUrl ?>";
+                createRoot(document.querySelector("[data-react-id='<?= $elementId ?>']"))?.render(createElement(Counter, {}));
             </script>
         <?php
         return ob_get_clean();
