@@ -13,8 +13,8 @@ class ExampleMapper
             id: $row['id'],
             userId: $row['user_id'],
             message: $row['message'],
-            createdAt: new DateTimeImmutable($row['createdAt']),
-            updatedAt: new DateTimeImmutable($row['updatedAt'])
+            createdAt: new DateTimeImmutable($row['created_at']),
+            updatedAt: new DateTimeImmutable($row['updated_at'])
         );
     }
 }

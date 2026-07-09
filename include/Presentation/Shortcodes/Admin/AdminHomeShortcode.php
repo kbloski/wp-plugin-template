@@ -22,8 +22,7 @@ class AdminHomeShortcode extends AbstractShortcode
                 <?= do_shortcode("[" . ShortcodeNamesEnum::HELLO_REACT . "]" ); ?>
                 <?= do_shortcode("[" . ShortcodeNamesEnum::COUNTER . "]" ); ?>
                 <?= do_shortcode("[" . ShortcodeNamesEnum::PAGE_COUNTER . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodeNamesEnum::PAGE_COUNTER . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodeNamesEnum::API_COUNTER . "]" ); ?>
+                <?= do_shortcode("[" . ShortcodeNamesEnum::EXAMPLE_PANEL . "]" ); ?>
 
             </div>
         <?php

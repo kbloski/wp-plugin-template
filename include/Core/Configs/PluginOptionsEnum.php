@@ -2,7 +2,7 @@
 
 namespace PluginTemplate\Inc\Core\Configs;
 
-class PluginOpitonsEnum 
+class PluginOptionsEnum
 {
     public const MIGRATIONS_VERSION = 'migration_version';
 }

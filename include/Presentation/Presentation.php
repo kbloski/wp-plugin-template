@@ -10,6 +10,6 @@ class Presentation
     {
         (new Injectors)->init();        
         (new AdminPages)->init();
-        (new Shortcodes)->init();
+        Shortcodes::getInstance()->init();
     }
 }

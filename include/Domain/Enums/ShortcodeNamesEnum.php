@@ -15,4 +15,5 @@ final class ShortcodeNamesEnum extends PluginConfig
     public const API_COUNTER = self::PLUGIN_PREFIX."api-counter";
     public const COUNTER = self::PLUGIN_PREFIX."counter";
     public const PAGE_COUNTER = self::PLUGIN_PREFIX."page-counter";
+    public const EXAMPLE_PANEL = self::PLUGIN_PREFIX."example-panel";
 }

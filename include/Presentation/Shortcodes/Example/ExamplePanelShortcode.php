@@ -12,7 +12,7 @@ class ExamplePanelShortcode  extends AbstractShortcode
 
     public function name(): string
     {
-        return ShortcodeNamesEnum::API_COUNTER;
+        return ShortcodeNamesEnum::EXAMPLE_PANEL;
     }
 
 

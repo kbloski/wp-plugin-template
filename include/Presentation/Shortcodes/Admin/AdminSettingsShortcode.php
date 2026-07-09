@@ -16,7 +16,12 @@ class AdminSettingsShortcode extends AbstractShortcode
 
     public function render_shortcode(array $atts = []): string
     {
-       
+        ob_start();
+        ?>
+            <div>
+                <h2>Settings</h2>
+            </div>
+        <?php
         return ob_get_clean();
     }
 

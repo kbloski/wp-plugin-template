@@ -2,7 +2,6 @@
 
 namespace PluginTemplate\Inc\Core\Configs;
 
-use PluginTemplate\Inc\Core\Enums\PluginOptionsEnum;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 
 if (!defined('ABSPATH')) {
@@ -15,7 +14,7 @@ class PluginOptions extends PluginConfig
      * Domyślne wartości opcji powiązane z OptionsEnum
      */
     private static array $defaults = [
-        PluginOpitonsEnum::MIGRATIONS_VERSION => 0,
+        PluginOptionsEnum::MIGRATIONS_VERSION => 0,
     ];
 
         /**

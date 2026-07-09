@@ -2,7 +2,6 @@
 
 namespace PluginTemplate\Inc\Application\Api\Rest\Example;
 
-use PluginTemplate\Inc\Application\Api\Rest\Counter\Callbacks\GetExamples;
 use PluginTemplate\Inc\Application\Api\Rest\Example\Callbacks\CreateExampleCallback;
 use PluginTemplate\Inc\Application\Api\Rest\Example\Callbacks\GetExamplesCallback;
 use PluginTemplate\Inc\Application\DTOs\RouteDto;

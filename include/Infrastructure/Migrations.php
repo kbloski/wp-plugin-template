@@ -3,7 +3,7 @@
 namespace PluginTemplate\Inc\Infrastructure;
 
 use PluginTemplate\Inc\Core\Configs\PluginOptions;
-use PluginTemplate\Inc\Core\Configs\PluginOpitonsEnum;
+use PluginTemplate\Inc\Core\Configs\PluginOptionsEnum;
 use PluginTemplate\Inc\Infrastructure\Migrations\_20260522_CreateTables;
 
 class Migrations
@@ -13,7 +13,7 @@ class Migrations
     public function __construct()
     {
         $this->migrationsVer = PluginOptions::get(
-            PluginOpitonsEnum::MIGRATIONS_VERSION,
+            PluginOptionsEnum::MIGRATIONS_VERSION,
             0
         );
     }
@@ -24,7 +24,7 @@ class Migrations
         {
             (new _20260522_CreateTables())->execute();
             PluginOptions::set(
-                PluginOpitonsEnum::MIGRATIONS_VERSION,
+                PluginOptionsEnum::MIGRATIONS_VERSION,
                 1
             );
         }

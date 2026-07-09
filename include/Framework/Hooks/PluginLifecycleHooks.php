@@ -2,7 +2,6 @@
 
 namespace PluginTemplate\Inc\Framework\Hooks;
 
-use PluginTemplate\Inc\Core\Configs\PluginCapabilities;
 use LogicException;
 use PluginTemplate\Inc\Infrastructure\Infrastructure;
 use PluginTemplate\Inc\Infrastructure\Installers\CapabilitiesInstaller;
