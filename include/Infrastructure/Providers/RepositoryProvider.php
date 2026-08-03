@@ -2,7 +2,7 @@
 
 namespace PluginTemplate\Inc\Infrastructure\Providers;
 
-use PluginTemplate\Inc\Core\Container\Container;
+use PluginTemplate\Inc\DI\Container;
 use PluginTemplate\Inc\Infrastructure\Mappers\ExampleMapper;
 use PluginTemplate\Inc\Infrastructure\Repositories\ExampleRepository;
 

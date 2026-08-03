@@ -1,9 +1,9 @@
 <?php
 
 use PluginTemplate\Inc\Application\Application;
-use PluginTemplate\Inc\Core\Container\AppContainer;
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\DI\Container;
 use PluginTemplate\Inc\Core\Core;
-use PluginTemplate\Inc\Core\Container\Container;
 use PluginTemplate\Inc\Framework\Framework;
 use PluginTemplate\Inc\Infrastructure\Infrastructure;
 use PluginTemplate\Inc\Infrastructure\Providers\RepositoryProvider;

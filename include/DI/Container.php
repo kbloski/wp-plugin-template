@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-namespace PluginTemplate\Inc\Core\Container;
+namespace PluginTemplate\Inc\DI;
 
 class Container
 {
@@ -17,7 +17,7 @@ class Container
         $this->bindings[$id] = $factory;
     }
 
-    
+
     /**
      * @template T
      * @param class-string<T> $id

@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-namespace PluginTemplate\Inc\Core\Container;
+namespace PluginTemplate\Inc\DI;
 
 use RuntimeException;
 
