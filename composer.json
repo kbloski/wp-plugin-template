@@ -9,7 +9,9 @@
             "email": "kblonski02@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "monolog/monolog": "^3.12"
+    },
     "autoload": {
         "psr-4": {
             "PluginTemplate\\Inc\\": "include/"
