@@ -20,8 +20,6 @@ PluginPaths::getInstance()->init(__FILE__);
 
 require_once __DIR__ . '/bootstrap.php';
 
-Logger::error("Test");
-
 // Activate plugin
 register_activation_hook(__FILE__, fn() => PluginLifecycleHooks::onActivate() );
 // Deactivate plugin
