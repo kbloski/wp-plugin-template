@@ -2,21 +2,17 @@
 
 use PluginTemplate\Inc\Application\Application;
 use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\DI\AppContainerProvider;
 use PluginTemplate\Inc\DI\Container;
 use PluginTemplate\Inc\Core\Core;
 use PluginTemplate\Inc\Framework\Framework;
 use PluginTemplate\Inc\Infrastructure\Infrastructure;
-use PluginTemplate\Inc\Infrastructure\Providers\RepositoryProvider;
 use PluginTemplate\Inc\Presentation\Presentation;
-
-
 
 $container = new Container();
 
-(new RepositoryProvider())->register($container);
-
+(new AppContainerProvider())->register($container);
 AppContainer::init( $container );
-
 
 
 (new Core())->init();

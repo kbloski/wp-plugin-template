@@ -1,19 +1,17 @@
-<?php 
+<?php
 
-namespace PluginTemplate\Inc\Infrastructure\Providers;
+namespace PluginTemplate\Inc\DI;
 
-use PluginTemplate\Inc\DI\Container;
 use PluginTemplate\Inc\Infrastructure\Mappers\ExampleMapper;
 use PluginTemplate\Inc\Infrastructure\Repositories\ExampleRepository;
 
-class RepositoryProvider
+class AppContainerProvider
 {
     public function register(Container $container): void
     {
         $exampleMapper = new ExampleMapper();
 
-        $container->set(ExampleRepository::class, function ($c) use ($exampleMapper)
-        {
+        $container->set(ExampleRepository::class, function (Container $container) use ($exampleMapper) {
             return new ExampleRepository(
                 exampleMapper: $exampleMapper
             );

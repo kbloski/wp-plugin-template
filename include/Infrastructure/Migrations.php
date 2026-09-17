@@ -18,7 +18,7 @@ class Migrations
         );
     }
 
-    public function execute() : void
+    public function migrateIfNeeded(): void
     {
         if ($this->migrationsVer < 1)
         {

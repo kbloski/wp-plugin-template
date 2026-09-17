@@ -6,12 +6,12 @@ use PluginTemplate\Inc\Domain\Security\Capabilities;
 
 class CapabilitiesInstaller
 {
-    public static function activate(): void
+    public function install(): void
     {
         $role = get_role('administrator');
 
         if ($role) {
-            $role->add_cap(Capabilities::CAN_MANAGE);
+            $role->add_cap(Capabilities::ADMIN);
         }
     }
 }

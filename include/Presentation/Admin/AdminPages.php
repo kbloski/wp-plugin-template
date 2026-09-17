@@ -31,7 +31,7 @@ class AdminPages
             add_menu_page(
                 PluginConfig::PLUGIN_NAME,       
                 PluginConfig::PLUGIN_NAME,       
-                Capabilities::CAN_MANAGE,
+                Capabilities::ADMIN,
                 $mainPageSlug,        
                 function()
                 {
@@ -45,7 +45,7 @@ class AdminPages
                 $mainPageSlug,
                 'Ustawienia',
                 'Ustawienia',
-                Capabilities::CAN_MANAGE,
+                Capabilities::ADMIN,
                 NameBuilder::applySlug("settings"),                //  Slug page
                 function()
                 {
@@ -58,7 +58,7 @@ class AdminPages
                 $mainPageSlug,
                 'Dokumentacja',
                 'Dokumentacja',
-                Capabilities::CAN_MANAGE,
+                Capabilities::ADMIN,
                 NameBuilder::applySlug("documentation"),                //  Slug page
                function()
                {

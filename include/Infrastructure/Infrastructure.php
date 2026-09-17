@@ -9,12 +9,13 @@ class Infrastructure
 {
     public function init()
     {
-        (new Migrations())->execute();
+        (new Migrations())->migrateIfNeeded();
     }
 
     public function onActivatePlugin() : void
     {
-        CapabilitiesInstaller::activate();
+        (new Migrations())->migrateIfNeeded();
+        (new CapabilitiesInstaller())->install();
     }
 
     public function onUninstallPlugin() : void 
