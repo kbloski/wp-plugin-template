@@ -10,6 +10,7 @@ Author URI: -
 */
 
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
+use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Framework\Hooks\PluginLifecycleHooks;
 
 if (!defined('ABSPATH')) exit;
@@ -18,6 +19,8 @@ require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
 PluginPaths::getInstance()->init(__FILE__);
 
 require_once __DIR__ . '/bootstrap.php';
+
+Logger::error("Test");
 
 // Activate plugin
 register_activation_hook(__FILE__, fn() => PluginLifecycleHooks::onActivate() );
