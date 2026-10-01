@@ -2,16 +2,17 @@
 
 namespace PluginTemplate\Inc\Infrastructure\Installers;
 
+use PluginTemplate\Inc\Domain\Interfaces\UsersInterface;
 use PluginTemplate\Inc\Domain\Security\Capabilities;
 
 class CapabilitiesInstaller
 {
+    public function __construct(private readonly UsersInterface $users)
+    {
+    }
+
     public function install(): void
     {
-        $role = get_role('administrator');
-
-        if ($role) {
-            $role->add_cap(Capabilities::ADMIN);
-        }
+        $this->users->grantCapability('administrator', Capabilities::ADMIN);
     }
 }

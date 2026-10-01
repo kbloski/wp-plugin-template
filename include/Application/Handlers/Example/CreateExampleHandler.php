@@ -2,29 +2,29 @@
 
 namespace PluginTemplate\Inc\Application\Handlers\Example;
 
-use PluginTemplate\Inc\Core\Container\AppContainer;
+use PluginTemplate\Inc\Application\DTOs\ApiRequest;
+use PluginTemplate\Inc\Application\DTOs\ApiResponse;
 use PluginTemplate\Inc\Core\Logger\Logger;
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\Domain\Interfaces\UsersInterface;
 use PluginTemplate\Inc\Domain\Models\Example;
 use PluginTemplate\Inc\Infrastructure\I18n\Translations;
 use PluginTemplate\Inc\Infrastructure\Repositories\ExampleRepository;
 use Throwable;
-use WP_Error;
-use WP_REST_Response;
-use WP_REST_Request;
 
 class CreateExampleHandler
 {
     protected function __construct() {}
 
-    public static function execute(WP_REST_Request $request): WP_REST_Response|WP_Error
+    public static function execute(ApiRequest $request): ApiResponse
     {
         try 
         {   
             $container = AppContainer::get();
             $exampleRepo = $container->get(ExampleRepository::class);
 
-            $userId = get_current_user_id();
-            $message = $request->get_param("message");
+            $userId = $container->get(UsersInterface::class)->currentUserId();
+            $message = $request->getParam("message");
             
             $example = new Example(
                 id: null,
@@ -34,14 +34,14 @@ class CreateExampleHandler
 
             $exampleRepo->upsertMany([$example]);            
 
-            return new WP_REST_Response(200);
-        } catch (\Throwable $e) 
+            return new ApiResponse(null, 200);
+        } catch (Throwable $e) 
         {
             Logger::error($e);
-            return new WP_Error(
+            return ApiResponse::error(
                 'internal_error',
                 Translations::get("errors.unexpected_error"),
-                ['status' => 500]
+                500
             );
         }
     }

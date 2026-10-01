@@ -21,9 +21,9 @@ class ShortcodesDocsShortcode extends AbstractShortcode
             <ul>
                 <?php foreach (Shortcodes::getInstance()->getShortcodesDocumentation() as $shortcode => $details): ?>
                     <li>
-                        <div>[<?= esc_html($shortcode) ?>]</div>
+                        <div>[<?= $this->escaper()->html($shortcode) ?>]</div>
                         <div>
-                            <pre><?= esc_html(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) ?></pre>
+                            <pre><?= $this->escaper()->html(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) ?></pre>
                         </div>
                     </li>
                 <?php endforeach; ?>

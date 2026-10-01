@@ -3,10 +3,8 @@
 namespace PluginTemplate\Inc\Core\Configs;
 
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
-
-if (!defined('ABSPATH')) {
-    exit;
-}
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\Domain\Interfaces\OptionsStoreInterface;
 
 class PluginOptions extends PluginConfig
 {
@@ -28,7 +26,7 @@ class PluginOptions extends PluginConfig
     {
         $optionName = NameBuilder::applySlug($option);
 
-        $stored = get_option(
+        $stored = self::store()->get(
             $optionName
         );
 
@@ -52,7 +50,7 @@ class PluginOptions extends PluginConfig
     public static function set(string $option, $value): void
     {
         $optionName = NameBuilder::applySlug($option);
-        update_option($optionName, $value);
+        self::store()->set($optionName, $value);
     }
 
     /**
@@ -64,6 +62,11 @@ class PluginOptions extends PluginConfig
     public static function delete(string $option): void
     {
         $optionName = NameBuilder::applySlug($option);
-        delete_option($optionName);
+        self::store()->delete($optionName);
+    }
+
+    private static function store(): OptionsStoreInterface
+    {
+        return AppContainer::get()->get(OptionsStoreInterface::class);
     }
 }

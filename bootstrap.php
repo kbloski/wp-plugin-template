@@ -4,6 +4,7 @@ use PluginTemplate\Inc\Application\Application;
 use PluginTemplate\Inc\DI\AppContainer;
 use PluginTemplate\Inc\DI\AppContainerProvider;
 use PluginTemplate\Inc\DI\Container;
+use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Core;
 use PluginTemplate\Inc\Framework\Framework;
 use PluginTemplate\Inc\Infrastructure\Infrastructure;
@@ -14,6 +15,7 @@ $container = new Container();
 (new AppContainerProvider())->register($container);
 AppContainer::init( $container );
 
+PluginPaths::getInstance()->init(__DIR__ . '/index.php');
 
 (new Core())->init();
 (new Infrastructure())->init();

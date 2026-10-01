@@ -4,17 +4,20 @@ namespace PluginTemplate\Inc\Infrastructure\Repositories;
 
 use PluginTemplate\Inc\Core\Logger\Logger;
 use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
+use PluginTemplate\Inc\Domain\Interfaces\DatabaseInterface;
 use PluginTemplate\Inc\Domain\Models\Example;
 use PluginTemplate\Inc\Infrastructure\Mappers\ExampleMapper;
 use Throwable;
 
 class ExampleRepository
 {
+    private readonly DatabaseInterface $db;
     private readonly ExampleMapper $exampleMapper;
     private readonly string $tableName;
 
-    public function __construct( ExampleMapper $exampleMapper)
+    public function __construct( DatabaseInterface $db, ExampleMapper $exampleMapper)
     {
+        $this->db = $db;
         $this->tableName = TableNamesEnum::EXAMPLE();
         $this->exampleMapper = $exampleMapper;
     }
@@ -26,8 +29,6 @@ class ExampleRepository
      */
     public function upsertMany(array $items): array
     {
-        global $wpdb;
-
         /** @var Example[] $item */
         $upsertedItems = [];
         try {
@@ -41,16 +42,13 @@ class ExampleRepository
                         message = VALUES(message)
                 ";
 
-                $prepared = $wpdb->prepare(
-                    $sql,
+                $this->db->execute($sql, [
                     $i->id ?? 0,
                     $i->userId,
                     $i->message
-                );
+                ]);
 
-                $wpdb->query($prepared);
-
-                if ($i->id === null)  $i->id = (int) $wpdb->insert_id;
+                if ($i->id === null)  $i->id = $this->db->lastInsertId();
                 $upsertedItems[] = $i;
             }
         } catch (\Throwable $e) {
@@ -62,18 +60,12 @@ class ExampleRepository
     }
 
     /**
-     * @param int $id
      * @return Example[]
      */
     public function getAll(): array
     {
-        global $wpdb;
-
         try {
-            $rows = $wpdb->get_results(
-                $wpdb->prepare("SELECT * FROM {$this->tableName}"),
-                ARRAY_A
-            );
+            $rows = $this->db->select("SELECT * FROM {$this->tableName}");
 
             return array_map(fn($row) => $this->exampleMapper->mapFromDb($row), $rows);
         } catch (Throwable $e) {

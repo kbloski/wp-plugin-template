@@ -2,6 +2,10 @@
 
 namespace PluginTemplate\Inc\Core\Abstracts;
 
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\Domain\Interfaces\EscaperInterface;
+use PluginTemplate\Inc\Domain\Interfaces\HooksInterface;
+use PluginTemplate\Inc\Domain\Interfaces\ShortcodesInterface;
 use RuntimeException;
 
 abstract class AbstractShortcode
@@ -59,15 +63,33 @@ abstract class AbstractShortcode
      */
     final public function register(): void
     {
-        add_action('wp_enqueue_scripts', fn() => $this->enqueue_assets());
-        add_action('admin_enqueue_scripts', fn() => $this->enqueue_assets());
+        $this->hooks()->addAction('wp_enqueue_scripts', fn() => $this->enqueue_assets());
+        $this->hooks()->addAction('admin_enqueue_scripts', fn() => $this->enqueue_assets());
 
         $this->boot();
         $this->validate_atts();
 
-        add_shortcode($this->name(), fn($atts = [], $content = null, $tag = null) =>
+        $this->shortcodes()->register($this->name(), fn(array $atts = [], ?string $content = null, ?string $tag = null) =>
             $this->handle_shortcode($atts, $content, $tag)
         );
+    }
+
+    /**
+     * Adaptery hosta dostępne w shortcode'ach.
+     */
+    protected function hooks(): HooksInterface
+    {
+        return AppContainer::get()->get(HooksInterface::class);
+    }
+
+    protected function shortcodes(): ShortcodesInterface
+    {
+        return AppContainer::get()->get(ShortcodesInterface::class);
+    }
+
+    protected function escaper(): EscaperInterface
+    {
+        return AppContainer::get()->get(EscaperInterface::class);
     }
 
     /**

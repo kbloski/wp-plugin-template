@@ -24,15 +24,15 @@ msgstr ""
 msgid "Bazowy template pluginu"
 msgstr ""
 
-#: include/Infrastructure/I18n/Translations.php:16
+#: include/Adapters/WordPress/TranslatorAdapter.php:19
 msgid "Counter"
 msgstr ""
 
-#: include/Infrastructure/I18n/Translations.php:15
+#: include/Adapters/WordPress/TranslatorAdapter.php:22
 msgid "Decrement"
 msgstr ""
 
-#: include/Infrastructure/I18n/Translations.php:14
+#: include/Adapters/WordPress/TranslatorAdapter.php:21
 msgid "Increment"
 msgstr ""
 
@@ -44,10 +44,10 @@ msgstr ""
 msgid "Plugin Template"
 msgstr ""
 
-#: include/Infrastructure/I18n/Translations.php:17
+#: include/Adapters/WordPress/TranslatorAdapter.php:20
 msgid "Shortcodes"
 msgstr ""
 
-#: include/Infrastructure/I18n/Translations.php:13
+#: include/Adapters/WordPress/TranslatorAdapter.php:18
 msgid "❤️ Hello from REACT ❤️"
 msgstr ""

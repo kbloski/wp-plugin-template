@@ -19,10 +19,10 @@ class AdminHomeShortcode extends AbstractShortcode
         ?>
             <div>
                 <h2>Home</h2>
-                <?= do_shortcode("[" . ShortcodeNamesEnum::HELLO_REACT . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodeNamesEnum::COUNTER . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodeNamesEnum::PAGE_COUNTER . "]" ); ?>
-                <?= do_shortcode("[" . ShortcodeNamesEnum::EXAMPLE_PANEL . "]" ); ?>
+                <?= $this->shortcodes()->render(ShortcodeNamesEnum::HELLO_REACT); ?>
+                <?= $this->shortcodes()->render(ShortcodeNamesEnum::COUNTER); ?>
+                <?= $this->shortcodes()->render(ShortcodeNamesEnum::PAGE_COUNTER); ?>
+                <?= $this->shortcodes()->render(ShortcodeNamesEnum::EXAMPLE_PANEL); ?>
 
             </div>
         <?php

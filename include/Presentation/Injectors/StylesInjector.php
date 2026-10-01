@@ -4,17 +4,26 @@ namespace PluginTemplate\Inc\Presentation\Injectors;
 
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
+use PluginTemplate\Inc\Domain\Interfaces\AssetsInterface;
+use PluginTemplate\Inc\Domain\Interfaces\HooksInterface;
 
 class StylesInjector
 {
+    public function __construct(
+        private readonly HooksInterface $hooks,
+        private readonly AssetsInterface $assets,
+    )
+    {
+    }
+
     public function register()
     {
-        add_action('wp_enqueue_scripts', function()
+        $this->hooks->addAction('wp_enqueue_scripts', function()
         {
             $this->loadGlobal();
         });
 
-        add_action('admin_enqueue_scripts', function()
+        $this->hooks->addAction('admin_enqueue_scripts', function()
         {
             $this->loadGlobal();
         });
@@ -27,14 +36,11 @@ class StylesInjector
         $css_file_url  = PluginPaths::getInstance()->getUrl('assets/Styles/global.css');
         $css_file_path = PluginPaths::getInstance()->getPath('assets/Styles/global.css');
 
-
-        wp_register_style(
+        $this->assets->enqueueStyle(
             $handle,
             $css_file_url,
             [],
-            file_exists($css_file_path) ? filemtime($css_file_path) : null
+            file_exists($css_file_path) ? (string) filemtime($css_file_path) : null
         );
-
-        wp_enqueue_style($handle);
     }
 }

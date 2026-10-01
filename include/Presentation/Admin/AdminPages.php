@@ -6,70 +6,53 @@ use PluginTemplate\Inc\Core\Configs\PluginConfig;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
+use PluginTemplate\Inc\Domain\Interfaces\AdminMenuInterface;
+use PluginTemplate\Inc\Domain\Interfaces\AssetsInterface;
+use PluginTemplate\Inc\Domain\Interfaces\HooksInterface;
+use PluginTemplate\Inc\Domain\Interfaces\ShortcodesInterface;
 use PluginTemplate\Inc\Domain\Security\Capabilities;
 
 class AdminPages 
 {
+    public function __construct(
+        private readonly HooksInterface $hooks,
+        private readonly AdminMenuInterface $adminMenu,
+        private readonly AssetsInterface $assets,
+        private readonly ShortcodesInterface $shortcodes,
+    )
+    {
+    }
+
     public function init()
     {
-        add_action('admin_enqueue_scripts', [$this, 'enqueueBrandingAssets']);
+        $this->hooks->addAction('admin_enqueue_scripts', [$this, 'enqueueBrandingAssets']);
 
-        // add_action('admin_menu', function() {
-        // // Dodajemy nową stronę w menu admina
-        //     add_menu_page(
-        //         'Moja Strona',           // Tytuł strony
-        //         'Moje Menu',             // Nazwa w menu
-        //         'manage_options',        // Uprawnienia
-        //         'moja-strona-slug',      // Slug strony
-        //         'moja_strona_callback',  // Funkcja wyświetlająca zawartość
-        //         'dashicons-admin-generic', // Ikona menu
-        //         66                       // Pozycja w menu
-        //     );
-        // });
+        $mainPageSlug = NameBuilder::applySlug('home');
 
-        add_action('admin_menu', function () 
-        {
-            $mainPageSlug = NameBuilder::applySlug('home');
+        $this->adminMenu->addPage(
+            PluginConfig::PLUGIN_NAME,
+            Capabilities::ADMIN,
+            $mainPageSlug,
+            fn() => $this->shortcodes->render(ShortcodeNamesEnum::ADMIN_HOME),
+            PluginPaths::getInstance()->getUrl('assets/Branding/logo.svg'),
+            66
+        );
 
-            add_menu_page(
-                PluginConfig::PLUGIN_NAME,       
-                PluginConfig::PLUGIN_NAME,       
-                Capabilities::ADMIN,
-                $mainPageSlug,        
-                function()
-                {
-                    echo do_shortcode('['.ShortcodeNamesEnum::ADMIN_HOME.']');
-                },
-                PluginPaths::getInstance()->getUrl('assets/Branding/logo.svg'),
-                66
-            );
+        $this->adminMenu->addSubPage(
+            $mainPageSlug,
+            'Ustawienia',
+            Capabilities::ADMIN,
+            NameBuilder::applySlug("settings"),                //  Slug page
+            fn() => $this->shortcodes->render(ShortcodeNamesEnum::ADMIN_SETTINGS)
+        );
 
-            add_submenu_page(
-                $mainPageSlug,
-                'Ustawienia',
-                'Ustawienia',
-                Capabilities::ADMIN,
-                NameBuilder::applySlug("settings"),                //  Slug page
-                function()
-                {
-                    echo do_shortcode('['.ShortcodeNamesEnum::ADMIN_SETTINGS.']');
-                }
-            );
-
-
-            add_submenu_page(
-                $mainPageSlug,
-                'Dokumentacja',
-                'Dokumentacja',
-                Capabilities::ADMIN,
-                NameBuilder::applySlug("documentation"),                //  Slug page
-               function()
-               {
-                    echo do_shortcode('['.ShortcodeNamesEnum::ADMIN_DOCUMENTATION.']'); 
-               }
-            );
-    
-        });
+        $this->adminMenu->addSubPage(
+            $mainPageSlug,
+            'Dokumentacja',
+            Capabilities::ADMIN,
+            NameBuilder::applySlug("documentation"),                //  Slug page
+            fn() => $this->shortcodes->render(ShortcodeNamesEnum::ADMIN_DOCUMENTATION)
+        );
     }
 
     /** Zapewnia stały, proporcjonalny rozmiar logo w menu administracyjnym. */
@@ -78,7 +61,7 @@ class AdminPages
         $paths = PluginPaths::getInstance();
         $path = $paths->getPath('assets/Branding/admin-menu.css');
 
-        wp_enqueue_style(
+        $this->assets->enqueueStyle(
             NameBuilder::applyPrefix('admin-menu-branding'),
             $paths->getUrl('assets/Branding/admin-menu.css'),
             [],

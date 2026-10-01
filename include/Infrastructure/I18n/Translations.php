@@ -2,28 +2,28 @@
 
 namespace PluginTemplate\Inc\Infrastructure\I18n;
 
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\Domain\Interfaces\TranslatorInterface;
+
+/**
+ * Statyczna fasada na TranslatorInterface z kontenera.
+ * Katalog tłumaczeń znajduje się w adapterze (Adapters/WordPress/TranslatorAdapter).
+ */
 class Translations
 {
 
     public static function all() : array 
     {
-        // Domain nie może pochodzić z klasy, musi to być ciąg znaków :/ 
-
-        return [
-            'hello.react' => __('❤️ Hello from REACT ❤️', "wp-plugin-template"),
-            'counter' => __("Counter", "wp-plugin-template"),
-            "shortcodes" => __("Shortcodes", "wp-plugin-template"),
-            'button.increment' => __('Increment', "wp-plugin-template"),
-            'button.decrement' => __('Decrement', "wp-plugin-template"),
-            "action.generate"  => __("Generate", "wp-plugin-template"),
-            "errors.unexpected_error" => __("Unexpected error occured", "wp-plugin-template")
-        ];
+        return self::translator()->all();
     }
 
     public static function get( string $key ) : string 
     {
-        $translations = self::all();
-        $t = $translations[$key];
-        return (!empty($t) ? $t : $key); 
+        return self::translator()->get($key);
+    }
+
+    private static function translator(): TranslatorInterface
+    {
+        return AppContainer::get()->get(TranslatorInterface::class);
     }
 }

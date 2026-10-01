@@ -2,35 +2,22 @@
 
 namespace PluginTemplate\Inc\Api\Rest\Example;
 
+use PluginTemplate\Inc\Application\DTOs\ApiRequest;
 use PluginTemplate\Inc\Application\Handlers\Example\CreateExampleHandler;
 use PluginTemplate\Inc\Application\Handlers\Example\GetExamplesHandler;
 use PluginTemplate\Inc\Application\DTOs\RouteDto;
 use PluginTemplate\Inc\Core\Logger\Logger;
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\Domain\Interfaces\RestInterface;
+use PluginTemplate\Inc\Domain\Interfaces\UsersInterface;
 use Throwable;
-use WP_REST_Request;
 
 class ExampleRoutes 
 {
     public static function register(): void
     {
         try {
-            add_action('rest_api_init', function () {
-                $routes = self::getRoutes();
-                
-                foreach ($routes as $route) {
-                    register_rest_route(
-                        $route->namespace,
-                        $route->path,
-                        [
-                            'methods'             => $route->method,
-                            'callback'            => $route->callback,
-                            'permission_callback' => $route->permissionCallback,
-                            'args'                => $route->args,
-                        ]
-                    );
-                }
-            });
-
+            AppContainer::get()->get(RestInterface::class)->registerRoutes(self::getRoutes());
         } catch (Throwable $e) {
             Logger::error($e);
             throw $e;
@@ -38,24 +25,26 @@ class ExampleRoutes
     }
 
     /**
-     * Get all budget-related routes
+     * Get all example-related routes
      * @return RouteDto[]
     */
     public static function getRoutes() : array 
     {
         try 
         {
+            $users = AppContainer::get()->get(UsersInterface::class);
+
             return [
                 new RouteDto(
                     method: 'GET',
                     version: 'v1',
                     path: "/examples", 
-                    callback: function(WP_REST_Request $request) 
+                    callback: function(ApiRequest $request) 
                     {
                         return GetExamplesHandler::execute($request);
                     },
-                    permissionCallback: function(WP_REST_Request $request) {
-                        return is_user_logged_in();
+                    permissionCallback: function(ApiRequest $request) use ($users) {
+                        return $users->isLoggedIn();
                     },
                     args: [],
                 ),
@@ -64,12 +53,12 @@ class ExampleRoutes
                     method: 'POST',
                     version: 'v1',
                     path: "/examples", 
-                    callback: function(WP_REST_Request $request) 
+                    callback: function(ApiRequest $request) 
                     {
                         return CreateExampleHandler::execute($request);
                     },
-                    permissionCallback: function(WP_REST_Request $request) {
-                        return is_user_logged_in();
+                    permissionCallback: function(ApiRequest $request) use ($users) {
+                        return $users->isLoggedIn();
                     },
                 ),
 

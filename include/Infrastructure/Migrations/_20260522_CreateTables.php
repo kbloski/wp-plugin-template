@@ -2,15 +2,14 @@
 
 namespace PluginTemplate\Inc\Infrastructure\Migrations;
 
-use Exception;
-use PluginTemplate\Inc\Core\Database\DbHelper;
 use PluginTemplate\Inc\Core\Logger\Logger;
-use PluginTemplate\Inc\Core\Naming\NameBuilder;
+use PluginTemplate\Inc\Domain\Enums\TableNamesEnum;
+use PluginTemplate\Inc\Domain\Interfaces\DatabaseInterface;
 use Throwable;
 
 class _20260522_CreateTables
 {
-    public function __construct()
+    public function __construct(private readonly DatabaseInterface $db)
     {
     }
 
@@ -29,10 +28,9 @@ class _20260522_CreateTables
 
     private function createExampleTable() : void 
     {
-        global $wpdb;
-        $tableName = $wpdb->prefix . NameBuilder::applySlug("example");
-        $usersTable = $wpdb->prefix . 'users';
-        $charsetCollate = $wpdb->get_charset_collate();
+        $tableName = TableNamesEnum::EXAMPLE();
+        $usersTable = TableNamesEnum::WP_USERS();
+        $charsetCollate = $this->db->charsetCollate();
 
         $schema = [
             'id'         => 'BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT',
@@ -41,8 +39,6 @@ class _20260522_CreateTables
             'created_at' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
             'updated_at' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ];
-
-        DbHelper::clearError();
 
         $columns = [];
         foreach ($schema as $column => $definition) {
@@ -59,14 +55,7 @@ class _20260522_CreateTables
             PRIMARY KEY (id)
         ) $charsetCollate ENGINE=InnoDB;"; // InnoDB wymagany dla FK
 
-        require_once(ABSPATH . "wp-admin/includes/upgrade.php");
-
-        dbDelta($sql);
-
-        if (DbHelper::hasError()) {
-            $err = DbHelper::popError();
-            throw new Exception($err);
-        }
-
+        // Rzuca wyjątek, gdy baza zgłosi błąd
+        $this->db->applySchema($sql);
     }
 }

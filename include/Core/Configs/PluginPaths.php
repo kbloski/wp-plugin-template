@@ -3,6 +3,8 @@
 namespace PluginTemplate\Inc\Core\Configs;
 
 use PluginTemplate\Inc\Core\Abstracts\AbstractSingleton;
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\Domain\Interfaces\EnvironmentInterface;
 
 /**
  * Klasa helper do pobierania ścieżek i URL wtyczki
@@ -24,14 +26,16 @@ class PluginPaths extends AbstractSingleton
     private string $plugin_url;
 
     /**
-     * Konstruktor klasy
+     * Inicjalizacja ścieżek (wymaga zainicjalizowanego kontenera)
      *
      * @param string $file Plik główny wtyczki (zwykle __FILE__)
      */
     public function init(string $file)
     {
-        $this->plugin_path = plugin_dir_path($file);
-        $this->plugin_url  = plugin_dir_url($file);
+        $environment = AppContainer::get()->get(EnvironmentInterface::class);
+
+        $this->plugin_path = $environment->pluginPath($file);
+        $this->plugin_url  = $environment->pluginUrl($file);
     }
 
     /**

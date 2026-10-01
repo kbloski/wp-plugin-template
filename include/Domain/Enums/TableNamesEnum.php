@@ -3,25 +3,29 @@
 namespace PluginTemplate\Inc\Domain\Enums;
 
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\Domain\Interfaces\DatabaseInterface;
 
 class TableNamesEnum
 {
+    private static function db(): DatabaseInterface
+    {
+        return AppContainer::get()->get(DatabaseInterface::class);
+    }
+
     private static function createName(string $name): string
     {
-        global $wpdb;
-        return $wpdb->prefix . NameBuilder::applySlug($name);
+        return self::db()->prefix() . NameBuilder::applySlug($name);
     }
 
     public static function WP_USERS(): string
     {
-        global $wpdb;
-        return $wpdb->users;
+        return self::db()->usersTable();
     }
 
     public static function WP_USERMETA(): string
     {
-        global $wpdb;
-        return $wpdb->usermeta;
+        return self::db()->usermetaTable();
     }
 
     public static function EXAMPLE(): string 

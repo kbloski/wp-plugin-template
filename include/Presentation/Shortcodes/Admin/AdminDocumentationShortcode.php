@@ -20,7 +20,7 @@ class AdminDocumentationShortcode extends AbstractShortcode
         ?>
         <div>
             <section><?= Translations::get('shortcodes')  ?></section>
-            <?= do_shortcode("[".ShortcodeNamesEnum::SHORTCODES_DOCS."]") ?>
+            <?= $this->shortcodes()->render(ShortcodeNamesEnum::SHORTCODES_DOCS) ?>
         </div>
         <?php
         return ob_get_clean();

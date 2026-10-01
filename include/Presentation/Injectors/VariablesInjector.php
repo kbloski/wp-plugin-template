@@ -6,8 +6,9 @@ use FilesystemIterator;
 use PluginTemplate\Inc\Core\Configs\PluginConfig;
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Logger\Logger;
-use PluginTemplate\Inc\Core\Naming\NameBuilder;
-use PluginTemplate\Inc\Infrastructure\I18n\Translations;
+use PluginTemplate\Inc\Domain\Interfaces\EscaperInterface;
+use PluginTemplate\Inc\Domain\Interfaces\HooksInterface;
+use PluginTemplate\Inc\Domain\Interfaces\TranslatorInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Throwable;
@@ -16,15 +17,19 @@ class VariablesInjector
 {
     private readonly string $assetsPath;
 
-    public function __construct()
+    public function __construct(
+        private readonly HooksInterface $hooks,
+        private readonly EscaperInterface $escaper,
+        private readonly TranslatorInterface $translator,
+    )
     {
         $this->assetsPath = PluginPaths::getInstance()->getPath("assets/");
     }
 
     public function register(): void
     {
-        add_action('wp_footer',  fn() => $this->inject());
-        add_action('admin_footer', fn() => $this->inject());
+        $this->hooks->addAction('wp_footer',  fn() => $this->inject());
+        $this->hooks->addAction('admin_footer', fn() => $this->inject());
     }
 
     private function inject(): void
@@ -45,7 +50,7 @@ class VariablesInjector
             ob_start()
             ?>
                 <script>
-                    window.__<?= PluginConfig::NAMESPACE ?> = <?= wp_json_encode($payload) ?> ;
+                    window.__<?= PluginConfig::NAMESPACE ?> = <?= $this->escaper->json($payload) ?> ;
                 </script>
             <?php
             echo ob_get_clean();
@@ -80,16 +85,11 @@ class VariablesInjector
     private function getTranslations(): array
     {
 
-        return Translations::all();
+        return $this->translator->all();
     }
 
     private function getTranslationsVersion(): int
     {
-        $file = PluginPaths::getInstance()
-            ->getPluginPath("include/Infrastructure/I18n/Translations.php");
-
-        return file_exists($file)
-            ? filemtime($file)
-            : time();
+        return $this->translator->version();
     }
 }

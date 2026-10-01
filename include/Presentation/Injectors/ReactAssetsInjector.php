@@ -4,6 +4,10 @@ namespace PluginTemplate\Inc\Presentation\Injectors;
 
 use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
+use PluginTemplate\Inc\Domain\Interfaces\AssetsInterface;
+use PluginTemplate\Inc\Domain\Interfaces\EscaperInterface;
+use PluginTemplate\Inc\Domain\Interfaces\HooksInterface;
+use PluginTemplate\Inc\Domain\Interfaces\ShortcodesInterface;
 
 class ReactAssetsInjector
 {
@@ -18,27 +22,37 @@ class ReactAssetsInjector
         ShortcodeNamesEnum::EXAMPLE_PANEL => 'assets/React/Features/Example/Shortcodes/ExamplePanel/ExamplePanel.js',
     ];
 
+    /**
+     * Podstawowe skrypty hosta (React/REST)
+     */
+    private const HOST_SCRIPTS = ['wp-data', 'wp-element', 'wp-api-fetch'];
+
+    public function __construct(
+        private readonly HooksInterface $hooks,
+        private readonly AssetsInterface $assets,
+        private readonly ShortcodesInterface $shortcodes,
+        private readonly EscaperInterface $escaper,
+    )
+    {
+    }
+
     public function register()
     {
         // Wczytanie podstawowych skryptów WordPress (React/REST)
-        add_action('wp_enqueue_scripts', function () {
-            wp_enqueue_script('wp-data');
-            wp_enqueue_script('wp-element');
-            wp_enqueue_script('wp-api-fetch');
-
-            // Ładowanie bez blokowania parsera, ale wciąż gotowe bardzo wcześnie (WP 6.3+, no-op na starszych).
-            wp_script_add_data('wp-data', 'strategy', 'defer');
-            wp_script_add_data('wp-element', 'strategy', 'defer');
-            wp_script_add_data('wp-api-fetch', 'strategy', 'defer');
+        $this->hooks->addAction('wp_enqueue_scripts', function () {
+            foreach (self::HOST_SCRIPTS as $handle) {
+                // Ładowanie bez blokowania parsera, ale wciąż gotowe bardzo wcześnie.
+                $this->assets->enqueueScript($handle, defer: true);
+            }
         });
 
-        add_action('admin_enqueue_scripts', function () {
-            wp_enqueue_script('wp-data');
-            wp_enqueue_script('wp-element');
-            wp_enqueue_script('wp-api-fetch');
+        $this->hooks->addAction('admin_enqueue_scripts', function () {
+            foreach (self::HOST_SCRIPTS as $handle) {
+                $this->assets->enqueueScript($handle);
+            }
         });
 
-        add_action('wp_head', [$this, 'injectModulePreloads'], 1);
+        $this->hooks->addAction('wp_head', [$this, 'injectModulePreloads'], 1);
     }
 
     /**
@@ -48,16 +62,10 @@ class ReactAssetsInjector
      */
     public function injectModulePreloads(): void
     {
-        $post = get_post();
-
-        if (!$post instanceof \WP_Post) {
-            return;
-        }
-
         $modules = [];
 
         foreach (self::SHORTCODE_MODULE_MAP as $shortcodeName => $modulePath) {
-            if (has_shortcode($post->post_content, $shortcodeName)) {
+            if ($this->shortcodes->isUsedOnCurrentPage($shortcodeName)) {
                 $modules[] = $modulePath;
             }
         }
@@ -68,10 +76,10 @@ class ReactAssetsInjector
 
         $paths = PluginPaths::getInstance();
 
-        printf('<link rel="modulepreload" href="%s">' . "\n", esc_url($paths->getUrl('assets/React/React.js')));
+        printf('<link rel="modulepreload" href="%s">' . "\n", $this->escaper->url($paths->getUrl('assets/React/React.js')));
 
         foreach ($modules as $modulePath) {
-            printf('<link rel="modulepreload" href="%s">' . "\n", esc_url($paths->getUrl($modulePath)));
+            printf('<link rel="modulepreload" href="%s">' . "\n", $this->escaper->url($paths->getUrl($modulePath)));
         }
     }
 }

@@ -2,6 +2,12 @@
 
 namespace PluginTemplate\Inc\Core\Database;
 
+use PluginTemplate\Inc\DI\AppContainer;
+use PluginTemplate\Inc\Domain\Interfaces\DatabaseInterface;
+
+/**
+ * Statyczna fasada na DatabaseInterface z kontenera.
+ */
 class DbHelper
 {
     /**
@@ -9,8 +15,7 @@ class DbHelper
      */
     public static function clearError(): void
     {
-        global $wpdb;
-        $wpdb->last_error = null;
+        self::db()->clearError();
     }
 
     /**
@@ -18,8 +23,7 @@ class DbHelper
      */
     public static function hasError(): bool
     {
-        global $wpdb;
-        return !empty($wpdb->last_error);
+        return self::db()->lastError() !== '';
     }
 
     /**
@@ -27,8 +31,7 @@ class DbHelper
      */
     public static function getError(): string
     {
-        global $wpdb;
-        return $wpdb->last_error ?? '';
+        return self::db()->lastError();
     }
 
     /**
@@ -48,8 +51,7 @@ class DbHelper
      */
     public static function beginTransaction(): void
     {
-        global $wpdb;
-        $wpdb->query('START TRANSACTION');
+        self::db()->beginTransaction();
     }
 
     /**
@@ -57,8 +59,7 @@ class DbHelper
      */
     public static function commit(): void
     {
-        global $wpdb;
-        $wpdb->query('COMMIT');
+        self::db()->commit();
     }
 
     /**
@@ -66,7 +67,11 @@ class DbHelper
      */
     public static function rollback(): void
     {
-        global $wpdb;
-        $wpdb->query('ROLLBACK');
+        self::db()->rollback();
+    }
+
+    private static function db(): DatabaseInterface
+    {
+        return AppContainer::get()->get(DatabaseInterface::class);
     }
 }
