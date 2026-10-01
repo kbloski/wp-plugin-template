@@ -1,0 +1,15 @@
+/* Stały rozmiar logo w lewym menu wp-admin, niezależnie od wbudowanych stylów WordPressa. */
+#toplevel_page_plugintemplate_home .wp-menu-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#toplevel_page_plugintemplate_home .wp-menu-image img {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px;
+    max-height: 20px;
+    padding: 0 !important;
+    object-fit: contain;
+}

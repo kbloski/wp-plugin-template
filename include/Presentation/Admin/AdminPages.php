@@ -3,6 +3,7 @@
 namespace PluginTemplate\Inc\Presentation\Admin;
 
 use PluginTemplate\Inc\Core\Configs\PluginConfig;
+use PluginTemplate\Inc\Core\Configs\PluginPaths;
 use PluginTemplate\Inc\Core\Naming\NameBuilder;
 use PluginTemplate\Inc\Domain\Enums\ShortcodeNamesEnum;
 use PluginTemplate\Inc\Domain\Security\Capabilities;
@@ -11,6 +12,8 @@ class AdminPages
 {
     public function init()
     {
+        add_action('admin_enqueue_scripts', [$this, 'enqueueBrandingAssets']);
+
         // add_action('admin_menu', function() {
         // // Dodajemy nową stronę w menu admina
         //     add_menu_page(
@@ -37,8 +40,8 @@ class AdminPages
                 {
                     echo do_shortcode('['.ShortcodeNamesEnum::ADMIN_HOME.']');
                 },
-                'dashicons-art',           
-                66                        
+                PluginPaths::getInstance()->getUrl('assets/Branding/logo.svg'),
+                66
             );
 
             add_submenu_page(
@@ -69,9 +72,17 @@ class AdminPages
         });
     }
 
+    /** Zapewnia stały, proporcjonalny rozmiar logo w menu administracyjnym. */
+    public function enqueueBrandingAssets(): void
+    {
+        $paths = PluginPaths::getInstance();
+        $path = $paths->getPath('assets/Branding/admin-menu.css');
 
- 
-
-
-
+        wp_enqueue_style(
+            NameBuilder::applyPrefix('admin-menu-branding'),
+            $paths->getUrl('assets/Branding/admin-menu.css'),
+            [],
+            is_file($path) ? (string) filemtime($path) : null
+        );
+    }
 }
